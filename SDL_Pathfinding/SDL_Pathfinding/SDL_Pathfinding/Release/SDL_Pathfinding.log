@@ -1,0 +1,10 @@
+﻿  Agent.cpp
+  main.cpp
+  ScenePathFinding.cpp
+  SDL_SimpleApp.cpp
+  SteeringBehavior.cpp
+  utils.cpp
+  Generating code
+  All 375 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  SDL_Pathfinding.vcxproj -> C:\Users\abiarnes\Documents\SDL_Pathfinding (1)\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
