@@ -1,10 +1,20 @@
 ﻿  Agent.cpp
+  Connection.cpp
+  Graph.cpp
+..\src\Graph.cpp(6): error C2011: 'Graph': 'class' type redefinition
+  c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\Graph.h(7): note: see declaration of 'Graph'
+..\src\Graph.cpp(15): error C2027: use of undefined type 'Graph'
+  c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\Graph.h(7): note: see declaration of 'Graph'
+..\src\Graph.cpp(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+..\src\Graph.cpp(17): warning C4508: '{ctor}': function should return a value; 'void' return type assumed
+..\src\Graph.cpp(19): error C2027: use of undefined type 'Graph'
+  c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\Graph.h(7): note: see declaration of 'Graph'
+..\src\Graph.cpp(20): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+..\src\Graph.cpp(21): warning C4508: '{dtor}': function should return a value; 'void' return type assumed
+..\src\Graph.cpp(23): error C2027: use of undefined type 'Graph'
+  c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\Graph.h(7): note: see declaration of 'Graph'
   main.cpp
   ScenePathFinding.cpp
   SDL_SimpleApp.cpp
   SteeringBehavior.cpp
   utils.cpp
-  Generating code
-  All 375 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  SDL_Pathfinding.vcxproj -> C:\Users\abiarnes\Documents\SDL_Pathfinding (1)\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
