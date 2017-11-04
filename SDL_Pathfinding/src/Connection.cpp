@@ -6,6 +6,7 @@ Connection::Connection(Vector2D _fromNode, Vector2D _toNode, float _cost)
 	fromNode = _fromNode;
 	toNode = _toNode;
 	cost = _cost;
+	
 }
 
 Connection::~Connection()
@@ -18,11 +19,11 @@ float Connection::GetCost()
 }
 
 Vector2D Connection::getFromNode()
-{
-	return Vector2D();
+{	
+	return fromNode;
 }
 
 Vector2D Connection::getToNode()
 {
-	return Vector2D();
+	return toNode;
 }

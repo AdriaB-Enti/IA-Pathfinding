@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Vector2D.h"
 
 
@@ -11,7 +12,7 @@ public:
 	float GetCost();
 	Vector2D getFromNode();
 	Vector2D getToNode();
-
+	
 private:
 	float cost;
 	Vector2D fromNode;
