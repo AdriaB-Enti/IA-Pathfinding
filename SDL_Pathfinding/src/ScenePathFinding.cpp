@@ -33,6 +33,9 @@ ScenePathFinding::ScenePathFinding()
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
 
+	//PRACTICA
+	createGraph();
+	
 }
 
 ScenePathFinding::~ScenePathFinding()
@@ -275,7 +278,6 @@ void ScenePathFinding::initMaze()
 			
 		}
 	}
-
 }
 
 bool ScenePathFinding::loadTextures(char* filename_bg, char* filename_coin)
@@ -319,4 +321,32 @@ bool ScenePathFinding::isValidCell(Vector2D cell)
 	if ((cell.x < 0) || (cell.y < 0) || (cell.x >= terrain.size()) || (cell.y >= terrain[0].size()) )
 		return false;
 	return !(terrain[(unsigned int)cell.x][(unsigned int)cell.y] == 0);
+}
+
+void ScenePathFinding::createGraph() {	
+		
+	for (int i = 0; i < num_cell_x; i++) {
+		for (int j = 0; j < num_cell_y; j++) {
+			Vector2D fromcell(i, j);
+			Vector2D toCell;
+
+			toCell.x = i; toCell.y = j+1;
+			if (isValidCell(toCell) && terrain[i][j + 1] != 0) {
+				graph.AddConnection(cell2pix(fromcell),cell2pix(toCell),1);
+			}
+			toCell.x = i; toCell.y = j-1;			
+			if (isValidCell(toCell) && terrain[i][j - 1] != 0) {
+				graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+			}			
+			toCell.x = i+1; toCell.y = j;			
+			if (isValidCell(toCell) && terrain[i+1][j] != 0) {				
+				graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+			}
+			toCell.x = i-1; toCell.y = j;	
+			if (isValidCell(toCell) && terrain[i - 1][j] != 0) {
+				graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+			}
+		}
+	}	
+	
 }
