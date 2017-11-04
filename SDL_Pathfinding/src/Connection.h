@@ -5,7 +5,7 @@
 class Connection
 {
 public:
-	Connection();
+	Connection(Vector2D _fromNode, Vector2D _toNode, float cost);
 	~Connection();
 
 	float GetCost();

@@ -1,8 +1,11 @@
 #pragma once
 #include "Connection.h"
 
-Connection::Connection()
+Connection::Connection(Vector2D _fromNode, Vector2D _toNode, float _cost)
 {
+	fromNode = _fromNode;
+	toNode = _toNode;
+	cost = _cost;
 }
 
 Connection::~Connection()
@@ -11,7 +14,7 @@ Connection::~Connection()
 
 float Connection::GetCost()
 {
-	return 0.0f;
+	return cost;
 }
 
 Vector2D Connection::getFromNode()
