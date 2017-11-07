@@ -1,13 +1,11 @@
-﻿  Graph.cpp
+﻿  Agent.cpp
+  SceneBreadthFirstSearch.cpp
+..\src\SceneBreadthFirstSearch.cpp(38): error C2660: 'SteeringBehavior::BreadthFirstSearch': la función no acepta 2 argumentos
+..\src\SceneBreadthFirstSearch.cpp(320): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneBreadthFirstSearch.cpp(323): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneBreadthFirstSearch.cpp(327): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneBreadthFirstSearch.cpp(331): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneBreadthFirstSearch.cpp(335): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
   ScenePathFinding.cpp
-..\src\ScenePathFinding.cpp(332): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\ScenePathFinding.cpp(335): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\ScenePathFinding.cpp(339): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\ScenePathFinding.cpp(343): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\ScenePathFinding.cpp(347): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  Generando código
-  5 of 459 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    16 functions had inline decision re-evaluated but remain unchanged
-  Generación de código finalizada
-  SDL_Pathfinding.vcxproj -> C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+  SteeringBehavior.cpp
+  main.cpp

@@ -31,11 +31,7 @@ ScenePathFinding::ScenePathFinding()
 	
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
-	currentTargetIndex = -1;
-
-	//PRACTICA
-	createGraph();
-	
+	currentTargetIndex = -1;	
 }
 
 ScenePathFinding::~ScenePathFinding()
@@ -52,7 +48,8 @@ ScenePathFinding::~ScenePathFinding()
 }
 
 void ScenePathFinding::update(float dtime, SDL_Event *event)
-{
+{	
+
 	/* Keyboard & Mouse events */
 	switch (event->type) {
 	case SDL_KEYDOWN:
@@ -77,6 +74,7 @@ void ScenePathFinding::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
+
 	if ((currentTargetIndex == -1) && (path.points.size()>0))
 		currentTargetIndex = 0;
 
@@ -323,32 +321,3 @@ bool ScenePathFinding::isValidCell(Vector2D cell)
 	return !(terrain[(unsigned int)cell.x][(unsigned int)cell.y] == 0);
 }
 
-void ScenePathFinding::createGraph() {	
-		
-	for (int i = 0; i < num_cell_x; i++) {
-		for (int j = 0; j < num_cell_y; j++) {
-			
-			if (terrain[i][j] != 0) { //si no estem en un mur
-				Vector2D fromcell(i, j);
-				Vector2D toCell;
-
-				toCell.x = i; toCell.y = j + 1;
-				if (isValidCell(toCell) && terrain[i][j + 1] != 0) { // si no ens hem sortit del grid ni estem en un mur
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);					
-				}
-				toCell.x = i; toCell.y = j - 1;
-				if (isValidCell(toCell) && terrain[i][j - 1] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
-				}
-				toCell.x = i + 1; toCell.y = j;
-				if (isValidCell(toCell) && terrain[i + 1][j] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
-				}
-				toCell.x = i - 1; toCell.y = j;
-				if (isValidCell(toCell) && terrain[i - 1][j] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
-				}
-			}			
-		}
-	}	
-}

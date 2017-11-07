@@ -1,7 +1,10 @@
 #pragma once
 #include <vector>
+#include <map>
 #include "Agent.h"
 #include "Vector2D.h"
+#include "Graph.h"
+#include <algorithm>
 
 class Agent;
 
@@ -15,4 +18,5 @@ public:
 	Vector2D Seek(Agent *agent, Agent *target, float dtime);
 	Vector2D Arrive(Agent *agent, Vector2D target, int slow_radius, float dtime);
 	Vector2D Arrive(Agent *agent, Agent *target, int slow_radius, float dtime);
+	std::vector<Vector2D> BreadthFirstSearch(Graph graph, Vector2D firstPos, Vector2D goal);
 };

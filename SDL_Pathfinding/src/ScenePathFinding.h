@@ -4,7 +4,6 @@
 #include "Scene.h"
 #include "Agent.h"
 #include "Path.h"
-#include "Graph.h"
 
 class ScenePathFinding :
 	public Scene
@@ -36,8 +35,4 @@ private:
 	Vector2D pix2cell(Vector2D pix);
 	bool isValidCell(Vector2D cell);
 	
-	//PRACTICA
-	void createGraph();
-	Graph graph;
-
 };
