@@ -83,6 +83,10 @@ struct Vector2D
 	{
 		return !operator==(rhs);
 	}
+	inline bool operator<(const Vector2D& rhs) const
+	{
+		return (x<rhs.x && y<rhs.y);
+	}
 	
 	inline Vector2D Normalize()
 	{

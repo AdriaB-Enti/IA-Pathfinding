@@ -54,15 +54,17 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	vector<Vector2D> frontier;
 	frontier.push_back(firstPos); //Posem la primera posicio
 	Vector2D current;	
-	vector<Vector2D> visited; //mentre no trobo com fer el camefrom
 
+	map<Vector2D,Vector2D> came_from;	
+	
+	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier[0]; //agafem el primer de la frontera		
 		
 		for each (Connection c in graph.GetConnections(current)) // comprovem els seus veïns
 		{
-			if (visited.empty() || std::find(visited.begin(),visited.end(),c.getToNode()) != visited.end()) { //si no els haviem visitat els afegim a frontera
-				visited.push_back(c.getToNode());
+			if (came_from.empty() || came_from.find(c.getToNode()) == came_from.end()) { //si no els haviem visitat els afegim a frontera
+				came_from[c.getToNode()] = current;
 				frontier.push_back(c.getToNode());
 				if (c.getToNode() == goal) //si hem trobat el goal sortim. No ho faig després de definir el current pq afegim els nodes al final del  frontier i potser trigo unes quantes iteracions a arrivar-hi.
 					goto createpath;
@@ -72,7 +74,7 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	}	
 	
 	createpath:
-	//Retornem el cami
+	//Creem el camí
 	vector<Vector2D> path;
 	path.push_back(firstPos);	
 	return path;
