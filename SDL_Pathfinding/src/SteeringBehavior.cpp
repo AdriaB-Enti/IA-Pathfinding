@@ -56,41 +56,37 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	frontier.push_back(firstPos); //Posem la primera posicio
 	Vector2D current;	
 	map<Vector2D,Vector2D> came_from;	
-	vector<Vector2D> path;
-	vector<Vector2D> visited;	
+	vector<Vector2D> path;		
 
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier[0]; //agafem el primer de la frontera		
 		for each (Connection c in graph.GetConnections(current)) // comprovem els seus veïns
-		{
-			
-			//cout << graph.GetConnections(current).size() << endl;
-			if (came_from.empty() || came_from.find(c.getToNode()) == came_from.end()/*find(visited.begin(),visited.end(),c.getToNode()) == visited.end()*/) { //si no els haviem visitat els afegim a frontera
+		{			
+			if (came_from.find(c.getToNode()) == came_from.end()) { //si no els haviem visitat els afegim a frontera
 				
 				if (c.getToNode() == goal) {
+					cout << "GOAL" << endl;
 					goto createpath;
 				}
-				
-				pair<Vector2D, Vector2D> prova = make_pair(c.getToNode(), current);
-				came_from.insert(prova);
-				frontier.push_back(c.getToNode());
-				//visited.push_back(c.getToNode());				
+				//cout << current.x << "," << current.y << " | " << c.getToNode().x << "," << c.getToNode().y << endl;
+				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
+				came_from.insert(temp);
+				//cout << prova.second.x << " " << prova.second.y << endl;				
+				frontier.push_back(c.getToNode());							
 			}
 			
 		}		
 		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat		
 	}	
 	createpath:
-	//Creem el camí
-	//path = visited;
-	cout << came_from.size() << endl;
-	path.clear();
-	current = goal;
+	//Creem el camí	
+	cout << "CHECKED CELLS : "<< came_from.size() << endl;	
+	/*current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos) {
 		current = came_from[current];
-		path.insert(path.begin(), current);
-	}
+		//path.insert(path.begin(), current);
+	}*/
 	return path;
 }
