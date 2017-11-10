@@ -51,31 +51,45 @@ Vector2D SteeringBehavior::Arrive(Agent *agent, Agent *target, int slow_radius, 
 	return Arrive(agent, target->position, slow_radius, dtime);
 }
 std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D firstPos, Vector2D goal) {
+		
 	vector<Vector2D> frontier;
 	frontier.push_back(firstPos); //Posem la primera posicio
 	Vector2D current;	
-
 	map<Vector2D,Vector2D> came_from;	
-	
+	vector<Vector2D> path;
+	vector<Vector2D> visited;
+	vector<Vector2D> childVisited;
+
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier[0]; //agafem el primer de la frontera		
-		
 		for each (Connection c in graph.GetConnections(current)) // comprovem els seus veïns
 		{
-			if (came_from.empty() || came_from.find(c.getToNode()) == came_from.end()) { //si no els haviem visitat els afegim a frontera
-				came_from[c.getToNode()] = current;
-				frontier.push_back(c.getToNode());
-				if (c.getToNode() == goal) //si hem trobat el goal sortim. No ho faig després de definir el current pq afegim els nodes al final del  frontier i potser trigo unes quantes iteracions a arrivar-hi.
+			
+			cout << graph.GetConnections(current).size() << endl;
+			if (visited.empty() || find(visited.begin(),visited.end(),c.getToNode()) == visited.end()) { //si no els haviem visitat els afegim a frontera
+				
+				if (c.getToNode() == goal) {
 					goto createpath;
+				}
+				//came_from[c.getToNode()] = current;
+				frontier.push_back(c.getToNode());
+				visited.push_back(c.getToNode());
+				childVisited.push_back(current);
 			}
-		}
-		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat
+			
+		}		
+		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat		
 	}	
-	
 	createpath:
 	//Creem el camí
-	vector<Vector2D> path;
-	path.push_back(firstPos);	
+	path = visited;
+	/*path.clear();
+	current = goal;
+	path.insert(path.begin(), current);
+	while (current != firstPos) {
+		current = came_from[current];
+		path.insert(path.begin(), current);
+	}*/
 	return path;
 }
