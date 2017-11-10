@@ -57,8 +57,7 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	Vector2D current;	
 	map<Vector2D,Vector2D> came_from;	
 	vector<Vector2D> path;
-	vector<Vector2D> visited;
-	vector<Vector2D> childVisited;
+	vector<Vector2D> visited;	
 
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
@@ -66,16 +65,17 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 		for each (Connection c in graph.GetConnections(current)) // comprovem els seus veïns
 		{
 			
-			cout << graph.GetConnections(current).size() << endl;
-			if (visited.empty() || find(visited.begin(),visited.end(),c.getToNode()) == visited.end()) { //si no els haviem visitat els afegim a frontera
+			//cout << graph.GetConnections(current).size() << endl;
+			if (came_from.empty() || came_from.find(c.getToNode()) == came_from.end()/*find(visited.begin(),visited.end(),c.getToNode()) == visited.end()*/) { //si no els haviem visitat els afegim a frontera
 				
 				if (c.getToNode() == goal) {
 					goto createpath;
 				}
-				//came_from[c.getToNode()] = current;
+				
+				pair<Vector2D, Vector2D> prova = make_pair(c.getToNode(), current);
+				came_from.insert(prova);
 				frontier.push_back(c.getToNode());
-				visited.push_back(c.getToNode());
-				childVisited.push_back(current);
+				//visited.push_back(c.getToNode());				
 			}
 			
 		}		
@@ -83,13 +83,14 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	}	
 	createpath:
 	//Creem el camí
-	path = visited;
-	/*path.clear();
+	//path = visited;
+	cout << came_from.size() << endl;
+	path.clear();
 	current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos) {
 		current = came_from[current];
 		path.insert(path.begin(), current);
-	}*/
+	}
 	return path;
 }
