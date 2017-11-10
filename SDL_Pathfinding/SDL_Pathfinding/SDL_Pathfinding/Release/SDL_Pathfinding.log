@@ -1,11 +1,7 @@
-﻿  Agent.cpp
-  SceneBreadthFirstSearch.cpp
-..\src\SceneBreadthFirstSearch.cpp(38): error C2660: 'SteeringBehavior::BreadthFirstSearch': la función no acepta 2 argumentos
-..\src\SceneBreadthFirstSearch.cpp(320): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(323): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(327): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(331): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(335): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  ScenePathFinding.cpp
-  SteeringBehavior.cpp
-  main.cpp
+﻿  SteeringBehavior.cpp
+  Generating code
+  96 of 645 functions (14.9%) were compiled, the rest were copied from previous compilation.
+    19 functions were new in current compilation
+    50 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  SDL_Pathfinding.vcxproj -> C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
