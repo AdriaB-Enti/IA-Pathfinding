@@ -1,2 +1,8 @@
-﻿  SDL_Pathfinding.vcxproj -> C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
-  SDL_Pathfinding.vcxproj -> C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\\bin\SDL_Pathfinding.pdb (Partial PDB)
+﻿  SceneBreadthFirstSearch.cpp
+c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\scenebreadthfirstsearch.cpp(322): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\scenebreadthfirstsearch.cpp(325): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\scenebreadthfirstsearch.cpp(329): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\scenebreadthfirstsearch.cpp(333): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\scenebreadthfirstsearch.cpp(337): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SDL_Pathfinding.vcxproj -> C:\Users\abiarnes\source\repos\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+  SDL_Pathfinding.vcxproj -> C:\Users\abiarnes\source\repos\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.pdb (Partial PDB)

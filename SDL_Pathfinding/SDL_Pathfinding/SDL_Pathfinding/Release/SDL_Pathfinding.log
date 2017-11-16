@@ -1,8 +1,7 @@
-﻿  SteeringBehavior.cpp
-  Generando código
-c:\enti\github\ia2\ia-pathfinding\sdl_pathfinding\src\steeringbehavior.cpp(135): warning C4715: 'SteeringBehavior::ReturnMapValue': no todas las rutas de acceso de control devuelven un valor
-  53 of 650 functions ( 8.2%) were compiled, the rest were copied from previous compilation.
+﻿  Generating code
+c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\connection.h(19): warning C4715: 'Connection::operator<': not all control paths return a value
+  132 of 747 functions (17.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    48 functions had inline decision re-evaluated but remain unchanged
-  Generación de código finalizada
-  SDL_Pathfinding.vcxproj -> C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+    16 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  SDL_Pathfinding.vcxproj -> C:\Users\abiarnes\source\repos\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe

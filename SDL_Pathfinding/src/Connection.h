@@ -12,10 +12,15 @@ public:
 	float GetCost();
 	Vector2D getFromNode();
 	Vector2D getToNode();
-	
+	inline bool operator<(const Connection& rhs) const
+	{
+		if (cost < rhs.cost)
+			return true;
+	}
 private:
 	float cost;
 	Vector2D fromNode;
 	Vector2D toNode;
 
 };
+
