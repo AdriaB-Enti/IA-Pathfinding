@@ -111,9 +111,8 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	return path;
 }
 std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
-	template <typename T>
-	priority_queue<Vector2D, int, mycomparison> Frontier;
-	
+
+	//priority_queue<Vector2D, int, PriorityComparison> Frontier;
 	
 
 

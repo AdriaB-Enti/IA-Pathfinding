@@ -135,7 +135,6 @@
     <ClCompile Include="..\src\Connection.cpp" />
     <ClCompile Include="..\src\Graph.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\PriorityComparison.cpp" />
     <ClCompile Include="..\src\SceneBreadthFirstSearch.cpp" />
     <ClCompile Include="..\src\SceneGreedyBFS.cpp" />
     <ClCompile Include="..\src\ScenePathFinding.cpp" />
@@ -148,7 +147,6 @@
     <ClInclude Include="..\src\Connection.h" />
     <ClInclude Include="..\src\Graph.h" />
     <ClInclude Include="..\src\Path.h" />
-    <ClInclude Include="..\src\PriorityComparison.h" />
     <ClInclude Include="..\src\SceneBreadthFirstSearch.h" />
     <ClInclude Include="..\src\SceneGreedyBFS.h" />
     <ClInclude Include="..\src\ScenePathFinding.h" />
