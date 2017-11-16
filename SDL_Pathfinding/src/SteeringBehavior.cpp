@@ -57,36 +57,79 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	Vector2D current;	
 	map<Vector2D,Vector2D> came_from;	
 	vector<Vector2D> path;		
-
+	cout << "GOAL " << goal.x << " " << goal.y << endl;
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier[0]; //agafem el primer de la frontera		
+				
 		for each (Connection c in graph.GetConnections(current)) // comprovem els seus veïns
 		{			
-			if (came_from.find(c.getToNode()) == came_from.end()) { //si no els haviem visitat els afegim a frontera
+			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos) { //si no els haviem visitat els afegim a frontera
 				
+				cout << "POS QUE S'HAURIA D'AFEGIR " << c.getToNode().x << "," << c.getToNode().y << endl;
+				
+				//Afegim al mapa i a la frontera
+				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
+				came_from.emplace(temp);
+				frontier.push_back(c.getToNode());
+
+				//DEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGS
+				std::map<Vector2D, Vector2D>::iterator it = came_from.begin();
+				// Iterate over the map using Iterator till end.
+				while (it != came_from.end())
+				{
+					cout << it->first.x << "," << it->first.y << " VE DE -> " << it->second.x << "," << it->second.y << endl;
+					it++;
+				}
+				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+				//Sortim si hem trobat goal
 				if (c.getToNode() == goal) {
 					cout << "GOAL" << endl;
 					goto createpath;
 				}
-				//cout << current.x << "," << current.y << " | " << c.getToNode().x << "," << c.getToNode().y << endl;
-				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
-				came_from.insert(temp);
-				//cout << prova.second.x << " " << prova.second.y << endl;				
-				frontier.push_back(c.getToNode());							
 			}
 			
-		}		
+		}
+		
 		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat		
 	}	
 	createpath:
 	//Creem el camí	
-	cout << "CHECKED CELLS : "<< came_from.size() << endl;	
-	/*current = goal;
+		
+	current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos) {
-		current = came_from[current];
-		//path.insert(path.begin(), current);
-	}*/
+		current = ReturnMapValue(came_from, current);
+		path.insert(path.begin(), current);
+	}
+	
+	
 	return path;
+}
+bool SteeringBehavior::FindInMap(std::map<Vector2D, Vector2D> m, Vector2D objective) {
+	// Creem iterador
+	std::map<Vector2D, Vector2D>::iterator it = m.begin();
+
+	// Iterate over the map using Iterator till end.
+	while (it != m.end())
+	{
+		if (it->first == objective) {
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector2D objective) {
+	std::map<Vector2D, Vector2D>::iterator it = m.begin();
+
+	// Iterate over the map using Iterator till end.
+	while (it != m.end())
+	{
+		if (it->first == objective) {
+			return it->second;
+		}
+		it++;
+	}	
 }
