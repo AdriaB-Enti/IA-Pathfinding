@@ -112,6 +112,11 @@ createpath:
 	return path;
 }
 std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
+	template <typename T>
+	priority_queue<Vector2D, int, mycomparison> Frontier;
+	
+	
+
 
 	vector<Vector2D> frontier;
 	frontier.push_back(firstPos); //Posem la primera posicio
@@ -121,6 +126,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
+
 		current = frontier[0]; //agafem el primer de la frontera		
 
 		for each (Connection c in graph.GetConnections(current)) // comprovem els seus veïns

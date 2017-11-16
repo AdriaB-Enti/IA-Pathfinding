@@ -45,6 +45,9 @@
     <ClCompile Include="..\src\SceneGreedyBFS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\PriorityComparison.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\SDL_SimpleApp.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\SceneGreedyBFS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PriorityComparison.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
