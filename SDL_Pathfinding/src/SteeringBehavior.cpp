@@ -94,9 +94,9 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 		
 		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat		
 	}	
+	
 	createpath:
-	//Creem el camí	
-		
+	//Creem el camí			
 	current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos) {
