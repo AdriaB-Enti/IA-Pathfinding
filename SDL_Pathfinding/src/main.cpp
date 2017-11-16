@@ -5,7 +5,7 @@
 #include "SDL_SimpleApp.h"
 #include "ScenePathFinding.h"
 #include "SceneBreadthFirstSearch.h"
-
+#include "SceneGreedyBFS.h"
 #define FRAMES_PER_SEC 30
 
 using namespace std;
@@ -52,6 +52,12 @@ int main(int argc, char ** argv)
 			}
 			if (event.key.keysym.scancode == SDL_SCANCODE_3)
 			{
+			}
+			if (event.key.keysym.scancode == SDL_SCANCODE_4)
+			{
+				delete(curr_scene);
+				curr_scene = new SceneGreedyBFS;
+				app->setWindowTitle(curr_scene->getTitle());
 			}
 			if ((event.key.keysym.scancode == SDL_SCANCODE_Q) || (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
 			{

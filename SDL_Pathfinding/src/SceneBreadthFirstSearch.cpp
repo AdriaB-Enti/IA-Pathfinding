@@ -72,7 +72,7 @@ void SceneBreadthFirstSearch::update(float dtime, SDL_Event *event)
 	if ((currentTargetIndex == -1) && (path.points.size()>0))
 		currentTargetIndex = 0;
 
-	/*if (currentTargetIndex >= 0)
+	if (currentTargetIndex >= 0)
 	{	
 		float dist = Vector2D::Distance(agents[0]->getPosition(), path.points[currentTargetIndex]);
 		if (dist < path.ARRIVAL_DISTANCE)
@@ -109,7 +109,7 @@ void SceneBreadthFirstSearch::update(float dtime, SDL_Event *event)
 	else
 	{
 		agents[0]->update(Vector2D(0,0), dtime, event);
-	}*/
+	}
 }
 
 void SceneBreadthFirstSearch::draw()
