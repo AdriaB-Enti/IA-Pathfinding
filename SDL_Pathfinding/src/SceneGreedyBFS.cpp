@@ -90,6 +90,9 @@ void SceneGreedyBFS::update(float dtime, SDL_Event *event)
 						coinPosition = Vector2D(-1, -1);
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+						//Creem cami un altre cop
+						path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+
 					}
 				}
 				else
@@ -243,7 +246,7 @@ void SceneGreedyBFS::initMaze()
 	maze_rects.push_back(rect);
 	rect = { 928,288,32,128 };
 	maze_rects.push_back(rect);
-
+	//
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
 
 	// (1st) initialize all cells to 1 by default
