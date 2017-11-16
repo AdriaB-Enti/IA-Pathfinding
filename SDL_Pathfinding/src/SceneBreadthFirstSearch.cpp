@@ -21,15 +21,17 @@ SceneBreadthFirstSearch::SceneBreadthFirstSearch()
 	// set agent position coords to the center of a random cell
 	Vector2D rand_cell(-1,-1);
 	while (!isValidCell(rand_cell))
-		rand_cell = Vector2D(1, 1);
-		//rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+		//rand_cell = Vector2D(1, 1);
+		
 	agents[0]->setPosition(cell2pix(rand_cell));
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
 	coinPosition = Vector2D(-1,-1);
 	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell)<3)) 
-		coinPosition = Vector2D(5,1);
-		//coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+		//coinPosition = Vector2D(15,11);
+	//cout << coinPosition.x << "," << coinPosition.y << endl;
 	
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
