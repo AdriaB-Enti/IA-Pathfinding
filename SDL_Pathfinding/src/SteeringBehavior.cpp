@@ -57,7 +57,7 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	Vector2D current;	
 	map<Vector2D,Vector2D> came_from;	
 	vector<Vector2D> path;		
-	cout << "GOAL " << goal.x << " " << goal.y << endl;
+	
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier[0]; //agafem el primer de la frontera		
@@ -66,7 +66,7 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 		{			
 			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos) { //si no els haviem visitat els afegim a frontera
 				
-				cout << "POS QUE S'HAURIA D'AFEGIR " << c.getToNode().x << "," << c.getToNode().y << endl;
+				//cout << "POS QUE S'HAURIA D'AFEGIR " << c.getToNode().x << "," << c.getToNode().y << endl;
 				
 				//Afegim al mapa i a la frontera
 				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
@@ -74,18 +74,18 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 				frontier.push_back(c.getToNode());
 
 				//DEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGS
-				std::map<Vector2D, Vector2D>::iterator it = came_from.begin();
+				/*std::map<Vector2D, Vector2D>::iterator it = came_from.begin();
 				// Iterate over the map using Iterator till end.
 				while (it != came_from.end())
 				{
 					cout << it->first.x << "," << it->first.y << " VE DE -> " << it->second.x << "," << it->second.y << endl;
 					it++;
-				}
+				}*/
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				//Sortim si hem trobat goal
 				if (c.getToNode() == goal) {
-					cout << "GOAL" << endl;
+					//cout << "GOAL" << endl;
 					goto createpath;
 				}
 			}
@@ -95,7 +95,7 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat		
 	}	
 	
-	createpath:
+createpath:
 	//Creem el camí			
 	current = goal;
 	path.insert(path.begin(), current);
