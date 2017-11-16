@@ -51,22 +51,26 @@ Vector2D SteeringBehavior::Arrive(Agent *agent, Agent *target, int slow_radius, 
 	return Arrive(agent, target->position, slow_radius, dtime);
 }
 std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D firstPos, Vector2D goal) {
-		
+	
 	vector<Vector2D> frontier;
 	frontier.push_back(firstPos); //Posem la primera posicio
 	Vector2D current;	
 	map<Vector2D,Vector2D> came_from;	
-	vector<Vector2D> path;		
+	vector<Vector2D> path;
+
+	int totalExploredNodes = 0;
+	int visitedNodes = 0;
 	
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier[0]; //agafem el primer de la frontera		
-				
+		
 		for each (Connection c in graph.GetConnections(current)) // comprovem els seus veïns
-		{			
+		{
+			totalExploredNodes++;
 			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos) { //si no els haviem visitat els afegim a frontera
-				
-				//cout << "POS QUE S'HAURIA D'AFEGIR " << c.getToNode().x << "," << c.getToNode().y << endl;
+					
+				visitedNodes++;
 				
 				//Afegim al mapa i a la frontera
 				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
@@ -74,6 +78,8 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 				frontier.push_back(c.getToNode());
 
 				//DEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGS
+				//cout << "POS QUE S'HAURIA D'AFEGIR " << c.getToNode().x << "," << c.getToNode().y << endl;
+
 				/*std::map<Vector2D, Vector2D>::iterator it = came_from.begin();
 				// Iterate over the map using Iterator till end.
 				while (it != came_from.end())
@@ -84,14 +90,12 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				//Sortim si hem trobat goal
-				if (c.getToNode() == goal) {
-					//cout << "GOAL" << endl;
+				if (c.getToNode() == goal) {					
 					goto createpath;
 				}
 			}
 			
 		}
-		
 		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat		
 	}	
 	
@@ -103,7 +107,7 @@ createpath:
 		current = ReturnMapValue(came_from, current);
 		path.insert(path.begin(), current);
 	}
-	
+	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
 	
 	return path;
 }
