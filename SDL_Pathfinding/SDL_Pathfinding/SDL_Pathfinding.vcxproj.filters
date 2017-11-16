@@ -42,7 +42,7 @@
     <ClCompile Include="..\src\SceneBreadthFirstSearch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SceneGreedyBFS.cpp">
+    <ClCompile Include="..\src\SceneDijkstra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,7 +80,7 @@
     <ClInclude Include="..\src\SceneBreadthFirstSearch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\SceneGreedyBFS.h">
+    <ClInclude Include="..\src\SceneDijkstra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Node.h">

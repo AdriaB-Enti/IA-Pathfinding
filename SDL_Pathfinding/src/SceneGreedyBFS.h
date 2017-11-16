@@ -39,5 +39,4 @@ private:
 	//PRACTICA
 	void createGraph();
 	Graph graph;
-
 };
