@@ -243,7 +243,7 @@ void SceneGreedyBFS::initMaze()
 	maze_rects.push_back(rect);
 	rect = { 928,288,32,128 };
 	maze_rects.push_back(rect);
-
+	//
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
 
 	// (1st) initialize all cells to 1 by default
