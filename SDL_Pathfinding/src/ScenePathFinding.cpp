@@ -20,7 +20,7 @@ ScenePathFinding::ScenePathFinding()
 
 	// set agent position coords to the center of a random cell
 	Vector2D rand_cell(-1,-1);
-	while (!isValidCell(rand_cell)) 
+	while (!isValidCell(rand_cell))		
 		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 	agents[0]->setPosition(cell2pix(rand_cell));
 
