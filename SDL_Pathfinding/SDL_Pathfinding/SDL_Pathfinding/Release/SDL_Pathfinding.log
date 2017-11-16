@@ -1,8 +1,20 @@
-﻿  SteeringBehavior.cpp
-  Generando código
-c:\enti\github\ia2\ia-pathfinding\sdl_pathfinding\src\steeringbehavior.cpp(135): warning C4715: 'SteeringBehavior::ReturnMapValue': no todas las rutas de acceso de control devuelven un valor
-  53 of 650 functions ( 8.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    48 functions had inline decision re-evaluated but remain unchanged
-  Generación de código finalizada
-  SDL_Pathfinding.vcxproj -> C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+﻿  Agent.cpp
+  Connection.cpp
+  Graph.cpp
+  main.cpp
+  SceneBreadthFirstSearch.cpp
+..\src\SceneBreadthFirstSearch.cpp(322): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneBreadthFirstSearch.cpp(325): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneBreadthFirstSearch.cpp(329): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneBreadthFirstSearch.cpp(333): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneBreadthFirstSearch.cpp(337): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  ScenePathFinding.cpp
+  SDL_SimpleApp.cpp
+  SteeringBehavior.cpp
+  utils.cpp
+  Generating code
+c:\users\bzheng\documents\github\ia-pathfinding\sdl_pathfinding\src\vector2d.h(91): warning C4715: 'Vector2D::operator<': not all control paths return a value
+c:\users\bzheng\documents\github\ia-pathfinding\sdl_pathfinding\src\steeringbehavior.cpp(135): warning C4715: 'SteeringBehavior::ReturnMapValue': not all control paths return a value
+  All 650 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  SDL_Pathfinding.vcxproj -> C:\Users\bzheng\Documents\GitHub\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
