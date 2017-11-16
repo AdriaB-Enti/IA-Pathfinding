@@ -146,6 +146,8 @@
     <ClInclude Include="..\src\Agent.h" />
     <ClInclude Include="..\src\Connection.h" />
     <ClInclude Include="..\src\Graph.h" />
+    <ClInclude Include="..\src\PriorityComparision.h" />
+    <ClInclude Include="..\src\Node.h" />
     <ClInclude Include="..\src\Path.h" />
     <ClInclude Include="..\src\SceneBreadthFirstSearch.h" />
     <ClInclude Include="..\src\SceneGreedyBFS.h" />

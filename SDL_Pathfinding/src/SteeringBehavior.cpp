@@ -198,4 +198,6 @@ Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector
 
 std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
 	
+	priority_queue<Node, vector<Node>,PriorityComparision> frontier;
+	Node 1stPos = { firstPos, 0 };
 }

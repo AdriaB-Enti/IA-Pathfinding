@@ -2,11 +2,13 @@
 #include <vector>
 #include <concurrent_priority_queue.h>
 #include <map>
-#include <unordered_map>
+#include <queue>
 #include "Agent.h"
 #include "Vector2D.h"
 #include "Graph.h"
 #include <algorithm>
+#include "Node.h"
+#include "PriorityComparision.h"
 
 class Agent;
 
@@ -25,4 +27,5 @@ public:
 	bool FindInMap(std::map<Vector2D, Vector2D> m, Vector2D objective);
 	Vector2D ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector2D objective);
 	std::vector<Vector2D> ASearch(Graph graph, Vector2D firstPos, Vector2D goal);
+	
 };
