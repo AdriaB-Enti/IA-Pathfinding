@@ -6,12 +6,12 @@
 #include "Path.h"
 #include "Graph.h"
 
-class SceneBreadthFirstSearch :
+class SceneGreedyBFS :
 	public Scene
 {
 public:
-	SceneBreadthFirstSearch();
-	~SceneBreadthFirstSearch();
+	SceneGreedyBFS();
+	~SceneGreedyBFS();
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
@@ -38,7 +38,5 @@ private:
 	
 	//PRACTICA
 	void createGraph();
-	void teleportIfBridge();
 	Graph graph;
-
 };
