@@ -87,8 +87,7 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 					cout << it->first.x << "," << it->first.y << " VE DE -> " << it->second.x << "," << it->second.y << endl;
 					it++;
 				}*/
-				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+				
 				//Sortim si hem trobat goal
 				if (c.getToNode() == goal) {					
 					goto createpath;
@@ -99,7 +98,7 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat		
 	}	
 	
-createpath:
+	createpath:
 	//Creem el camí			
 	current = goal;
 	path.insert(path.begin(), current);
@@ -201,4 +200,8 @@ Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector
 		}
 		it++;
 	}	
+}
+
+std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
+	
 }
