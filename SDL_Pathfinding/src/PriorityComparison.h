@@ -1,8 +1,9 @@
 #pragma once
 class PriorityComparison
 {
+	bool reverse;
 public:
-	PriorityComparison();
-	~PriorityComparison();
+	PriorityComparison(const bool&);
+	bool operator()(const int&,const int&)const;
 };
 
