@@ -38,6 +38,7 @@ private:
 	
 	//PRACTICA
 	void createGraph();
+	void teleportIfBridge();
 	Graph graph;
 
 };
