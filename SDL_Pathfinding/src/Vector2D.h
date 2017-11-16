@@ -85,7 +85,9 @@ struct Vector2D
 	}
 	inline bool operator<(const Vector2D& rhs) const
 	{
-		return (Length() < rhs.Length());
+		if (x < rhs.x || x == rhs.x && y < rhs.y)
+			return true;
+		
 	}
 	
 	inline Vector2D Normalize()
