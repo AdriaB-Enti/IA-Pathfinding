@@ -21,16 +21,15 @@ SceneBreadthFirstSearch::SceneBreadthFirstSearch()
 	// set agent position coords to the center of a random cell
 	Vector2D rand_cell(-1,-1);
 	while (!isValidCell(rand_cell))
-		rand_cell = Vector2D(1, 1);
-		//rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+		
 	agents[0]->setPosition(cell2pix(rand_cell));
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
 	coinPosition = Vector2D(-1,-1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell)<3)) 
-		coinPosition = Vector2D(5,1);
-		//coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-	
+	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
+		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+		
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
@@ -70,7 +69,7 @@ void SceneBreadthFirstSearch::update(float dtime, SDL_Event *event)
 	if ((currentTargetIndex == -1) && (path.points.size()>0))
 		currentTargetIndex = 0;
 
-	/*if (currentTargetIndex >= 0)
+	if (currentTargetIndex >= 0)
 	{	
 		float dist = Vector2D::Distance(agents[0]->getPosition(), path.points[currentTargetIndex]);
 		if (dist < path.ARRIVAL_DISTANCE)
@@ -88,6 +87,8 @@ void SceneBreadthFirstSearch::update(float dtime, SDL_Event *event)
 						coinPosition = Vector2D(-1, -1);
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+						//Creem cami un altre cop
+						path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
 					}
 				}
 				else
@@ -101,13 +102,15 @@ void SceneBreadthFirstSearch::update(float dtime, SDL_Event *event)
 		}
 
 		currentTarget = path.points[currentTargetIndex];
+		teleportIfBridge(); //Si estem als bordes teleportem a l'altre costat
+
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 		agents[0]->update(steering_force, dtime, event);
 	} 
 	else
 	{
 		agents[0]->update(Vector2D(0,0), dtime, event);
-	}*/
+	}
 }
 
 void SceneBreadthFirstSearch::draw()
@@ -132,7 +135,7 @@ void SceneBreadthFirstSearch::draw()
 	for (int i = 0; i < (int)path.points.size(); i++)
 	{
 		draw_circle(TheApp::Instance()->getRenderer(), (int)(path.points[i].x), (int)(path.points[i].y), 15, 255, 255, 0, 255);
-		if (i > 0)
+		if (i > 0 && abs(path.points[i - 1].x - path.points[i].x) < 100) //si la linia no és massa llarga
 			SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(path.points[i - 1].x), (int)(path.points[i - 1].y), (int)(path.points[i].x), (int)(path.points[i].y));
 	}
 
@@ -340,5 +343,43 @@ void SceneBreadthFirstSearch::createGraph() {
 				}
 			}			
 		}
-	}	
+	}
+
+	//Agefim conexions als bordes
+	Vector2D fromCell(39,10);
+	Vector2D toCell(0, 10);
+	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
+	fromCell = { 39,11 };
+	toCell = { 0,11 };
+	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
+	fromCell = { 39,12 };
+	toCell = { 0,12 };
+	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
+}
+void SceneBreadthFirstSearch::teleportIfBridge() {
+	
+	if (currentTarget == cell2pix(Vector2D{ 0,10 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,10 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,10 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 0,11 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,11 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,11 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 0,12 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,12 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,12 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,10 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,10 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,10 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,11 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,11 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,11 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,12 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,12 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,12 }));
+	}
 }
