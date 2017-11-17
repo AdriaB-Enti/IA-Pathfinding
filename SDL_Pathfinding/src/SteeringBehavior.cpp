@@ -115,11 +115,13 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Connection firstPo
 
 	std::priority_queue<Connection> frontier;
 	frontier.push(firstPos); //Posem la primera posicio
-	Vector2D current;
 	Connection currentCon = Connection(Vector2D(), Vector2D(), 0);
+	Vector2D current = currentCon.getToNode();
 	map<Vector2D, Vector2D> came_from;
 	map<Vector2D, float> cost_so_far;
 	vector<Vector2D> path;
+	//cost_so_far.insert(current,currentCon.GetCost());
+
 	cout << "GOAL " << goal.x << " " << goal.y << endl;
 
 	//Comprovem nodes fins al goal
@@ -130,10 +132,8 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Connection firstPo
 		for each (Connection c in graph.GetConnections(current))
 		{
 			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos.getToNode()) { //si no els haviem visitat els afegim a frontera
+				int newCost = cost_so_far.at(current);
 
-																								 //cout << "POS QUE S'HAURIA D'AFEGIR " << c.getToNode().x << "," << c.getToNode().y << endl;
-
-																								 //Afegim al mapa i a la frontera
 				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
 				came_from.emplace(temp);
 				frontier.push(c);
