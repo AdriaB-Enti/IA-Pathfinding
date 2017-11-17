@@ -255,6 +255,7 @@ bool SteeringBehavior::FindInMap(std::map<Vector2D, Vector2D> m, Vector2D object
 	}
 	return false;
 }
+
 Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector2D objective) {
 	std::map<Vector2D, Vector2D>::iterator it = m.begin();
 
@@ -271,26 +272,38 @@ Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector
 std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
 	
 	priority_queue<Node, vector<Node>,PriorityComparision> frontier;
+	map<Vector2D, Vector2D> came_from;
 	
-	struct Node firstNode = { firstPos, 1 };
-	struct Node prova1 = { Vector2D{0,0}, 2 };
-	struct Node prova2 = { Vector2D{50,20}, 0 };
-	frontier.emplace(firstNode);
-	frontier.emplace(prova1);
-	frontier.emplace(prova2);
+	map<Vector2D, int> cost_so_far;
+	float new_cost;
 
+	struct Node firstNode = { firstPos, 1 };	
+	frontier.emplace(firstNode);
 	struct Node current;
 	
-	while (!frontier.empty()) {
-		cout << frontier.top().position.x << "," << frontier.top().position.y << endl;
-		frontier.pop();
-	}
+	
 
 	//Iterem la frontera
 	/*while (!frontier.empty()) {
 		current = frontier.top();
-	}	*/
-
+		frontier.pop();//el borrem ara perque si després afegim un amb més prioritat no borrarem el que toca
+		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
+		{
+			//new_cost = cost_so_far
+		}
+	}
+	*/
 	vector<Vector2D> path;
 	return path;
+}
+
+float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
+	
+	//Com que el cost minim entre nodes es 1 hem de passar aquestes distances a posicio en la grid per a que pugui coincidir
+	Vector2D startCell = Vector2D((float)((int)start.x / CELL_SIZE), (float)((int)start.x / CELL_SIZE));
+	Vector2D goalCell = Vector2D((float)((int)goal.y / CELL_SIZE), (float)((int)goal.y / CELL_SIZE));
+	
+	float dx = abs(startCell.x - goalCell.x);
+	float dy = abs(startCell.y - goalCell.y);
+	return dx + dy; //No multipliquem per res perque el cos minim entre dos nodes es 1
 }
