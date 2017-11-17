@@ -177,8 +177,8 @@ createpathDijkstra:
 }
 
 std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
-	template <typename T>
-	priority_queue<Vector2D, int, mycomparison> Frontier;
+	//template <typename T>
+	//priority_queue<Vector2D, int, mycomparison> Frontier;
 	
 	
 
@@ -188,7 +188,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 	Vector2D current;
 	map<Vector2D, Vector2D> came_from;
 	vector<Vector2D> path;
-
+	/*
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 
@@ -216,7 +216,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				//Sortim si hem trobat goal
-				if (c.getToNode() == goal) {
+				/*if (c.getToNode() == goal) {
 					//cout << "GOAL" << endl;
 					goto createpath;
 				}
@@ -236,7 +236,7 @@ createpath:
 		path.insert(path.begin(), current);
 	}
 
-
+	*/
 	return path;
 }
 
@@ -255,6 +255,7 @@ bool SteeringBehavior::FindInMap(std::map<Vector2D, Vector2D> m, Vector2D object
 	}
 	return false;
 }
+
 Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector2D objective) {
 	std::map<Vector2D, Vector2D>::iterator it = m.begin();
 
@@ -271,5 +272,38 @@ Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector
 std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
 	
 	priority_queue<Node, vector<Node>,PriorityComparision> frontier;
-	Node 1stPos = { firstPos, 0 };
+	map<Vector2D, Vector2D> came_from;
+	
+	map<Vector2D, int> cost_so_far;
+	float new_cost;
+
+	struct Node firstNode = { firstPos, 1 };	
+	frontier.emplace(firstNode);
+	struct Node current;
+	
+	
+
+	//Iterem la frontera
+	/*while (!frontier.empty()) {
+		current = frontier.top();
+		frontier.pop();//el borrem ara perque si després afegim un amb més prioritat no borrarem el que toca
+		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
+		{
+			//new_cost = cost_so_far
+		}
+	}
+	*/
+	vector<Vector2D> path;
+	return path;
+}
+
+float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
+	
+	//Com que el cost minim entre nodes es 1 hem de passar aquestes distances a posicio en la grid per a que pugui coincidir
+	Vector2D startCell = Vector2D((float)((int)start.x / CELL_SIZE), (float)((int)start.x / CELL_SIZE));
+	Vector2D goalCell = Vector2D((float)((int)goal.y / CELL_SIZE), (float)((int)goal.y / CELL_SIZE));
+	
+	float dx = abs(startCell.x - goalCell.x);
+	float dy = abs(startCell.y - goalCell.y);
+	return dx + dy; //No multipliquem per res perque el cos minim entre dos nodes es 1
 }
