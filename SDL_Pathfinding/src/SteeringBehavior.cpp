@@ -167,7 +167,7 @@ createpathDijkstra:
 	current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos.getToNode()) {
-		current = ReturnMapValue(came_from, current);
+		current = came_from.at(current);
 		path.insert(path.begin(), current);
 	}
 
@@ -255,6 +255,20 @@ bool SteeringBehavior::FindInMap(std::map<Vector2D, Vector2D> m, Vector2D object
 	}
 	return false;
 }
+bool SteeringBehavior::FindInMap(std::map<Vector2D, float> m, Vector2D objective) {
+	// Creem iterador
+	std::map<Vector2D, float>::iterator it = m.begin();
+
+	// Iterate over the map using Iterator till end.
+	while (it != m.end())
+	{
+		if (it->first == objective) {
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
 
 Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector2D objective) {
 	std::map<Vector2D, Vector2D>::iterator it = m.begin();
@@ -272,27 +286,43 @@ Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector
 std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
 	
 	priority_queue<Node, vector<Node>,PriorityComparision> frontier;
+	float priority;
 	map<Vector2D, Vector2D> came_from;
 	
-	map<Vector2D, int> cost_so_far;
-	float new_cost;
-
 	struct Node firstNode = { firstPos, 1 };	
 	frontier.emplace(firstNode);
 	struct Node current;
 	
+	map<Vector2D, float> cost_so_far;
+	float new_cost;
+	pair<Vector2D, float> temp = make_pair(firstPos, 0);
+	cost_so_far.emplace(temp);
 	
 
 	//Iterem la frontera
-	/*while (!frontier.empty()) {
+	while (!frontier.empty()) {
 		current = frontier.top();
 		frontier.pop();//el borrem ara perque si després afegim un amb més prioritat no borrarem el que toca
 		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
 		{
-			//new_cost = cost_so_far
+			new_cost = cost_so_far.at(current.position) + c.GetCost();
+			if (!FindInMap(cost_so_far, c.getToNode()) || new_cost < cost_so_far.at(c.getToNode())) { //si no haviem calculat el cost o és més petit
+				
+				//afegim nou cost
+				pair<Vector2D, int> tempCost = make_pair(c.getToNode(), new_cost);
+				cost_so_far.insert(tempCost);
+
+				//afegim a la frontera amb prioritat de cost + heuristica
+				priority = new_cost + ManhattanDistance(c.getToNode(), goal);
+				Node next = { c.getToNode(), priority };
+				frontier.push(next);
+
+				came_from[c.getToNode()] = current.position;
+
+			}
 		}
 	}
-	*/
+	cout << "FIN" << endl;
 	vector<Vector2D> path;
 	return path;
 }
