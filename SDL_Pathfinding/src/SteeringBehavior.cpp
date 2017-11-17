@@ -177,8 +177,8 @@ createpathDijkstra:
 }
 
 std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
-	template <typename T>
-	priority_queue<Vector2D, int, mycomparison> Frontier;
+	//template <typename T>
+	//priority_queue<Vector2D, int, mycomparison> Frontier;
 	
 	
 
@@ -188,7 +188,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 	Vector2D current;
 	map<Vector2D, Vector2D> came_from;
 	vector<Vector2D> path;
-
+	/*
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 
@@ -216,7 +216,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				//Sortim si hem trobat goal
-				if (c.getToNode() == goal) {
+				/*if (c.getToNode() == goal) {
 					//cout << "GOAL" << endl;
 					goto createpath;
 				}
@@ -236,7 +236,7 @@ createpath:
 		path.insert(path.begin(), current);
 	}
 
-
+	*/
 	return path;
 }
 
@@ -271,5 +271,26 @@ Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector
 std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
 	
 	priority_queue<Node, vector<Node>,PriorityComparision> frontier;
-	Node 1stPos = { firstPos, 0 };
+	
+	struct Node firstNode = { firstPos, 1 };
+	struct Node prova1 = { Vector2D{0,0}, 2 };
+	struct Node prova2 = { Vector2D{50,20}, 0 };
+	frontier.emplace(firstNode);
+	frontier.emplace(prova1);
+	frontier.emplace(prova2);
+
+	struct Node current;
+	
+	while (!frontier.empty()) {
+		cout << frontier.top().position.x << "," << frontier.top().position.y << endl;
+		frontier.pop();
+	}
+
+	//Iterem la frontera
+	/*while (!frontier.empty()) {
+		current = frontier.top();
+	}	*/
+
+	vector<Vector2D> path;
+	return path;
 }
