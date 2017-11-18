@@ -1,34 +1,8 @@
-﻿  Agent.cpp
-  SceneASearch.cpp
-..\src\SceneASearch.cpp(325): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearch.cpp(328): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearch.cpp(332): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearch.cpp(336): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearch.cpp(340): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SceneBreadthFirstSearch.cpp
-..\src\SceneBreadthFirstSearch.cpp(325): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(328): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(332): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(336): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(340): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SceneDijkstra.cpp
-..\src\SceneDijkstra.cpp(322): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneDijkstra.cpp(325): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneDijkstra.cpp(329): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneDijkstra.cpp(333): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneDijkstra.cpp(337): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SceneGreedyBFS.cpp
-..\src\SceneGreedyBFS.cpp(327): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(330): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(334): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(338): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(342): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  ScenePathFinding.cpp
-  SteeringBehavior.cpp
+﻿  SteeringBehavior.cpp
 ..\src\SteeringBehavior.cpp(259): error C2244: 'SteeringBehavior::ReturnMapValue': no se puede hacer coincidir la definición de función con una declaración existente
   ..\src\SteeringBehavior.cpp(259): note: vea la declaración de 'SteeringBehavior::ReturnMapValue'
   ..\src\SteeringBehavior.cpp(259): note: definición
-  ..\src\SteeringBehavior.cpp(259): note: 'T SteeringBehavior::ReturnMapValue(std::map<Vector2D,Vector2D,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>,Vector2D)'
+  ..\src\SteeringBehavior.cpp(259): note: 'Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D,Vector2D,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>,Vector2D)'
           with
           [
               _Kty=Vector2D,
@@ -41,4 +15,3 @@
               _Kty=Vector2D,
               _Ty=Vector2D
           ]
-  main.cpp
