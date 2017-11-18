@@ -57,7 +57,7 @@ void SceneASearch::update(float dtime, SDL_Event *event)
 {	
 
 	/* Keyboard & Mouse events */
-	/*switch (event->type) {
+	switch (event->type) {
 	case SDL_KEYDOWN:
 		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
 			draw_grid = !draw_grid;
@@ -110,7 +110,7 @@ void SceneASearch::update(float dtime, SDL_Event *event)
 	else
 	{
 		agents[0]->update(Vector2D(0,0), dtime, event);
-	}*/
+	}
 }
 
 void SceneASearch::draw()

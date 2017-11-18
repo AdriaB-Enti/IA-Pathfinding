@@ -29,6 +29,7 @@ public:
 	bool FindInMap(std::map<Vector2D, Vector2D> m, Vector2D objective);
 	bool FindInMap(std::map<Vector2D, float> m, Vector2D objective);
 	Vector2D ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector2D objective);
+	float ReturnMapValue(std::map<Vector2D, float> m, Vector2D objective);
 	std::vector<Vector2D> ASearch(Graph graph, Vector2D firstPos, Vector2D goal);
 	float ManhattanDistance(Vector2D start, Vector2D goal);
 	

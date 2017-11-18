@@ -282,6 +282,18 @@ Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector
 		it++;
 	}	
 }
+float SteeringBehavior::ReturnMapValue(std::map<Vector2D, float> m, Vector2D objective) {
+	std::map<Vector2D, float>::iterator it = m.begin();
+
+	// Iterate over the map using Iterator till end.
+	while (it != m.end())
+	{
+		if (it->first == objective) {
+			return it->second;
+		}
+		it++;
+	}
+}
 
 std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
 	
@@ -297,42 +309,81 @@ std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, 
 	float new_cost;
 	pair<Vector2D, float> temp = make_pair(firstPos, 0);
 	cost_so_far.emplace(temp);
-	
 
+	int totalExploredNodes = 0;
+	int visitedNodes = 0;
+	
 	//Iterem la frontera
 	while (!frontier.empty()) {
 		current = frontier.top();
 		frontier.pop();//el borrem ara perque si després afegim un amb més prioritat no borrarem el que toca
+		//cout << "CURRENT : " << current.position.x << "," << current.position.y << endl;
 		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
 		{
-			new_cost = cost_so_far.at(current.position) + c.GetCost();
-			if (!FindInMap(cost_so_far, c.getToNode()) || new_cost < cost_so_far.at(c.getToNode())) { //si no haviem calculat el cost o és més petit
-				
+			totalExploredNodes++;
+			new_cost = ReturnMapValue(cost_so_far,current.position) + c.GetCost();
+			
+			if (!FindInMap(cost_so_far, c.getToNode()) || new_cost < ReturnMapValue(cost_so_far, c.getToNode())) { //si no haviem calculat el cost o és més petit
+				//cout << "POS ACCEPTADA : " << c.getToNode().x << "," << c.getToNode().y << endl;
+				visitedNodes++;
 				//afegim nou cost
 				pair<Vector2D, int> tempCost = make_pair(c.getToNode(), new_cost);
 				cost_so_far.insert(tempCost);
+
+				/*std::map<Vector2D, float>::iterator it = cost_so_far.begin();
+				// Iterate over the map using Iterator till end.
+				while (it != cost_so_far.end())
+				{
+					cout << it->first.x << "," << it->first.y << " COST -> " << it->second << endl;
+					it++;
+				}	*/			
 
 				//afegim a la frontera amb prioritat de cost + heuristica
 				priority = new_cost + ManhattanDistance(c.getToNode(), goal);
 				Node next = { c.getToNode(), priority };
 				frontier.push(next);
+				
+				//afegim al came_from per recuperar despres el path
+				came_from[c.getToNode()] = current.position;				
 
-				came_from[c.getToNode()] = current.position;
-
+				if (c.getToNode() == goal) {
+					cout << "GOAL" << endl;
+					goto createpath;
+				}
 			}
+			
 		}
+		/*cout << "FRONTERA" << endl;
+		priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
+		while (!prova.empty()) {
+			cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
+			prova.pop();
+		}*/
+
 	}
-	cout << "FIN" << endl;
+	
+	createpath:
+	//Creem el camí	
 	vector<Vector2D> path;
+	Vector2D posInPath;
+
+	posInPath = goal;
+	path.insert(path.begin(), posInPath);
+	while (posInPath != firstPos) {
+		posInPath = ReturnMapValue(came_from, posInPath);
+		path.insert(path.begin(), posInPath);
+	}
+	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;	
 	return path;
 }
 
 float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
-	
+			
 	//Com que el cost minim entre nodes es 1 hem de passar aquestes distances a posicio en la grid per a que pugui coincidir
-	Vector2D startCell = Vector2D((float)((int)start.x / CELL_SIZE), (float)((int)start.x / CELL_SIZE));
-	Vector2D goalCell = Vector2D((float)((int)goal.y / CELL_SIZE), (float)((int)goal.y / CELL_SIZE));
-	
+	Vector2D startCell = Vector2D((float)((int)start.x / CELL_SIZE), (float)((int)start.y / CELL_SIZE));
+	Vector2D goalCell = Vector2D((float)((int)goal.x / CELL_SIZE), (float)((int)goal.y / CELL_SIZE));
+	//cout << "START CELL : " << startCell.x << "," << startCell.y << ", END CELL: " << goalCell.x << "," << goalCell.y << endl;
+
 	float dx = abs(startCell.x - goalCell.x);
 	float dy = abs(startCell.y - goalCell.y);
 	return dx + dy; //No multipliquem per res perque el cos minim entre dos nodes es 1
