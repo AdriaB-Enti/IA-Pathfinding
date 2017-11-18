@@ -99,7 +99,7 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	}	
 	
 	createpath:
-	//Creem el camí			
+	//Creem el cam?		
 	current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos) {
@@ -163,7 +163,7 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Connection firstPo
 
 
 createpathDijkstra:
-	//Creem el camí			
+	//Creem el cam?		
 	current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos.getToNode()) {
@@ -228,7 +228,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 	}
 
 createpath:
-	//Creem el camí			
+	//Creem el cam?		
 	current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos) {
@@ -359,7 +359,7 @@ std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, 
 						
 						goalIndex++;
 
-						//afegim al camí
+						//afegim al cam?
 						Vector2D posInPath;
 						
 						posInPath = goals[goalIndex];
@@ -387,7 +387,7 @@ std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, 
 	}
 	
 	createpath:
-	//Creem el camí	
+	//Creem el cam?
 	Vector2D posInPath;
 	
 	posInPath = goals[goalIndex];
