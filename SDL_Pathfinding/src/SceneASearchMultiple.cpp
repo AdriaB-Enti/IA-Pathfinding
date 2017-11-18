@@ -1,8 +1,8 @@
-#include "SceneASearch.h"
+#include "SceneASearchMultiple.h"
 
 using namespace std;
 
-SceneASearch::SceneASearch()
+SceneASearchMultiple::SceneASearchMultiple()
 {
 	draw_grid = false;
 
@@ -42,7 +42,7 @@ SceneASearch::SceneASearch()
 	
 }
 
-SceneASearch::~SceneASearch()
+SceneASearchMultiple::~SceneASearchMultiple()
 {
 	if (background_texture)
 		SDL_DestroyTexture(background_texture);
@@ -55,7 +55,7 @@ SceneASearch::~SceneASearch()
 	}
 }
 
-void SceneASearch::update(float dtime, SDL_Event *event)
+void SceneASearchMultiple::update(float dtime, SDL_Event *event)
 {	
 
 	/* Keyboard & Mouse events */
@@ -115,7 +115,7 @@ void SceneASearch::update(float dtime, SDL_Event *event)
 	}
 }
 
-void SceneASearch::draw()
+void SceneASearchMultiple::draw()
 {
 	drawMaze();
 	drawCoin();
@@ -146,12 +146,12 @@ void SceneASearch::draw()
 	agents[0]->draw();
 }
 
-const char* SceneASearch::getTitle()
+const char* SceneASearchMultiple::getTitle()
 {
 	return "SDL Steering Behaviors :: PathFinding1 Demo";
 }
 
-void SceneASearch::drawMaze()
+void SceneASearchMultiple::drawMaze()
 {
 	if (draw_grid)
 	{
@@ -166,7 +166,7 @@ void SceneASearch::drawMaze()
 	}
 }
 
-void SceneASearch::drawCoin()
+void SceneASearchMultiple::drawCoin()
 {
 	Vector2D coin_coords = cell2pix(coinPosition);
 	int offset = CELL_SIZE / 2;
@@ -174,7 +174,7 @@ void SceneASearch::drawCoin()
 	SDL_RenderCopy(TheApp::Instance()->getRenderer(), coin_texture, NULL, &dstrect);
 }
 
-void SceneASearch::initMaze()
+void SceneASearchMultiple::initMaze()
 {
 
 	// Initialize a list of Rectagles describing the maze geometry (useful for collision avoidance)
@@ -275,7 +275,7 @@ void SceneASearch::initMaze()
 	}
 }
 
-bool SceneASearch::loadTextures(char* filename_bg, char* filename_coin)
+bool SceneASearchMultiple::loadTextures(char* filename_bg, char* filename_coin)
 {
 	SDL_Surface *image = IMG_Load(filename_bg);
 	if (!image) {
@@ -300,25 +300,25 @@ bool SceneASearch::loadTextures(char* filename_bg, char* filename_coin)
 	return true;
 }
 
-Vector2D SceneASearch::cell2pix(Vector2D cell)
+Vector2D SceneASearchMultiple::cell2pix(Vector2D cell)
 {
 	int offset = CELL_SIZE / 2;
 	return Vector2D(cell.x*CELL_SIZE + offset, cell.y*CELL_SIZE + offset);
 }
 
-Vector2D SceneASearch::pix2cell(Vector2D pix)
+Vector2D SceneASearchMultiple::pix2cell(Vector2D pix)
 {
 	return Vector2D((float)((int)pix.x/CELL_SIZE), (float)((int)pix.y / CELL_SIZE));
 }
 
-bool SceneASearch::isValidCell(Vector2D cell)
+bool SceneASearchMultiple::isValidCell(Vector2D cell)
 {
 	if ((cell.x < 0) || (cell.y < 0) || (cell.x >= terrain.size()) || (cell.y >= terrain[0].size()) )
 		return false;
 	return !(terrain[(unsigned int)cell.x][(unsigned int)cell.y] == 0);
 }
 
-void SceneASearch::createGraph() {
+void SceneASearchMultiple::createGraph() {
 		
 	for (int i = 0; i < num_cell_x; i++) {
 		for (int j = 0; j < num_cell_y; j++) {
@@ -358,7 +358,7 @@ void SceneASearch::createGraph() {
 	toCell = { 0,12 };
 	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
 }
-void SceneASearch::teleportIfBridge() {
+void SceneASearchMultiple::teleportIfBridge() {
 	
 	if (currentTarget == cell2pix(Vector2D{ 0,10 })) {
 		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,10 }))
