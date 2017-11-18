@@ -1,17 +1,16 @@
-﻿  SteeringBehavior.cpp
-..\src\SteeringBehavior.cpp(259): error C2244: 'SteeringBehavior::ReturnMapValue': no se puede hacer coincidir la definición de función con una declaración existente
-  ..\src\SteeringBehavior.cpp(259): note: vea la declaración de 'SteeringBehavior::ReturnMapValue'
-  ..\src\SteeringBehavior.cpp(259): note: definición
-  ..\src\SteeringBehavior.cpp(259): note: 'Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D,Vector2D,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>,Vector2D)'
-          with
-          [
-              _Kty=Vector2D,
-              _Ty=Vector2D
-          ]
-  ..\src\SteeringBehavior.cpp(259): note: declaraciones existentes
-  ..\src\SteeringBehavior.cpp(259): note: 'Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D,Vector2D,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>,Vector2D)'
-          with
-          [
-              _Kty=Vector2D,
-              _Ty=Vector2D
-          ]
+﻿  SceneDijkstra.cpp
+..\src\SceneDijkstra.cpp(322): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(325): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(329): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(333): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(337): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SteeringBehavior.cpp
+..\src\SteeringBehavior.cpp(135): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+..\src\SteeringBehavior.cpp(278): warning C4101: 'new_cost': unreferenced local variable
+  Generating code
+c:\users\abiarnes\source\repos\ia-pathfinding\sdl_pathfinding\src\connection.h(19): warning C4715: 'Connection::operator<': not all control paths return a value
+  48 of 929 functions ( 5.2%) were compiled, the rest were copied from previous compilation.
+    16 functions were new in current compilation
+    77 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  SDL_Pathfinding.vcxproj -> C:\Users\abiarnes\source\repos\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
