@@ -115,11 +115,13 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Connection firstPo
 
 	std::priority_queue<Connection> frontier;
 	frontier.push(firstPos); //Posem la primera posicio
-	Vector2D current;
 	Connection currentCon = Connection(Vector2D(), Vector2D(), 0);
+	Vector2D current = currentCon.getToNode();
 	map<Vector2D, Vector2D> came_from;
 	map<Vector2D, float> cost_so_far;
 	vector<Vector2D> path;
+	//cost_so_far.insert(current,currentCon.GetCost());
+
 	cout << "GOAL " << goal.x << " " << goal.y << endl;
 
 	//Comprovem nodes fins al goal
@@ -130,10 +132,8 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Connection firstPo
 		for each (Connection c in graph.GetConnections(current))
 		{
 			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos.getToNode()) { //si no els haviem visitat els afegim a frontera
+				int newCost = cost_so_far.at(current);
 
-																								 //cout << "POS QUE S'HAURIA D'AFEGIR " << c.getToNode().x << "," << c.getToNode().y << endl;
-
-																								 //Afegim al mapa i a la frontera
 				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
 				came_from.emplace(temp);
 				frontier.push(c);
@@ -167,7 +167,7 @@ createpathDijkstra:
 	current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos.getToNode()) {
-		current = ReturnMapValue(came_from, current);
+		current = came_from.at(current);
 		path.insert(path.begin(), current);
 	}
 
@@ -177,8 +177,8 @@ createpathDijkstra:
 }
 
 std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
-	template <typename T>
-	priority_queue<Vector2D, int, mycomparison> Frontier;
+	//template <typename T>
+	//priority_queue<Vector2D, int, mycomparison> Frontier;
 	
 	
 
@@ -188,7 +188,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 	Vector2D current;
 	map<Vector2D, Vector2D> came_from;
 	vector<Vector2D> path;
-
+	/*
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 
@@ -216,7 +216,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				//Sortim si hem trobat goal
-				if (c.getToNode() == goal) {
+				/*if (c.getToNode() == goal) {
 					//cout << "GOAL" << endl;
 					goto createpath;
 				}
@@ -236,7 +236,7 @@ createpath:
 		path.insert(path.begin(), current);
 	}
 
-
+	*/
 	return path;
 }
 
@@ -255,6 +255,21 @@ bool SteeringBehavior::FindInMap(std::map<Vector2D, Vector2D> m, Vector2D object
 	}
 	return false;
 }
+bool SteeringBehavior::FindInMap(std::map<Vector2D, float> m, Vector2D objective) {
+	// Creem iterador
+	std::map<Vector2D, float>::iterator it = m.begin();
+
+	// Iterate over the map using Iterator till end.
+	while (it != m.end())
+	{
+		if (it->first == objective) {
+			return true;
+		}
+		it++;
+	}
+	return false;
+}
+
 Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector2D objective) {
 	std::map<Vector2D, Vector2D>::iterator it = m.begin();
 
@@ -267,9 +282,109 @@ Vector2D SteeringBehavior::ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector
 		it++;
 	}	
 }
+float SteeringBehavior::ReturnMapValue(std::map<Vector2D, float> m, Vector2D objective) {
+	std::map<Vector2D, float>::iterator it = m.begin();
+
+	// Iterate over the map using Iterator till end.
+	while (it != m.end())
+	{
+		if (it->first == objective) {
+			return it->second;
+		}
+		it++;
+	}
+}
 
 std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
 	
 	priority_queue<Node, vector<Node>,PriorityComparision> frontier;
-	Node 1stPos = { firstPos, 0 };
+	float priority;
+	map<Vector2D, Vector2D> came_from;
+	
+	struct Node firstNode = { firstPos, 1 };	
+	frontier.emplace(firstNode);
+	struct Node current;
+	
+	map<Vector2D, float> cost_so_far;
+	float new_cost;
+	pair<Vector2D, float> temp = make_pair(firstPos, 0);
+	cost_so_far.emplace(temp);
+
+	int totalExploredNodes = 0;
+	int visitedNodes = 0;
+	
+	//Iterem la frontera
+	while (!frontier.empty()) {
+		current = frontier.top();
+		frontier.pop();//el borrem ara perque si després afegim un amb més prioritat no borrarem el que toca
+		//cout << "CURRENT : " << current.position.x << "," << current.position.y << endl;
+		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
+		{
+			totalExploredNodes++;
+			new_cost = ReturnMapValue(cost_so_far,current.position) + c.GetCost();
+			
+			if (!FindInMap(cost_so_far, c.getToNode()) || new_cost < ReturnMapValue(cost_so_far, c.getToNode())) { //si no haviem calculat el cost o és més petit
+				//cout << "POS ACCEPTADA : " << c.getToNode().x << "," << c.getToNode().y << endl;
+				visitedNodes++;
+				//afegim nou cost
+				pair<Vector2D, int> tempCost = make_pair(c.getToNode(), new_cost);
+				cost_so_far.insert(tempCost);
+
+				/*std::map<Vector2D, float>::iterator it = cost_so_far.begin();
+				// Iterate over the map using Iterator till end.
+				while (it != cost_so_far.end())
+				{
+					cout << it->first.x << "," << it->first.y << " COST -> " << it->second << endl;
+					it++;
+				}	*/			
+
+				//afegim a la frontera amb prioritat de cost + heuristica
+				priority = new_cost + ManhattanDistance(c.getToNode(), goal);
+				Node next = { c.getToNode(), priority };
+				frontier.push(next);
+				
+				//afegim al came_from per recuperar despres el path
+				came_from[c.getToNode()] = current.position;				
+
+				if (c.getToNode() == goal) {
+					cout << "GOAL" << endl;
+					goto createpath;
+				}
+			}
+			
+		}
+		/*cout << "FRONTERA" << endl;
+		priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
+		while (!prova.empty()) {
+			cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
+			prova.pop();
+		}*/
+
+	}
+	
+	createpath:
+	//Creem el camí	
+	vector<Vector2D> path;
+	Vector2D posInPath;
+
+	posInPath = goal;
+	path.insert(path.begin(), posInPath);
+	while (posInPath != firstPos) {
+		posInPath = ReturnMapValue(came_from, posInPath);
+		path.insert(path.begin(), posInPath);
+	}
+	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;	
+	return path;
+}
+
+float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
+			
+	//Com que el cost minim entre nodes es 1 hem de passar aquestes distances a posicio en la grid per a que pugui coincidir
+	Vector2D startCell = Vector2D((float)((int)start.x / CELL_SIZE), (float)((int)start.y / CELL_SIZE));
+	Vector2D goalCell = Vector2D((float)((int)goal.x / CELL_SIZE), (float)((int)goal.y / CELL_SIZE));
+	//cout << "START CELL : " << startCell.x << "," << startCell.y << ", END CELL: " << goalCell.x << "," << goalCell.y << endl;
+
+	float dx = abs(startCell.x - goalCell.x);
+	float dy = abs(startCell.y - goalCell.y);
+	return dx + dy; //No multipliquem per res perque el cos minim entre dos nodes es 1
 }

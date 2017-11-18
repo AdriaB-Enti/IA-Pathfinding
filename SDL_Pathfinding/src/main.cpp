@@ -7,6 +7,7 @@
 #include "SceneBreadthFirstSearch.h"
 #include "SceneGreedyBFS.h"
 #include "SceneDijkstra.h"
+#include "SceneASearch.h"
 #define FRAMES_PER_SEC 30
 
 using namespace std;
@@ -61,6 +62,12 @@ int main(int argc, char ** argv)
 			{
 				delete(curr_scene);
 				curr_scene = new SceneGreedyBFS;
+				app->setWindowTitle(curr_scene->getTitle());
+			}
+			if (event.key.keysym.scancode == SDL_SCANCODE_5)
+			{
+				delete(curr_scene);
+				curr_scene = new SceneASearch;
 				app->setWindowTitle(curr_scene->getTitle());
 			}
 			if ((event.key.keysym.scancode == SDL_SCANCODE_Q) || (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
