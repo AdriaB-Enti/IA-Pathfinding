@@ -1,12 +1,12 @@
 ﻿  SceneGreedyBFS.cpp
-..\src\SceneGreedyBFS.cpp(327): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(330): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(334): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(338): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(342): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneGreedyBFS.cpp(326): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneGreedyBFS.cpp(329): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneGreedyBFS.cpp(333): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneGreedyBFS.cpp(337): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneGreedyBFS.cpp(341): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
   Generando código
-  0 of 1010 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  2 of 1010 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    14 functions had inline decision re-evaluated but remain unchanged
+    19 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
   SDL_Pathfinding.vcxproj -> C:\Users\飘雪柳絮\Documents\GitHub\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
