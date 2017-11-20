@@ -110,45 +110,35 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 	
 	return path;
 }
-std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Connection firstPos, Vector2D goal)
+std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos, Vector2D goal)
 {
-
-	std::priority_queue<Connection> frontier;
-	frontier.push(firstPos); //Posem la primera posicio
-	Connection currentCon = Connection(Vector2D(), Vector2D(), 0);
-	Vector2D current = currentCon.getToNode();
+	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
 	map<Vector2D, Vector2D> came_from;
 	map<Vector2D, float> cost_so_far;
-	vector<Vector2D> path;
-	//cost_so_far.insert(current,currentCon.GetCost());
+	Node current = { firstPos, 0 };
+	float priority = 0;
 
-	cout << "GOAL " << goal.x << " " << goal.y << endl;
+	frontier.push(current);												//Posem la primera posicio a la frontera
+	came_from.emplace(make_pair(firstPos, NULL));						//Afegim el node als visitats
+	cost_so_far.emplace(make_pair(firstPos, 0));						//Posem a 0 el cost de la primera posició
 
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
-		currentCon = frontier.top(); //agafem el primer de la frontera		
-		current = currentCon.getToNode();
+		current = frontier.top();										//Agafem el primer de la frontera		
+		frontier.pop();													//Esborrem el node
 
-		for each (Connection c in graph.GetConnections(current))
+		for each (Connection c in graph.GetConnections(current.position))
 		{
-			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos.getToNode()) { //si no els haviem visitat els afegim a frontera
-				int newCost = cost_so_far.at(current);
+			float newCost = ReturnMapValue(cost_so_far, current.position) + c.GetCost();
+			if (!FindInMap(came_from, c.getToNode()) || newCost < ReturnMapValue(cost_so_far, c.getToNode())) { //si no els haviem visitat els afegim a frontera
 
-				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
-				came_from.emplace(temp);
-				frontier.push(c);
+				cost_so_far.emplace(c.getToNode(), newCost);				//afegim el cost fins a current
+				priority = newCost;
+				frontier.push({c.getToNode(), priority});						//afegim el next amb la seva prioritat
 
-				//DEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGS
-				/*std::map<Vector2D, Vector2D>::iterator it = came_from.begin();
-				// Iterate over the map using Iterator till end.
-				while (it != came_from.end())
-				{
-				cout << it->first.x << "," << it->first.y << " VE DE -> " << it->second.x << "," << it->second.y << endl;
-				it++;
-				}*/
-				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				came_from.emplace(make_pair(c.getToNode(), current));
 
-				//Sortim si hem trobat goal
+				//Si em trobat la destinació
 				if (c.getToNode() == goal) {
 					cout << "GOAL" << endl;
 					goto createpathDijkstra;
@@ -156,22 +146,18 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Connection firstPo
 			}
 
 		}
-
-		frontier.pop(); //esborrem aquesta posicio pq ja l'hem comprovat	
-
 	}
 
 
-createpathDijkstra:
-	//Creem el cam?		
-	current = goal;
+	createpathDijkstra:
+	//Creem el path
+	vector<Vector2D> path;
+	/*current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos.getToNode()) {
 		current = came_from.at(current);
 		path.insert(path.begin(), current);
-	}
-
-
+	}*/
 
 	return path;
 }
