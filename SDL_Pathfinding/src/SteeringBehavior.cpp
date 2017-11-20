@@ -112,16 +112,17 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 }
 std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos, Vector2D goal)
 {
+	
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
 	map<Vector2D, Vector2D> came_from;
 	map<Vector2D, float> cost_so_far;
 	Node current = { firstPos, 0 };
 	float priority = 0;
-
+	
 	frontier.push(current);												//Posem la primera posicio a la frontera
 	came_from.emplace(make_pair(firstPos, NULL));						//Afegim el node als visitats
 	cost_so_far.emplace(make_pair(firstPos, 0));						//Posem a 0 el cost de la primera posició
-
+	/* -- a partir d'aquí algo està malament
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier.top();										//Agafem el primer de la frontera		
@@ -150,14 +151,14 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 
 
 	createpathDijkstra:
-	//Creem el path
-	vector<Vector2D> path;
 	/*current = goal;
 	path.insert(path.begin(), current);
 	while (current != firstPos.getToNode()) {
 		current = came_from.at(current);
 		path.insert(path.begin(), current);
 	}*/
+	//Creem el path
+	vector<Vector2D> path;
 
 	return path;
 }
