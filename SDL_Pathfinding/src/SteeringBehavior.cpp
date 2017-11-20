@@ -162,34 +162,34 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 	return path;
 }
 
-std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
+std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Connection firstPos, Vector2D goal) {
 	//template <typename T>
 	//priority_queue<Vector2D, int, mycomparison> Frontier;
 	
-	
-
-
-	vector<Vector2D> frontier;
-	frontier.push_back(firstPos); //Posem la primera posicio
-	Vector2D current;
+	std::priority_queue<Connection> frontier;
+	frontier.push(firstPos); //Posem la primera posicio
+	Connection currentCon = Connection(Vector2D{}, Vector2D{}, 0);
+	Vector2D current = currentCon.getToNode();
 	map<Vector2D, Vector2D> came_from;
+	map<Vector2D, float> cost_so_far;
 	vector<Vector2D> path;
-	/*
+	//cost_so_far.insert(current,currentCon.GetCost());
+
+	cout << "GOAL " << goal.x << " " << goal.y << endl;
+
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
+		currentCon = frontier.top(); //agafem el primer de la frontera		
+		current = currentCon.getToNode();
 
-		current = frontier[0]; //agafem el primer de la frontera		
-
-		for each (Connection c in graph.GetConnections(current)) // comprovem els seus veïns
+		for each (Connection c in graph.GetConnections(current))
 		{
-			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos) { //si no els haviem visitat els afegim a frontera
+			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos.getToNode()) { //si no els haviem visitat els afegim a frontera
+				int newCost = cost_so_far.at(current);
 
-																					 //cout << "POS QUE S'HAURIA D'AFEGIR " << c.getToNode().x << "," << c.getToNode().y << endl;
-
-																					 //Afegim al mapa i a la frontera
 				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
 				came_from.emplace(temp);
-				frontier.push_back(c.getToNode());
+				frontier.push(c);
 
 				//DEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGS
 				/*std::map<Vector2D, Vector2D>::iterator it = came_from.begin();
@@ -202,27 +202,30 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 				//Sortim si hem trobat goal
-				/*if (c.getToNode() == goal) {
-					//cout << "GOAL" << endl;
-					goto createpath;
+				if (c.getToNode() == goal) {
+					cout << "GOAL" << endl;
+					goto createpathDijkstra;
 				}
 			}
 
 		}
 
-		frontier.erase(frontier.begin()); //esborrem aquesta posicio pq ja l'hem comprovat		
+		frontier.pop(); //esborrem aquesta posicio pq ja l'hem comprovat	
+
 	}
 
-createpath:
+
+createpathDijkstra:
 	//Creem el cam?		
 	current = goal;
 	path.insert(path.begin(), current);
-	while (current != firstPos) {
-		current = ReturnMapValue(came_from, current);
+	while (current != firstPos.getToNode()) {
+		current = came_from.at(current);
 		path.insert(path.begin(), current);
 	}
 
-	*/
+
+
 	return path;
 }
 
