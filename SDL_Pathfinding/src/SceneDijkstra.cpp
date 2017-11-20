@@ -37,7 +37,7 @@ SceneDijkstra::SceneDijkstra()
 
 	//PRACTICA
 	createGraph();	
-	path.points = agents[0]->Behavior()->Dijkstra(graph, Connection(Vector2D(), cell2pix(rand_cell),1), cell2pix(coinPosition));
+	//path.points = agents[0]->Behavior()->Dijkstra(graph, Connection(Vector2D(), cell2pix(rand_cell),1), cell2pix(coinPosition));
 	
 }
 
