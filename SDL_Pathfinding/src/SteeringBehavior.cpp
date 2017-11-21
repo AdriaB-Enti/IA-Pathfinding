@@ -491,7 +491,6 @@ createpath:
 	}	
 	path.insert(path.end(), miniPath.begin(), miniPath.end());
 	
-
 	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
 	return path;
 }

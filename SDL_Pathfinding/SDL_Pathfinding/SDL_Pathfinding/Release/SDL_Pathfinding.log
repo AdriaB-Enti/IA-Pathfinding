@@ -1,17 +1,16 @@
 ﻿  SceneASearchMultiple.cpp
-..\src\SceneASearchMultiple.cpp(339): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearchMultiple.cpp(342): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearchMultiple.cpp(346): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearchMultiple.cpp(350): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearchMultiple.cpp(354): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneASearchMultiple.cpp(344): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneASearchMultiple.cpp(347): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneASearchMultiple.cpp(351): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneASearchMultiple.cpp(355): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
+..\src\SceneASearchMultiple.cpp(359): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
   Generando código
-  4 of 1036 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  3 of 1036 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    35 functions had inline decision re-evaluated but remain unchanged
+    31 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
 Agent.obj : warning LNK4099: no se encontró PDB 'vc141.pdb' con 'Agent.obj' o en 'C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\bin\vc141.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 Connection.obj : warning LNK4099: no se encontró PDB 'vc141.pdb' con 'Connection.obj' o en 'C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\bin\vc141.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
-main.obj : warning LNK4099: no se encontró PDB 'vc141.pdb' con 'main.obj' o en 'C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\bin\vc141.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 ScenePathFinding.obj : warning LNK4099: no se encontró PDB 'vc141.pdb' con 'ScenePathFinding.obj' o en 'C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\bin\vc141.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 SDL_SimpleApp.obj : warning LNK4099: no se encontró PDB 'vc141.pdb' con 'SDL_SimpleApp.obj' o en 'C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\bin\vc141.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 utils.obj : warning LNK4099: no se encontró PDB 'vc141.pdb' con 'utils.obj' o en 'C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\bin\vc141.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
