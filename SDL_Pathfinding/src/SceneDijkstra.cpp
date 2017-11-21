@@ -30,7 +30,7 @@ SceneDijkstra::SceneDijkstra()
 	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3)) {
 		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 	}
-	
+
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
@@ -101,6 +101,7 @@ void SceneDijkstra::update(float dtime, SDL_Event *event)
 		}
 
 		currentTarget = path.points[currentTargetIndex];
+		teleportIfBridge();			//Si estem als bordes teleportem a l'altre costat
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 		agents[0]->update(steering_force, dtime, event);
 	} 
@@ -132,7 +133,7 @@ void SceneDijkstra::draw()
 	for (int i = 0; i < (int)path.points.size(); i++)
 	{
 		draw_circle(TheApp::Instance()->getRenderer(), (int)(path.points[i].x), (int)(path.points[i].y), 15, 255, 255, 0, 255);
-		if (i > 0)
+		if (i > 0 && abs(path.points[i - 1].x - path.points[i].x) < 100) //Només dibuixem si la linia no es massa llarga
 			SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(path.points[i - 1].x), (int)(path.points[i - 1].y), (int)(path.points[i].x), (int)(path.points[i].y));
 	}
 
@@ -268,6 +269,12 @@ void SceneDijkstra::initMaze()
 			
 		}
 	}
+
+	//Perquè els bordes tinguin conexió:
+	for (int yOffset = 0; yOffset < 3; yOffset++)
+	{
+		graph.AddConnection(cell2pix(Vector2D(39, 10+yOffset)), cell2pix(Vector2D(0, 10+yOffset)), 1);
+	}
 }
 
 bool SceneDijkstra::loadTextures(char* filename_bg, char* filename_coin)
@@ -341,4 +348,31 @@ void SceneDijkstra::createGraph() {
 			}			
 		}
 	}	
+}
+void SceneDijkstra::teleportIfBridge() {
+
+	if (currentTarget == cell2pix(Vector2D{ 0,10 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,10 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,10 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 0,11 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,11 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,11 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 0,12 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,12 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,12 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,10 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,10 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,10 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,11 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,11 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,11 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,12 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,12 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,12 }));
+	}
 }
