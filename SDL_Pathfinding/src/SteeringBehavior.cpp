@@ -112,7 +112,6 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 }
 std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos, Vector2D goal)
 {
-	
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
 	map<Vector2D, Vector2D> came_from;
 	map<Vector2D, float> cost_so_far;
@@ -122,7 +121,7 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 	frontier.push(current);												//Posem la primera posicio a la frontera
 	came_from.emplace(make_pair(firstPos, NULL));						//Afegim el node als visitats
 	cost_so_far.emplace(make_pair(firstPos, 0));						//Posem a 0 el cost de la primera posici?
-	/* -- a partir d'aqu?algo est?malament
+	//-- a partir d'aqu?algo est?malament
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier.top();										//Agafem el primer de la frontera		
@@ -135,9 +134,10 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 
 				cost_so_far.emplace(c.getToNode(), newCost);				//afegim el cost fins a current
 				priority = newCost;
-				frontier.push({c.getToNode(), priority});						//afegim el next amb la seva prioritat
-
-				came_from.emplace(make_pair(c.getToNode(), current));
+				Node next = { c.getToNode(), priority };
+				frontier.push(next);						//afegim el next amb la seva prioritat
+				//std::pair<Vector2D, Vector2D> temporal = make_pair(c.getToNode(), current.);
+				came_from.emplace(make_pair(c.getToNode(), current.position));
 
 				//Si em trobat la destinaci?
 				if (c.getToNode() == goal) {
@@ -150,15 +150,16 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 	}
 
 
-	createpathDijkstra:
-	/*current = goal;
-	path.insert(path.begin(), current);
-	while (current != firstPos.getToNode()) {
-		current = came_from.at(current);
-		path.insert(path.begin(), current);
-	}*/
+	
+createpathDijkstra:
 	//Creem el path
 	vector<Vector2D> path;
+	Vector2D currentPos = goal;
+	path.insert(path.begin(), currentPos);
+	while (currentPos != firstPos) {
+		currentPos = ReturnMapValue(came_from, currentPos);
+		path.insert(path.begin(), currentPos);
+	}
 
 	return path;
 }

@@ -37,7 +37,7 @@ SceneDijkstra::SceneDijkstra()
 
 	//PRACTICA
 	createGraph();	
-	//path.points = agents[0]->Behavior()->Dijkstra(graph, Connection(Vector2D(), cell2pix(rand_cell),1), cell2pix(coinPosition));
+	path.points = agents[0]->Behavior()->Dijkstra(graph, cell2pix(rand_cell), cell2pix(coinPosition));
 	
 }
 
@@ -70,7 +70,7 @@ void SceneDijkstra::update(float dtime, SDL_Event *event)
 	if ((currentTargetIndex == -1) && (path.points.size()>0))
 		currentTargetIndex = 0;
 
-	/*if (currentTargetIndex >= 0)
+	if (currentTargetIndex >= 0)
 	{	
 		float dist = Vector2D::Distance(agents[0]->getPosition(), path.points[currentTargetIndex]);
 		if (dist < path.ARRIVAL_DISTANCE)
@@ -107,7 +107,7 @@ void SceneDijkstra::update(float dtime, SDL_Event *event)
 	else
 	{
 		agents[0]->update(Vector2D(0,0), dtime, event);
-	}*/
+	}
 }
 
 void SceneDijkstra::draw()
