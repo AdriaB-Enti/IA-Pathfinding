@@ -164,77 +164,78 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 }
 
 std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
-	
-	//crear priority queue frontier, contiene Node y vector de node i priority comparison
-	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
 
-	//push start a priority amb priority 0 
-	Node current = { firstPos, 0 };
-	frontier.push(current);		
-
-	//definir came_from
-	map<Vector2D, Vector2D> came_from;			came_from.emplace(make_pair(firstPos, NULL));	
-	
-	float priority = 0;
-						
-	cout << "GOAL " << goal.x << " " << goal.y << endl;
-
-	//Comprovem nodes fins al goal
-	while (!frontier.empty()) {
-
-		current = frontier.top();
-/*		currentCon = frontier.top(); //agafem el primer de la frontera		
-		current = currentCon.getToNode();
-		*/
-		for each (Connection c in graph.GetConnections(current.position))
-		{
-			cout << "OK " << endl;
-
-			/*
-			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos.getToNode()) { //si no els haviem visitat els afegim a frontera
-				int newCost = cost_so_far.at(current);
-				cout << "1" << endl;
-				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current);
-				came_from.emplace(temp);
-				frontier.push(c);
-
-				//DEBUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUGS
-				/*std::map<Vector2D, Vector2D>::iterator it = came_from.begin();
-				// Iterate over the map using Iterator till end.
-				while (it != came_from.end())
-				{
-				cout << it->first.x << "," << it->first.y << " VE DE -> " << it->second.x << "," << it->second.y << endl;
-				it++;
-				}*/
-				///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-				//Sortim si hem trobat goal
-			/*	if (c.getToNode() == goal) {
-					cout << "GOAL" << endl;
-					goto createpathBFS;
-				}
-			*/
-
-		}
-
-		//frontier.pop(); //esborrem aquesta posicio pq ja l'hem comprovat	
-
-	}
-
-/*
-createpathBFS:
-	//Creem el cam?		
-	current = goal;
-	path.insert(path.begin(), current);
-	while (current != firstPos.getToNode()) {
-		current = came_from.at(current);
-		path.insert(path.begin(), current);
-	}
-	*/
-
-	//Creem el path
 	vector<Vector2D> path;
 
+	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
+	float priority;
+	map<Vector2D, Vector2D> came_from;
+
+	struct Node firstNode = { firstPos, 1 };
+	frontier.emplace(firstNode);
+	struct Node current;
+
+	int totalExploredNodes = 0;
+	int visitedNodes = 0;
+
+	//Iterem la frontera
+	while (!frontier.empty()) {
+		current = frontier.top();
+		frontier.pop();//el borrem ara perque si després afegim un amb més prioritat no borrarem el que toca
+					   //cout << "CURRENT : " << current.position.x << "," << current.position.y << endl;
+		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
+		{
+			totalExploredNodes++;
+			
+			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos) { //si no els haviem visitat els afegim a frontera
+																					 //cout << "POS ACCEPTADA : " << c.getToNode().x << "," << c.getToNode().y << endl;
+				visitedNodes++;
+				//afegim nou cost
+				
+				/*std::map<Vector2D, float>::iterator it = cost_so_far.begin();
+				// Iterate over the map using Iterator till end.
+				while (it != cost_so_far.end())
+				{
+				cout << it->first.x << "," << it->first.y << " COST -> " << it->second << endl;
+				it++;
+				}	*/
+
+				//afegim a la frontera amb prioritat de cost + heuristica
+				priority = ManhattanDistance(c.getToNode(), goal);
+				Node next = { c.getToNode(), priority };
+				frontier.push(next);
+
+				//afegim al came_from per recuperar despres el path
+				came_from[c.getToNode()] = current.position;
+
+				if (c.getToNode() == goal) {
+					cout << "GOAL" << endl;
+					goto createpath;
+				}
+			}
+
+		}
+		/*cout << "FRONTERA" << endl;
+		priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
+		while (!prova.empty()) {
+		cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
+		prova.pop();
+		}*/
+
+	}
+
+createpath:
+	//Creem el cam?
+	Vector2D posInPath;
+
+	posInPath = goal;
+	path.push_back(posInPath);
+	while (posInPath != firstPos) {
+		posInPath = ReturnMapValue(came_from, posInPath);
+		path.insert(path.begin(), posInPath);
+	}
+
+	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
 	return path;
 }
 
