@@ -35,7 +35,7 @@ SceneASearch::SceneASearch()
 	currentTargetIndex = -1;
 
 	//PRACTICA
-	createGraph();	
+	createGraph();
 	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
 	
 }
@@ -57,7 +57,7 @@ void SceneASearch::update(float dtime, SDL_Event *event)
 {	
 
 	/* Keyboard & Mouse events */
-	/*switch (event->type) {
+	switch (event->type) {
 	case SDL_KEYDOWN:
 		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
 			draw_grid = !draw_grid;
@@ -88,7 +88,7 @@ void SceneASearch::update(float dtime, SDL_Event *event)
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 						//Creem cami un altre cop
-						path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+						path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
 					}
 				}
 				else
@@ -110,7 +110,7 @@ void SceneASearch::update(float dtime, SDL_Event *event)
 	else
 	{
 		agents[0]->update(Vector2D(0,0), dtime, event);
-	}*/
+	}
 }
 
 void SceneASearch::draw()

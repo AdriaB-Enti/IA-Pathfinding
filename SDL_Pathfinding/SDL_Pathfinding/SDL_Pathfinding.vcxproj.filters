@@ -45,10 +45,16 @@
     <ClCompile Include="..\src\SceneDijkstra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
     <ClCompile Include="..\src\SceneASearch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+>>>>>>> e035359fb074983f7aa77e27a3c3a491d029d13c
     <ClCompile Include="..\src\SceneGreedyBFS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SceneASearchMultiple.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,10 +101,16 @@
     <ClInclude Include="..\src\PriorityComparision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
     <ClInclude Include="..\src\SceneASearch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+>>>>>>> e035359fb074983f7aa77e27a3c3a491d029d13c
     <ClInclude Include="..\src\SceneGreedyBFS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SceneASearchMultiple.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
