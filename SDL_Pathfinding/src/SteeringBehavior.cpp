@@ -116,8 +116,10 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 	map<Vector2D, Vector2D> came_from;
 	map<Vector2D, float> cost_so_far;
 	Node current = { firstPos, 0 };
-	float priority = 0;
 	
+	int totalExploredNodes = 0;											//Per poder fer les comparacions amb els altres algoritmes
+	int visitedNodes = 0;
+
 	frontier.push(current);												//Posem la primera posicio a la frontera
 	came_from.emplace(make_pair(firstPos, NULL));						//Afegim el node als visitats
 	cost_so_far.emplace(make_pair(firstPos, 0));						//Posem a 0 el cost de la primera posici?
@@ -128,12 +130,12 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 
 		for each (Connection c in graph.GetConnections(current.position))
 		{
+			totalExploredNodes++;
 			float newCost = ReturnMapValue(cost_so_far, current.position) + c.GetCost();
 			if (!FindInMap(came_from, c.getToNode()) || newCost < ReturnMapValue(cost_so_far, c.getToNode())) { //si no els haviem visitat els afegim a frontera
-
+				visitedNodes++;
 				cost_so_far.emplace(c.getToNode(), newCost);				//afegim el cost fins a current
-				priority = newCost;
-				Node next = { c.getToNode(), priority };
+				Node next = { c.getToNode(), newCost };
 				frontier.push(next);										//afegim el next amb la seva prioritat
 				came_from.emplace(make_pair(c.getToNode(), current.position));
 
@@ -143,11 +145,9 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 					goto createpathDijkstra;
 				}
 			}
-
 		}
 	}
 
-	
 createpathDijkstra:
 	//Creem el path
 	vector<Vector2D> path;
@@ -158,6 +158,7 @@ createpathDijkstra:
 		path.insert(path.begin(), currentPos);
 	}
 
+	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
 	return path;
 }
 
