@@ -382,6 +382,9 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 
 	vector<Vector2D> path;
 	vector<Vector2D> objectives = goals;
+	Vector2D lastGoal = firstPos;
+	vector<Vector2D> miniPath;
+	Vector2D posInPath;
 	
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
 	float priority;
@@ -413,7 +416,7 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 				//path.push_back(c.getToNode());
 				visitedNodes++;
 				//afegim nou cost
-				pair<Vector2D, int> tempCost = make_pair(c.getToNode(), new_cost);
+				pair<Vector2D, float> tempCost = make_pair(c.getToNode(), new_cost);
 				cost_so_far.insert(tempCost);
 
 				//calculem la millor heuristica
@@ -441,11 +444,30 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 							goto createpath;
 						else { // si no és l'ultim nod el borrem de l'array i netegem la cua perque comenci a partir del objectiu actual
 							
+							//Fiquem en el path
+							posInPath = g;
+							miniPath.push_back(posInPath);
+							while (posInPath != lastGoal) {
+								posInPath = ReturnMapValue(came_from, posInPath);
+								miniPath.insert(miniPath.begin(), posInPath);
+							}
+							lastGoal = g;
+							path.insert(path.end(), miniPath.begin(), miniPath.end());
+							miniPath.clear();
+
+							//netegem variables
+							map<Vector2D, Vector2D> emptyMap;
+							came_from = emptyMap;
 							priority_queue<Node, vector<Node>, PriorityComparision> emptyPqueue;
 							frontier = emptyPqueue;
 							Node next = { c.getToNode(), 0 };
 							frontier.push(next);
-														
+							map<Vector2D, float> emptyCostMap;
+							cost_so_far = emptyCostMap;
+							pair<Vector2D, float> newFirstCost = make_pair(c.getToNode(), 0);
+							cost_so_far.emplace(newFirstCost);
+
+
 							vector<Vector2D>::iterator position = std::find(objectives.begin(), objectives.end(), g);
 							if (position != objectives.end())
 								objectives.erase(position);
@@ -460,15 +482,15 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 
 createpath:	
 	//cout << came_from.size() << endl;
-	//Creem el camí
-	Vector2D posInPath;
-
+	//Creem el camí final
 	posInPath = objectives[0];
-	path.push_back(posInPath);
-	while (posInPath != firstPos) {
+	miniPath.push_back(posInPath);
+	while (posInPath != lastGoal) {
 		posInPath = ReturnMapValue(came_from, posInPath);
-		path.insert(path.begin(), posInPath);
-	}
+		miniPath.insert(miniPath.begin(), posInPath);
+	}	
+	path.insert(path.end(), miniPath.begin(), miniPath.end());
+	
 
 	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
 	return path;
