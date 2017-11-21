@@ -24,8 +24,8 @@ public:
 	Vector2D Arrive(Agent *agent, Vector2D target, int slow_radius, float dtime);
 	Vector2D Arrive(Agent *agent, Agent *target, int slow_radius, float dtime);
 	std::vector<Vector2D> BreadthFirstSearch(Graph graph, Vector2D firstPos, Vector2D goal);
-	std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Connection firstPos, Vector2D goal);
-	std::vector<Vector2D> SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal);
+	std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos, Vector2D goal);
+	std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal);
 	bool FindInMap(std::map<Vector2D, Vector2D> m, Vector2D objective);
 	bool FindInMap(std::map<Vector2D, float> m, Vector2D objective);
 	Vector2D ReturnMapValue(std::map<Vector2D, Vector2D> m, Vector2D objective);
