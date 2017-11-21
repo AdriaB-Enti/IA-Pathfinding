@@ -28,13 +28,13 @@ SceneASearchMultiple::SceneASearchMultiple()
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
 	coinPosition = Vector2D(-1, -1);
-	/*for (int i = 0; i < 5; i++) {		
+	for (int i = 0; i < 8; i++) {		
 		while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3)) {
 			coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));			
 		}
 		coins.push_back(cell2pix(coinPosition));
 		coinPosition = Vector2D(-1, -1);
-	}*/
+	}
 	
 
 	// PathFollowing next Target
@@ -43,8 +43,8 @@ SceneASearchMultiple::SceneASearchMultiple()
 
 	//PRACTICA
 	createGraph();
-	coins.push_back(cell2pix(Vector2D{5,1}));
-	coins.push_back(cell2pix(Vector2D{ 7,11 }));
+	//coins.push_back(cell2pix(Vector2D{5,1}));
+	//coins.push_back(cell2pix(Vector2D{ 7,11 }));
 	path.points = agents[0]->Behavior()->AMultipleSearch(graph, cell2pix(rand_cell), coins);
 	
 }

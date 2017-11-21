@@ -380,12 +380,13 @@ std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, 
 std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D firstPos, vector<Vector2D> goals) {
 
 	vector<Vector2D> path;
-
+	vector<Vector2D> objectives = goals;
+	
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
 	float priority;
 	map<Vector2D, Vector2D> came_from;
 
-	struct Node firstNode = { firstPos, 1 };
+	struct Node firstNode = { firstPos, 0 };
 	frontier.emplace(firstNode);
 	struct Node current;
 
@@ -415,8 +416,8 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 				cost_so_far.insert(tempCost);
 
 				//calculem la millor heuristica
-				float bestHeuristic = ManhattanDistance(c.getToNode(), goals[0]);
-				for each (Vector2D g in goals)
+				float bestHeuristic = ManhattanDistance(c.getToNode(), objectives[0]);
+				for each (Vector2D g in objectives)
 				{
 					float thisHeuristic = ManhattanDistance(c.getToNode(), g);
 					if (thisHeuristic < bestHeuristic)
@@ -432,19 +433,21 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 				came_from.insert(temp);
 								
 				//comprovem si hem arrivat a algun goal
-				for each (Vector2D g in goals)
+				for each (Vector2D g in objectives)
 				{
 					if (c.getToNode() == g) {
-						if(goals.size() == 1)
+						if(objectives.size() == 1)
 							goto createpath;
-						else { // si no és l'ultim nod el borrem de l'array
+						else { // si no és l'ultim nod el borrem de l'array i netegem la cua perque comenci a partir del objectiu actual
+							
 							priority_queue<Node, vector<Node>, PriorityComparision> emptyPqueue;
 							frontier = emptyPqueue;
+							Node next = { c.getToNode(), 0 };
 							frontier.push(next);
-
-							vector<Vector2D>::iterator position = std::find(goals.begin(), goals.end(), g);
-							if (position != goals.end()) 
-								goals.erase(position);
+														
+							vector<Vector2D>::iterator position = std::find(objectives.begin(), objectives.end(), g);
+							if (position != objectives.end())
+								objectives.erase(position);
 						}
 							
 					}
@@ -455,11 +458,11 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 	}
 
 createpath:	
+	//cout << came_from.size() << endl;
 	//Creem el camí
 	Vector2D posInPath;
 
-	posInPath = goals[0];
-	
+	posInPath = objectives[0];
 	path.push_back(posInPath);
 	while (posInPath != firstPos) {
 		posInPath = ReturnMapValue(came_from, posInPath);
