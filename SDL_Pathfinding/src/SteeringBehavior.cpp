@@ -121,7 +121,6 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 	frontier.push(current);												//Posem la primera posicio a la frontera
 	came_from.emplace(make_pair(firstPos, NULL));						//Afegim el node als visitats
 	cost_so_far.emplace(make_pair(firstPos, 0));						//Posem a 0 el cost de la primera posici?
-	//-- a partir d'aqu?algo est?malament
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier.top();										//Agafem el primer de la frontera		
@@ -135,11 +134,10 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 				cost_so_far.emplace(c.getToNode(), newCost);				//afegim el cost fins a current
 				priority = newCost;
 				Node next = { c.getToNode(), priority };
-				frontier.push(next);						//afegim el next amb la seva prioritat
-				//std::pair<Vector2D, Vector2D> temporal = make_pair(c.getToNode(), current.);
+				frontier.push(next);										//afegim el next amb la seva prioritat
 				came_from.emplace(make_pair(c.getToNode(), current.position));
 
-				//Si em trobat la destinaci?
+				//Si em trobat la destinació parem
 				if (c.getToNode() == goal) {
 					cout << "GOAL" << endl;
 					goto createpathDijkstra;
@@ -148,7 +146,6 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 
 		}
 	}
-
 
 	
 createpathDijkstra:
