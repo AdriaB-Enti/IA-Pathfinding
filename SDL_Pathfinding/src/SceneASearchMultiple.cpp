@@ -21,23 +21,30 @@ SceneASearchMultiple::SceneASearchMultiple()
 	// set agent position coords to the center of a random cell
 	Vector2D rand_cell(-1,-1);
 	while (!isValidCell(rand_cell))
-		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+		rand_cell = Vector2D(1, 1);
+		//rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 		
 	agents[0]->setPosition(cell2pix(rand_cell));
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
-	coinPosition = Vector2D(-1,-1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
-		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-		
+	coinPosition = Vector2D(-1, -1);
+	for (int i = 0; i < 5; i++) {		
+		while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3)) {
+			coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));			
+		}
+		coins.push_back(cell2pix(coinPosition));
+		coinPosition = Vector2D(-1, -1);
+	}
+	
+
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
 
 	//PRACTICA
 	createGraph();
-	vector<Vector2D> coins;
-	coins.push_back(cell2pix(coinPosition));
+	//coins.push_back(cell2pix(Vector2D{5,1}));
+	//coins.push_back(cell2pix(Vector2D{ 7,15 }));
 	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), coins);
 	
 }
@@ -90,7 +97,7 @@ void SceneASearchMultiple::update(float dtime, SDL_Event *event)
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 						//Creem cami un altre cop
-						path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+						//path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
 					}
 				}
 				else
@@ -168,10 +175,15 @@ void SceneASearchMultiple::drawMaze()
 
 void SceneASearchMultiple::drawCoin()
 {
-	Vector2D coin_coords = cell2pix(coinPosition);
-	int offset = CELL_SIZE / 2;
-	SDL_Rect dstrect = {(int)coin_coords.x-offset, (int)coin_coords.y - offset, CELL_SIZE, CELL_SIZE};
-	SDL_RenderCopy(TheApp::Instance()->getRenderer(), coin_texture, NULL, &dstrect);
+	
+	for each (Vector2D c in coins)
+	{
+		Vector2D coin_coords = c;		
+		int offset = CELL_SIZE / 2;
+		SDL_Rect dstrect = { (int)coin_coords.x - offset, (int)coin_coords.y - offset, CELL_SIZE, CELL_SIZE };
+		SDL_RenderCopy(TheApp::Instance()->getRenderer(), coin_texture, NULL, &dstrect);
+	}
+	
 }
 
 void SceneASearchMultiple::initMaze()

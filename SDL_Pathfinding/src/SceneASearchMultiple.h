@@ -40,5 +40,6 @@ private:
 	void createGraph();
 	void teleportIfBridge();
 	Graph graph;
+	std::vector<Vector2D> coins;
 
 };
