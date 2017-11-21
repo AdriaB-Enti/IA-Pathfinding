@@ -174,7 +174,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 
 	//definir came_from
 	map<Vector2D, Vector2D> came_from;			came_from.emplace(make_pair(firstPos, NULL));	
-	map<Vector2D, float> cost_so_far;
+	
 	float priority = 0;
 						
 	cout << "GOAL " << goal.x << " " << goal.y << endl;
