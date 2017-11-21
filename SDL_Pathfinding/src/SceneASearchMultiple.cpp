@@ -45,7 +45,7 @@ SceneASearchMultiple::SceneASearchMultiple()
 	createGraph();
 	//coins.push_back(cell2pix(Vector2D{5,1}));
 	//coins.push_back(cell2pix(Vector2D{ 7,15 }));
-	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), coins);
+	//path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), coins);
 	
 }
 

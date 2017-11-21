@@ -288,13 +288,10 @@ float SteeringBehavior::ReturnMapValue(std::map<Vector2D, float> m, Vector2D obj
 	}
 }
 
-std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, vector<Vector2D> goals) {
+std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, Vector2D goal) {
 	
 	vector<Vector2D> path;
-	vector<Vector2D> miniPath;
-	int goalIndex = 0;
-	restart:
-
+	
 	priority_queue<Node, vector<Node>,PriorityComparision> frontier;
 	float priority;
 	map<Vector2D, Vector2D> came_from;
@@ -337,35 +334,16 @@ std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, 
 				}	*/			
 
 				//afegim a la frontera amb prioritat de cost + heuristica
-				priority = new_cost + ManhattanDistance(c.getToNode(), goals[goalIndex]);
+				priority = new_cost + ManhattanDistance(c.getToNode(), goal);
 				Node next = { c.getToNode(), priority };
 				frontier.push(next);
 				
 				//afegim al came_from per recuperar despres el path
 				came_from[c.getToNode()] = current.position;				
 
-				if (c.getToNode() == goals[goalIndex]) {
+				if (c.getToNode() == goal) {
 					cout << "GOAL" << endl;
-					if(goalIndex == goals.size()-1)
-						goto createpath;
-					else {
-						
-						goalIndex++;
-
-						//afegim al cam?
-						Vector2D posInPath;
-						
-						posInPath = goals[goalIndex];
-						path.push_back(posInPath);
-						while (posInPath != firstPos) {
-							posInPath = ReturnMapValue(came_from, posInPath);
-							path.insert(path.begin(), posInPath);
-						}
-						path.insert(path.end(),miniPath.begin(),miniPath.end()); //afegim el miniPath a l'array total
-						miniPath.clear();
-						//com que no és la última moneda tornem a dalt de tot per netejar tots els arrays i buscar el nou goal
-						goto restart;						
-					}
+					goto createpath;					
 				}
 			}
 			
@@ -383,14 +361,13 @@ std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, 
 	//Creem el cam?
 	Vector2D posInPath;
 	
-	posInPath = goals[goalIndex];
+	posInPath = goal;
 	path.push_back(posInPath);
 	while (posInPath != firstPos) {
 		posInPath = ReturnMapValue(came_from, posInPath);
 		path.insert(path.begin(), posInPath);
 	}
-	path.insert(path.end(), miniPath.begin(), miniPath.end()); //afegim el miniPath a l'array total
-
+	
 	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;	
 	return path;
 }
