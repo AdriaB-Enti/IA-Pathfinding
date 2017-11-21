@@ -1,11 +1,47 @@
-﻿  SteeringBehavior.cpp
-..\src\SteeringBehavior.cpp(189): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+﻿  Agent.cpp
+  Connection.cpp
+  Graph.cpp
+  main.cpp
+  SceneASearch.cpp
+..\src\SceneASearch.cpp(327): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(330): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(334): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(338): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(342): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SceneASearchMultiple.cpp
+..\src\SceneASearchMultiple.cpp(327): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearchMultiple.cpp(330): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearchMultiple.cpp(334): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearchMultiple.cpp(338): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearchMultiple.cpp(342): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SceneBreadthFirstSearch.cpp
+..\src\SceneBreadthFirstSearch.cpp(325): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneBreadthFirstSearch.cpp(328): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneBreadthFirstSearch.cpp(332): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneBreadthFirstSearch.cpp(336): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneBreadthFirstSearch.cpp(340): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SceneDijkstra.cpp
+..\src\SceneDijkstra.cpp(322): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(325): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(329): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(333): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(337): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SceneGreedyBFS.cpp
+..\src\SceneGreedyBFS.cpp(326): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneGreedyBFS.cpp(329): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneGreedyBFS.cpp(333): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneGreedyBFS.cpp(337): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneGreedyBFS.cpp(341): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  ScenePathFinding.cpp
+  SDL_SimpleApp.cpp
+  SteeringBehavior.cpp
+..\src\SteeringBehavior.cpp(190): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(216): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  ..\src\SteeringBehavior.cpp(305): note: see reference to function template instantiation 'std::pair<Vector2D,float>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept' being compiled
-  ..\src\SteeringBehavior.cpp(305): note: see reference to function template instantiation 'std::pair<Vector2D,float>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept' being compiled
+  ..\src\SteeringBehavior.cpp(306): note: see reference to function template instantiation 'std::pair<Vector2D,float>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept' being compiled
+  ..\src\SteeringBehavior.cpp(306): note: see reference to function template instantiation 'std::pair<Vector2D,float>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept' being compiled
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(216): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  ..\src\SteeringBehavior.cpp(325): note: see reference to function template instantiation 'std::pair<Vector2D,int>::pair<Vector2D,float,void,0>(std::pair<Vector2D,float> &&) noexcept' being compiled
-  ..\src\SteeringBehavior.cpp(325): note: see reference to function template instantiation 'std::pair<Vector2D,int>::pair<Vector2D,float,void,0>(std::pair<Vector2D,float> &&) noexcept' being compiled
+  ..\src\SteeringBehavior.cpp(326): note: see reference to function template instantiation 'std::pair<Vector2D,int>::pair<Vector2D,float,void,0>(std::pair<Vector2D,float> &&) noexcept' being compiled
+  ..\src\SteeringBehavior.cpp(326): note: see reference to function template instantiation 'std::pair<Vector2D,int>::pair<Vector2D,float,void,0>(std::pair<Vector2D,float> &&) noexcept' being compiled
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(216): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xmemory0(856): note: see reference to function template instantiation 'std::pair<const _Kty,_Ty>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept(false)' being compiled
           with
@@ -62,6 +98,67 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.1
               _Kty=Vector2D,
               _Pr=std::less<Vector2D>,
               _Alloc=std::allocator<std::pair<const Vector2D,Vector2D>>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(188): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xmemory0(856): note: see reference to function template instantiation 'std::pair<const _Kty,_Ty>::pair<Vector2D&,int,void,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Kty=Vector2D,
+              _Ty=float,
+              _Other1=Vector2D &,
+              _Other2=int
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xmemory0(856): note: see reference to function template instantiation 'std::pair<const _Kty,_Ty>::pair<Vector2D&,int,void,0>(_Other1,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Kty=Vector2D,
+              _Ty=float,
+              _Other1=Vector2D &,
+              _Other2=int
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(773): note: see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Vector2D&,int>(_Alloc &,_Objty *const ,Vector2D &,int &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::_Tree_node<std::pair<const Vector2D,float>,std::_Default_allocator_traits<std::allocator<std::pair<const Vector2D,float>>>::void_pointer>>,
+              _Ty=std::pair<const Vector2D,float>,
+              _Objty=std::pair<const Vector2D,float>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(772): note: see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Vector2D&,int>(_Alloc &,_Objty *const ,Vector2D &,int &&)' being compiled
+          with
+          [
+              _Alloc=std::allocator<std::_Tree_node<std::pair<const Vector2D,float>,std::_Default_allocator_traits<std::allocator<std::pair<const Vector2D,float>>>::void_pointer>>,
+              _Ty=std::pair<const Vector2D,float>,
+              _Objty=std::pair<const Vector2D,float>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(961): note: see reference to function template instantiation 'std::_Tree_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::_Tree_comp_alloc<_Traits>::_Buynode<Vector2D&,int>(Vector2D &,int &&)' being compiled
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Alloc=std::allocator<std::pair<const Vector2D,float>>,
+              _Traits=std::_Tmap_traits<Vector2D,float,std::less<Vector2D>,std::allocator<std::pair<const Vector2D,float>>,false>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(961): note: see reference to function template instantiation 'std::_Tree_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::_Tree_comp_alloc<_Traits>::_Buynode<Vector2D&,int>(Vector2D &,int &&)' being compiled
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Alloc=std::allocator<std::pair<const Vector2D,float>>,
+              _Traits=std::_Tmap_traits<Vector2D,float,std::less<Vector2D>,std::allocator<std::pair<const Vector2D,float>>,false>
+          ]
+  ..\src\SteeringBehavior.cpp(175): note: see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,float,_Pr,_Alloc,false>>::emplace<Vector2D&,int>(Vector2D &,int &&)' being compiled
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Kty=Vector2D,
+              _Pr=std::less<Vector2D>,
+              _Alloc=std::allocator<std::pair<const Vector2D,float>>
+          ]
+  ..\src\SteeringBehavior.cpp(175): note: see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,float,_Pr,_Alloc,false>>::emplace<Vector2D&,int>(Vector2D &,int &&)' being compiled
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Kty=Vector2D,
+              _Pr=std::less<Vector2D>,
+              _Alloc=std::allocator<std::pair<const Vector2D,float>>
           ]
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(139): warning C4244: 'initializing': conversion from 'const int' to 'float', possible loss of data
   C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xmemory0(856): note: see reference to function template instantiation 'std::pair<const _Kty,_Ty>::pair<Vector2D,int,void,0>(const std::pair<Vector2D,int> &)' being compiled
@@ -120,23 +217,24 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.1
               _Pr=std::less<Vector2D>,
               _Alloc=std::allocator<std::pair<const Vector2D,float>>
           ]
-  ..\src\SteeringBehavior.cpp(326): note: see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::map<Vector2D,float,std::less<_Kty>,std::allocator<_Ty>>::insert<std::pair<Vector2D,int>&,void>(_Valty)' being compiled
+  ..\src\SteeringBehavior.cpp(327): note: see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::map<Vector2D,float,std::less<_Kty>,std::allocator<_Ty>>::insert<std::pair<Vector2D,int>&,void>(_Valty)' being compiled
           with
           [
               _Ty=std::pair<const Vector2D,float>,
               _Kty=Vector2D,
               _Valty=std::pair<Vector2D,int> &
           ]
-  ..\src\SteeringBehavior.cpp(326): note: see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::map<Vector2D,float,std::less<_Kty>,std::allocator<_Ty>>::insert<std::pair<Vector2D,int>&,void>(_Valty)' being compiled
+  ..\src\SteeringBehavior.cpp(327): note: see reference to function template instantiation 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::map<Vector2D,float,std::less<_Kty>,std::allocator<_Ty>>::insert<std::pair<Vector2D,int>&,void>(_Valty)' being compiled
           with
           [
               _Ty=std::pair<const Vector2D,float>,
               _Kty=Vector2D,
               _Valty=std::pair<Vector2D,int> &
           ]
+  utils.cpp
   Generating code
-  0 of 1009 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  6 of 1017 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    84 functions had inline decision re-evaluated but remain unchanged
+    118 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  SDL_Pathfinding.vcxproj -> C:\Users\abiarnes\source\repos\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+  SDL_Pathfinding.vcxproj -> C:\Users\bzheng\Documents\GitHub\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
