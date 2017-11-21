@@ -372,6 +372,99 @@ std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, 
 	return path;
 }
 
+std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D firstPos, vector<Vector2D> goals) {
+
+	vector<Vector2D> path;
+
+	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
+	float priority;
+	map<Vector2D, Vector2D> came_from;
+
+	struct Node firstNode = { firstPos, 1 };
+	frontier.emplace(firstNode);
+	struct Node current;
+
+	map<Vector2D, float> cost_so_far;
+	float new_cost;
+	pair<Vector2D, float> temp = make_pair(firstPos, 0);
+	cost_so_far.emplace(temp);
+
+	int totalExploredNodes = 0;
+	int visitedNodes = 0;
+
+	//Iterem la frontera
+	while (!frontier.empty()) {
+		current = frontier.top();
+		frontier.pop();//el borrem ara perque si després afegim un amb més prioritat no borrarem el que toca
+					  
+		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
+		{
+			totalExploredNodes++;
+			new_cost = ReturnMapValue(cost_so_far, current.position) + c.GetCost();
+
+			if (!FindInMap(cost_so_far, c.getToNode()) || new_cost < ReturnMapValue(cost_so_far, c.getToNode())) {
+				//path.push_back(c.getToNode());
+				visitedNodes++;
+				//afegim nou cost
+				pair<Vector2D, int> tempCost = make_pair(c.getToNode(), new_cost);
+				cost_so_far.insert(tempCost);
+
+				//calculem la millor heuristica
+				float bestHeuristic = ManhattanDistance(c.getToNode(), goals[0]);
+				for each (Vector2D g in goals)
+				{
+					float thisHeuristic = ManhattanDistance(c.getToNode(), g);
+					if (thisHeuristic < bestHeuristic)
+						bestHeuristic = thisHeuristic;
+				}
+				//afegim a la frontera amb prioritat de cost + heuristica
+				priority = new_cost + bestHeuristic;
+				Node next = { c.getToNode(), priority };
+				frontier.push(next);
+
+				//afegim al came_from per recuperar despres el path				
+				pair<Vector2D, Vector2D> temp = make_pair(c.getToNode(), current.position);
+				came_from.insert(temp);
+								
+				//comprovem si hem arrivat a algun goal
+				for each (Vector2D g in goals)
+				{
+					if (c.getToNode() == g) {
+						if(goals.size() == 1)
+							goto createpath;
+						else { // si no és l'ultim nod el borrem de l'array
+							priority_queue<Node, vector<Node>, PriorityComparision> emptyPqueue;
+							frontier = emptyPqueue;
+							frontier.push(next);
+
+							vector<Vector2D>::iterator position = std::find(goals.begin(), goals.end(), g);
+							if (position != goals.end()) 
+								goals.erase(position);
+						}
+							
+					}
+				}
+			}
+
+		}
+	}
+
+createpath:	
+	//Creem el camí
+	Vector2D posInPath;
+
+	posInPath = goals[0];
+	
+	path.push_back(posInPath);
+	while (posInPath != firstPos) {
+		posInPath = ReturnMapValue(came_from, posInPath);
+		path.insert(path.begin(), posInPath);
+	}
+
+	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
+	return path;
+}
+
 float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
 			
 	//Com que el cost minim entre nodes es 1 hem de passar aquestes distances a posicio en la grid per a que pugui coincidir

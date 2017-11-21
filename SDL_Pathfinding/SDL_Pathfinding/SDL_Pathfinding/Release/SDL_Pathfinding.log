@@ -1,36 +1,4 @@
-﻿  Agent.cpp
-  SceneASearch.cpp
-..\src\SceneASearch.cpp(325): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearch.cpp(328): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearch.cpp(332): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearch.cpp(336): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearch.cpp(340): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SceneASearchMultiple.cpp
-..\src\SceneASearchMultiple.cpp(339): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearchMultiple.cpp(342): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearchMultiple.cpp(346): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearchMultiple.cpp(350): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneASearchMultiple.cpp(354): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SceneBreadthFirstSearch.cpp
-..\src\SceneBreadthFirstSearch.cpp(325): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(328): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(332): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(336): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneBreadthFirstSearch.cpp(340): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SceneDijkstra.cpp
-..\src\SceneDijkstra.cpp(322): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneDijkstra.cpp(325): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneDijkstra.cpp(329): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneDijkstra.cpp(333): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneDijkstra.cpp(337): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  SceneGreedyBFS.cpp
-..\src\SceneGreedyBFS.cpp(330): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(333): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(337): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(341): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-..\src\SceneGreedyBFS.cpp(345): warning C4244: '=': conversión de 'int' a 'float'; posible pérdida de datos
-  ScenePathFinding.cpp
-  SteeringBehavior.cpp
+﻿  SteeringBehavior.cpp
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(216): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
   ..\src\SteeringBehavior.cpp(305): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<Vector2D,float>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept' que se está compilando
   ..\src\SteeringBehavior.cpp(305): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<Vector2D,float>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept' que se está compilando
@@ -165,11 +133,10 @@ C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.1
               _Kty=Vector2D,
               _Valty=std::pair<Vector2D,int> &
           ]
-  main.cpp
   Generando código
-  107 of 974 functions (11.0%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
-    195 functions had inline decision re-evaluated but remain unchanged
+  2 of 1009 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    11 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
 Connection.obj : warning LNK4099: no se encontró PDB 'vc141.pdb' con 'Connection.obj' o en 'C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\bin\vc141.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
 SDL_SimpleApp.obj : warning LNK4099: no se encontró PDB 'vc141.pdb' con 'SDL_SimpleApp.obj' o en 'C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\bin\vc141.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
