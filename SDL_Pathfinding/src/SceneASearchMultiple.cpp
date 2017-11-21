@@ -28,7 +28,7 @@ SceneASearchMultiple::SceneASearchMultiple()
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
 	coinPosition = Vector2D(-1, -1);
-	for (int i = 0; i < 8; i++) {		
+	for (int i = 0; i < 2; i++) {		
 		while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3)) {
 			coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));			
 		}
@@ -44,7 +44,7 @@ SceneASearchMultiple::SceneASearchMultiple()
 	//PRACTICA
 	createGraph();
 	//coins.push_back(cell2pix(Vector2D{5,1}));
-	//coins.push_back(cell2pix(Vector2D{ 7,11 }));
+	//coins.push_back(cell2pix(Vector2D{ 30,15 }));
 	path.points = agents[0]->Behavior()->AMultipleSearch(graph, cell2pix(rand_cell), coins);
 	
 }
@@ -66,7 +66,7 @@ void SceneASearchMultiple::update(float dtime, SDL_Event *event)
 {	
 
 	/* Keyboard & Mouse events */
-	/*switch (event->type) {
+	switch (event->type) {
 	case SDL_KEYDOWN:
 		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
 			draw_grid = !draw_grid;
@@ -91,14 +91,19 @@ void SceneASearchMultiple::update(float dtime, SDL_Event *event)
 					currentTargetIndex = -1;
 					agents[0]->setVelocity(Vector2D(0,0));
 					// if we have arrived to the coin, replace it ina random cell!
-					if (pix2cell(agents[0]->getPosition()) == coinPosition)
-					{
-						coinPosition = Vector2D(-1, -1);
-						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
+					
+					coinPosition = Vector2D(-1, -1);
+					coins.clear();
+					for (int i = 0; i < 2; i++) {
+						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, agents[0]->getPosition()) < 3)) {
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-						//Creem cami un altre cop
-						//path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+						}
+						coins.push_back(cell2pix(coinPosition));
+						coinPosition = Vector2D(-1, -1);
 					}
+					//Creem cami un altre cop
+					path.points = agents[0]->Behavior()->AMultipleSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), coins);
+					
 				}
 				else
 				{
@@ -119,7 +124,7 @@ void SceneASearchMultiple::update(float dtime, SDL_Event *event)
 	else
 	{
 		agents[0]->update(Vector2D(0,0), dtime, event);
-	}*/
+	}
 }
 
 void SceneASearchMultiple::draw()
