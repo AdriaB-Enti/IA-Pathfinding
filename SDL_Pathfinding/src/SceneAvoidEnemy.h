@@ -6,12 +6,12 @@
 #include "Path.h"
 #include "Graph.h"
 
-class SceneGreedyBFS :
+class SceneAvoidEnemy :
 	public Scene
 {
 public:
-	SceneGreedyBFS();
-	~SceneGreedyBFS();
+	SceneAvoidEnemy();
+	~SceneAvoidEnemy();
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
@@ -36,9 +36,9 @@ private:
 	Vector2D pix2cell(Vector2D pix);
 	bool isValidCell(Vector2D cell);
 
-	
 	//PRACTICA
 	void createGraph();
 	void teleportIfBridge();
 	Graph graph;
+
 };

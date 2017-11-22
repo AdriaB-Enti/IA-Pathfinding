@@ -59,8 +59,9 @@ SceneGreedyBFS::~SceneGreedyBFS()
 
 void SceneGreedyBFS::update(float dtime, SDL_Event *event)
 {
-
+	
 	/* Keyboard & Mouse events */
+
 	switch (event->type) {
 	case SDL_KEYDOWN:
 		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
@@ -105,8 +106,10 @@ void SceneGreedyBFS::update(float dtime, SDL_Event *event)
 			}
 			currentTargetIndex++;
 		}
-
+		
 		currentTarget = path.points[currentTargetIndex];
+		teleportIfBridge(); //Si estem als bordes teleportem a l'altre costat
+
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
 		agents[0]->update(steering_force, dtime, event);
 	}
@@ -346,5 +349,32 @@ void SceneGreedyBFS::createGraph() {
 				}
 			}
 		}
+	}
+}
+void SceneGreedyBFS::teleportIfBridge() {
+
+	if (currentTarget == cell2pix(Vector2D{ 0,10 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,10 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,10 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 0,11 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,11 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,11 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 0,12 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 39,12 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 0,12 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,10 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,10 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,10 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,11 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,11 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,11 }));
+	}
+	else if (currentTarget == cell2pix(Vector2D{ 39,12 })) {
+		if (path.points[currentTargetIndex - 1] == cell2pix(Vector2D{ 0,12 }))
+			agents[0]->setPosition(cell2pix(Vector2D{ 39,12 }));
 	}
 }
