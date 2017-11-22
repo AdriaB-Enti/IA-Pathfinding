@@ -28,7 +28,7 @@ private:
 	void drawMaze();
 	void drawCoin();
 	SDL_Texture *background_texture;
-	SDL_Texture *coin_texture;
+	SDL_Texture *coin_texture;	
 	void initMaze();
 	bool loadTextures(char* filename_bg, char* filename_coin);
 	std::vector< std::vector<int> > terrain;

@@ -16,6 +16,9 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	Agent *agent = new Agent;
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
+	agent = new Agent;
+	agent->loadSpriteTexture("../res/zombie1.png", 8);
+	agents.push_back(agent);
 
 
 	// set agent position coords to the center of a random cell
@@ -39,6 +42,7 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	
 	coinPosition = Vector2D{ 10,1 };
 	Vector2D enemyPos = cell2pix(Vector2D{ 6,1 });
+	agents[1]->setPosition(enemyPos);
 	path.points = agents[0]->Behavior()->AvoidEnemy(graph, cell2pix(rand_cell), cell2pix(coinPosition), enemyPos);
 
 }
@@ -145,6 +149,7 @@ void SceneAvoidEnemy::draw()
 	draw_circle(TheApp::Instance()->getRenderer(), (int)currentTarget.x, (int)currentTarget.y, 15, 255, 0, 0, 255);
 
 	agents[0]->draw();
+	agents[1]->draw();
 }
 
 const char* SceneAvoidEnemy::getTitle()
