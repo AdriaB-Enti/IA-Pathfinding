@@ -20,15 +20,15 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 
 	// set agent position coords to the center of a random cell
 	Vector2D rand_cell(-1, -1);
-	while (!isValidCell(rand_cell))
-		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-
+	//while (!isValidCell(rand_cell))
+		//rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+	rand_cell = Vector2D{ 1,1 };
 	agents[0]->setPosition(cell2pix(rand_cell));
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
 	coinPosition = Vector2D(-1, -1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
-		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+	//while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
+		//coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
@@ -36,7 +36,10 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 
 	//PRACTICA
 	createGraph();
-	//path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
+	
+	coinPosition = Vector2D{ 10,1 };
+	Vector2D enemyPos = cell2pix(Vector2D{ 6,1 });
+	path.points = agents[0]->Behavior()->AvoidEnemy(graph, cell2pix(rand_cell), cell2pix(coinPosition), enemyPos);
 
 }
 
@@ -57,7 +60,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 {
 
 	/* Keyboard & Mouse events */
-	switch (event->type) {
+	/*switch (event->type) {
 	case SDL_KEYDOWN:
 		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
 			draw_grid = !draw_grid;
@@ -110,7 +113,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 	else
 	{
 		agents[0]->update(Vector2D(0, 0), dtime, event);
-	}
+	}*/
 }
 
 void SceneAvoidEnemy::draw()
