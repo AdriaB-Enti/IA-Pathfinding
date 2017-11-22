@@ -112,17 +112,17 @@ std::vector<Vector2D> SteeringBehavior::BreadthFirstSearch(Graph graph, Vector2D
 }
 std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos, Vector2D goal)
 {
-	
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
 	map<Vector2D, Vector2D> came_from;
 	map<Vector2D, float> cost_so_far;
 	Node current = { firstPos, 0 };
-	float priority = 0;
 	
+	int totalExploredNodes = 0;											//Per poder fer les comparacions amb els altres algoritmes
+	int visitedNodes = 0;
+
 	frontier.push(current);												//Posem la primera posicio a la frontera
 	came_from.emplace(make_pair(firstPos, NULL));						//Afegim el node als visitats
 	cost_so_far.emplace(make_pair(firstPos, 0));						//Posem a 0 el cost de la primera posici?
-	/* -- a partir d'aqu?algo est?malament
 	//Comprovem nodes fins al goal
 	while (!frontier.empty()) {
 		current = frontier.top();										//Agafem el primer de la frontera		
@@ -130,36 +130,35 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 
 		for each (Connection c in graph.GetConnections(current.position))
 		{
+			totalExploredNodes++;
 			float newCost = ReturnMapValue(cost_so_far, current.position) + c.GetCost();
 			if (!FindInMap(came_from, c.getToNode()) || newCost < ReturnMapValue(cost_so_far, c.getToNode())) { //si no els haviem visitat els afegim a frontera
-
+				visitedNodes++;
 				cost_so_far.emplace(c.getToNode(), newCost);				//afegim el cost fins a current
-				priority = newCost;
-				frontier.push({c.getToNode(), priority});						//afegim el next amb la seva prioritat
+				Node next = { c.getToNode(), newCost };
+				frontier.push(next);										//afegim el next amb la seva prioritat
+				came_from.emplace(make_pair(c.getToNode(), current.position));
 
-				came_from.emplace(make_pair(c.getToNode(), current));
-
-				//Si em trobat la destinaci?
+				//Si em trobat la destinació parem
 				if (c.getToNode() == goal) {
 					cout << "GOAL" << endl;
 					goto createpathDijkstra;
 				}
 			}
-
 		}
 	}
 
-
-	createpathDijkstra:
-	/*current = goal;
-	path.insert(path.begin(), current);
-	while (current != firstPos.getToNode()) {
-		current = came_from.at(current);
-		path.insert(path.begin(), current);
-	}*/
+createpathDijkstra:
 	//Creem el path
 	vector<Vector2D> path;
+	Vector2D currentPos = goal;
+	path.insert(path.begin(), currentPos);
+	while (currentPos != firstPos) {
+		currentPos = ReturnMapValue(came_from, currentPos);
+		path.insert(path.begin(), currentPos);
+	}
 
+	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
 	return path;
 }
 
@@ -381,12 +380,16 @@ std::vector<Vector2D> SteeringBehavior::ASearch(Graph graph, Vector2D firstPos, 
 std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D firstPos, vector<Vector2D> goals) {
 
 	vector<Vector2D> path;
-
+	vector<Vector2D> objectives = goals;
+	Vector2D lastGoal = firstPos;
+	vector<Vector2D> miniPath;
+	Vector2D posInPath;
+	
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
 	float priority;
 	map<Vector2D, Vector2D> came_from;
 
-	struct Node firstNode = { firstPos, 1 };
+	struct Node firstNode = { firstPos, 0 };
 	frontier.emplace(firstNode);
 	struct Node current;
 
@@ -412,12 +415,12 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 				//path.push_back(c.getToNode());
 				visitedNodes++;
 				//afegim nou cost
-				pair<Vector2D, int> tempCost = make_pair(c.getToNode(), new_cost);
+				pair<Vector2D, float> tempCost = make_pair(c.getToNode(), new_cost);
 				cost_so_far.insert(tempCost);
 
 				//calculem la millor heuristica
-				float bestHeuristic = ManhattanDistance(c.getToNode(), goals[0]);
-				for each (Vector2D g in goals)
+				float bestHeuristic = ManhattanDistance(c.getToNode(), objectives[0]);
+				for each (Vector2D g in objectives)
 				{
 					float thisHeuristic = ManhattanDistance(c.getToNode(), g);
 					if (thisHeuristic < bestHeuristic)
@@ -433,19 +436,40 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 				came_from.insert(temp);
 								
 				//comprovem si hem arrivat a algun goal
-				for each (Vector2D g in goals)
+				for each (Vector2D g in objectives)
 				{
 					if (c.getToNode() == g) {
-						if(goals.size() == 1)
+						if(objectives.size() == 1)
 							goto createpath;
-						else { // si no és l'ultim nod el borrem de l'array
+						else { // si no és l'ultim nod el borrem de l'array i netegem la cua perque comenci a partir del objectiu actual
+							
+							//Fiquem en el path
+							posInPath = g;
+							miniPath.push_back(posInPath);
+							while (posInPath != lastGoal) {
+								posInPath = ReturnMapValue(came_from, posInPath);
+								miniPath.insert(miniPath.begin(), posInPath);
+							}
+							lastGoal = g;
+							path.insert(path.end(), miniPath.begin(), miniPath.end());
+							miniPath.clear();
+
+							//netegem variables
+							map<Vector2D, Vector2D> emptyMap;
+							came_from = emptyMap;
 							priority_queue<Node, vector<Node>, PriorityComparision> emptyPqueue;
 							frontier = emptyPqueue;
+							Node next = { c.getToNode(), 0 };
 							frontier.push(next);
+							map<Vector2D, float> emptyCostMap;
+							cost_so_far = emptyCostMap;
+							pair<Vector2D, float> newFirstCost = make_pair(c.getToNode(), 0);
+							cost_so_far.emplace(newFirstCost);
 
-							vector<Vector2D>::iterator position = std::find(goals.begin(), goals.end(), g);
-							if (position != goals.end()) 
-								goals.erase(position);
+
+							vector<Vector2D>::iterator position = std::find(objectives.begin(), objectives.end(), g);
+							if (position != objectives.end())
+								objectives.erase(position);
 						}
 							
 					}
@@ -456,17 +480,16 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 	}
 
 createpath:	
-	//Creem el cam?
-	Vector2D posInPath;
-
-	posInPath = goals[0];
-	
-	path.push_back(posInPath);
-	while (posInPath != firstPos) {
+	//cout << came_from.size() << endl;
+	//Creem el camí final
+	posInPath = objectives[0];
+	miniPath.push_back(posInPath);
+	while (posInPath != lastGoal) {
 		posInPath = ReturnMapValue(came_from, posInPath);
-		path.insert(path.begin(), posInPath);
-	}
-
+		miniPath.insert(miniPath.begin(), posInPath);
+	}	
+	path.insert(path.end(), miniPath.begin(), miniPath.end());
+	
 	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
 	return path;
 }
