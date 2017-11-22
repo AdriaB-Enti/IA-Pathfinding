@@ -505,3 +505,7 @@ float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
 	float dy = abs(startCell.y - goalCell.y);
 	return dx + dy; //No multipliquem per res perque el cos minim entre dos nodes es 1
 }
+
+std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPos, Vector2D goal, Vector2D enemy) {
+	
+}
