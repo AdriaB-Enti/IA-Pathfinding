@@ -456,7 +456,7 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 	}
 
 createpath:	
-	//Creem el camí
+	//Creem el cam?
 	Vector2D posInPath;
 
 	posInPath = goals[0];
