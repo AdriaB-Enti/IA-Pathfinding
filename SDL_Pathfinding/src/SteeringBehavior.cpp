@@ -531,7 +531,7 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPo
 
 		current = frontier.top();
 		frontier.pop();
-		cout << "COSEN POS : " << current.position.x << "," << current.position.y << endl;
+		//cout << "COSEN POS : " << current.position.x << "," << current.position.y << endl;
 		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
 		{
 			totalExploredNodes++;
@@ -539,7 +539,7 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPo
 
 			if (!FindInMap(cost_so_far, c.getToNode()) || new_cost < ReturnMapValue(cost_so_far, c.getToNode())) { 				
 
-				cout << "CHOSEN NEIGHBOUR :" << c.getToNode().x << "," << c.getToNode().y << endl;
+				//cout << "CHOSEN NEIGHBOUR :" << c.getToNode().x << "," << c.getToNode().y << endl;
 
 				visitedNodes++;
 
@@ -551,11 +551,10 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPo
 				float distEnemy = ManhattanDistance(c.getToNode(), enemy);
 				priority = new_cost + ManhattanDistance(c.getToNode(), goal);
 				if (distEnemy <= enemyRadius)
-					priority +=  pow (10,1 / distEnemy);
+					priority +=  pow (2,1 / distEnemy);		
 				
 				
-				
-				cout << "GOAL DIST: " << ManhattanDistance(c.getToNode(), goal) << " vs ENEMY DIST: " << ManhattanDistance(c.getToNode(), enemy) << " || " << "P: " << priority << endl;
+				//cout << "GOAL DIST: " << ManhattanDistance(c.getToNode(), goal) << " vs ENEMY DIST: " << ManhattanDistance(c.getToNode(), enemy) << " || " << "P: " << priority << endl;
 
 				if (priority < 0)
 					priority = 0;
@@ -565,18 +564,19 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPo
 				//afegim al came_from per recuperar despres el path
 				came_from[c.getToNode()] = current.position;
 
-				if (c.getToNode() == goal) {
+				if (c.getToNode() == goal || ManhattanDistance(firstPos, c.getToNode()) > 5) {
 					cout << "GOAL" << endl;
+					goal = c.getToNode();
 					goto createpath;
 				}
 			}		
 
-			cout << "FRONTERA" << endl;
+			/*cout << "FRONTERA" << endl;
 			priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
 			while (!prova.empty()) {
 				cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
 				prova.pop();
-			}
+			}*/
 		}
 	}
 

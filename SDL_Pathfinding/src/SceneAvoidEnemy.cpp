@@ -28,9 +28,13 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	rand_cell = Vector2D{ 1,1 };
 	agents[0]->setPosition(cell2pix(rand_cell));
 
+	//la pos del enemy
+	Vector2D enemyPos = cell2pix(Vector2D{ 6,1 });
+	agents[1]->setPosition(enemyPos);
+
 	// set the coin in a random cell (but at least 3 cells far from the agent)
 	coinPosition = Vector2D(-1, -1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
+	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3) || coinPosition == enemyPos)
 		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 
 	// PathFollowing next Target
@@ -40,9 +44,7 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	//PRACTICA
 	createGraph();
 	
-	//coinPosition = Vector2D{ 10,1 };
-	Vector2D enemyPos = cell2pix(Vector2D{ 6,1 });
-	agents[1]->setPosition(enemyPos);
+	//coinPosition = Vector2D{ 10,1 };	
 	path.points = agents[0]->Behavior()->AvoidEnemy(graph, cell2pix(rand_cell), cell2pix(coinPosition), enemyPos, 2);
 
 }
