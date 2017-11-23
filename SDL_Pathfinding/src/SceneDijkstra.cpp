@@ -159,10 +159,10 @@ void SceneDijkstra::drawCosts()
 			switch (c)
 			{
 			case 0:
-				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 0, 255);		//Negre
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 200, 200, 255);		//Gris
 				break;
 			case 1:
-				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 150, 255);		//Blau
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 110, 255);		//Blau
 				break;
 			case 2:
 				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 200, 0, 255);	//Groc
@@ -272,15 +272,15 @@ void SceneDijkstra::initMaze()
 	maze_rects.push_back(rect);
 
 	// Poso els rectangles dels costos
-	SDL_Rect cost = { 0, 0, 640, 384 };		//super-esq:	1
+	SDL_Rect cost = { 0, 0, 640, 352 };		//super-esq:	1
 	costs.push_back(cost);
-	cost = { 640, 0, 640, 384 };			//super-dret:	3
+	cost = { 640, 0, 640, 352 };			//super-dret:	3
 	costs.push_back(cost);
-	cost = { 0, 384, 640, 384 };			//inf-esq:		5
+	cost = { 0, 352, 640, 416 };			//inf-esq:		5
 	costs.push_back(cost);
-	cost = { 640, 384, 640, 384 };			//inf-dret:		20
+	cost = { 640, 352, 640, 416 };			//inf-dret:		20
 	costs.push_back(cost);
-
+	
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
 	
 	// (1st) initialize all cells to 1 by default
