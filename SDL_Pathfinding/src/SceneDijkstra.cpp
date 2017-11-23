@@ -323,7 +323,7 @@ void SceneDijkstra::initMaze()
 							case 2:
 								terrain[i][j] = 5;
 								break;
-							default:
+							case 3:
 								terrain[i][j] = 20;
 								break;
 						}
@@ -339,7 +339,8 @@ void SceneDijkstra::initMaze()
 	//Perquè els bordes tinguin conexió:
 	for (int yOffset = 0; yOffset < 3; yOffset++)
 	{
-		graph.AddConnection(cell2pix(Vector2D(39, 10+yOffset)), cell2pix(Vector2D(0, 10+yOffset)), 1);
+		graph.AddConnection(cell2pix(Vector2D(39, 10 + yOffset)), cell2pix(Vector2D(0, 10 + yOffset)), terrain[0][10 + yOffset]);
+		graph.AddConnection(cell2pix(Vector2D(0, 10 + yOffset)), cell2pix(Vector2D(39, 10 + yOffset)), terrain[39][10 + yOffset]);
 	}
 }
 
