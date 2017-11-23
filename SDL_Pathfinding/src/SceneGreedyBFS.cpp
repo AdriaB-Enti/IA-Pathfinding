@@ -40,8 +40,7 @@ SceneGreedyBFS::SceneGreedyBFS()
 	//PRACTICA
 	createGraph();
 	path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(rand_cell), cell2pix(coinPosition));
-
-
+	
 }
 
 SceneGreedyBFS::~SceneGreedyBFS()
@@ -94,7 +93,6 @@ void SceneGreedyBFS::update(float dtime, SDL_Event *event)
 						coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 						//Creem cami un altre cop
 						path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
-
 					}
 				}
 				else
@@ -141,8 +139,9 @@ void SceneGreedyBFS::draw()
 	for (int i = 0; i < (int)path.points.size(); i++)
 	{
 		draw_circle(TheApp::Instance()->getRenderer(), (int)(path.points[i].x), (int)(path.points[i].y), 15, 255, 255, 0, 255);
-		if (i > 0)
+		if (i > 0 && abs(path.points[i - 1].x - path.points[i].x) < 100) //si la linia no és massa llarga
 			SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)(path.points[i - 1].x), (int)(path.points[i - 1].y), (int)(path.points[i].x), (int)(path.points[i].y));
+
 	}
 
 	draw_circle(TheApp::Instance()->getRenderer(), (int)currentTarget.x, (int)currentTarget.y, 15, 255, 0, 0, 255);
@@ -350,6 +349,16 @@ void SceneGreedyBFS::createGraph() {
 			}
 		}
 	}
+	//Agefim conexions als bordes
+	Vector2D fromCell(39, 10);
+	Vector2D toCell(0, 10);
+	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
+	fromCell = { 39,11 };
+	toCell = { 0,11 };
+	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
+	fromCell = { 39,12 };
+	toCell = { 0,12 };
+	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
 }
 void SceneGreedyBFS::teleportIfBridge() {
 
