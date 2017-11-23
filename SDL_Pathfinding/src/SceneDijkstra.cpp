@@ -9,7 +9,7 @@ SceneDijkstra::SceneDijkstra()
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
 	initMaze(); //poso els costos randoms
-	loadTextures("../res/maze.png", "../res/coin.png");
+	loadTextures("../res/maze.png", "../res/coin.png"); //CANVIAR----------------------------
 
 	srand((unsigned int)time(NULL));
 
@@ -115,12 +115,14 @@ void SceneDijkstra::update(float dtime, SDL_Event *event)
 
 void SceneDijkstra::draw()
 {
+	drawCosts();
 	drawMaze();
 	drawCoin();
 
 
 	if (draw_grid)
 	{
+		//SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 255, 255, 255, 127);
 		SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 255, 255, 255, 127);
 		for (int i = 0; i < SRC_WIDTH; i+=CELL_SIZE)
 		{
@@ -148,6 +150,18 @@ const char* SceneDijkstra::getTitle()
 {
 	return "SDL Steering Behaviors :: PathFinding1 Demo";
 }
+//dibuxa els costos de cada casella per colors (s'ha d'activar lo de draw_grid amb l'espai)-TODO
+void SceneDijkstra::drawCosts()
+{
+	if (draw_grid)
+	{
+		SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 255, 255, 0, 255); //groc
+		for (unsigned int c = 0; c < costos.size(); c++)
+		{
+			SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &costos[c]);
+		}
+	}
+}
 
 void SceneDijkstra::drawMaze()
 {
@@ -174,7 +188,6 @@ void SceneDijkstra::drawCoin()
 
 void SceneDijkstra::initMaze()
 {
-
 	// Initialize a list of Rectagles describing the maze geometry (useful for collision avoidance)
 	SDL_Rect rect = { 0, 0, 1280, 32 };
 	maze_rects.push_back(rect);
@@ -245,14 +258,19 @@ void SceneDijkstra::initMaze()
 	rect = { 928,288,32,128 };
 	maze_rects.push_back(rect);
 
+	// Poso els rectangles dels costos
+	SDL_Rect rect = { 0, 0, 640, 384 };
+	costos.push_back(rect);
+
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
 	
-	// (1st) initialize all cells to 1 by default
+	// (1st) initialize all cells to 1 by default---- MODIFICAR------------------------
 	for (int i = 0; i < num_cell_x; i++)
 	{
 		vector<int> terrain_col(num_cell_y, 1); 
 		terrain.push_back(terrain_col);
 	}
+
 	// (2nd) set to zero all cells that belong to a wall
 	int offset = CELL_SIZE / 2;
 	for (int i = 0; i < num_cell_x; i++)
