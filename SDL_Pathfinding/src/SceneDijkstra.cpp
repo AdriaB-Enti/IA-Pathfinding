@@ -397,19 +397,19 @@ void SceneDijkstra::createGraph() {
 
 				toCell.x = i; toCell.y = j + 1;
 				if (isValidCell(toCell) && terrain[i][j + 1] != 0) { // si no ens hem sortit del grid ni estem en un mur
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);					
+					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), terrain[i][j]);					
 				}
 				toCell.x = i; toCell.y = j - 1;
 				if (isValidCell(toCell) && terrain[i][j - 1] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), terrain[i][j]);
 				}
 				toCell.x = i + 1; toCell.y = j;
 				if (isValidCell(toCell) && terrain[i + 1][j] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), terrain[i][j]);
 				}
 				toCell.x = i - 1; toCell.y = j;
 				if (isValidCell(toCell) && terrain[i - 1][j] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), terrain[i][j]);
 				}
 			}			
 		}

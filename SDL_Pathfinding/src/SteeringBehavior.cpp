@@ -548,7 +548,7 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPo
 				cost_so_far.insert(tempCost);
 								
 				//afegim a la frontera amb prioritat de cost + heuristica
-				priority = new_cost + ManhattanDistance(c.getToNode(), goal) - ManhattanDistance(c.getToNode(), enemy);
+				priority = new_cost + ManhattanDistance(c.getToNode(), goal) - ManhattanDistance(c.getToNode(), enemy)*2;
 				
 				cout << "GOAL DIST: " << ManhattanDistance(c.getToNode(), goal) << " vs ENEMY DIST: " << ManhattanDistance(c.getToNode(), enemy) << " || " << "P: " << priority << endl;
 

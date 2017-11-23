@@ -36,6 +36,8 @@ SceneASearch::SceneASearch()
 
 	//PRACTICA
 	createGraph();
+	coinPosition = Vector2D{ 38,10 };
+	rand_cell = Vector2D{ 2,10 };
 	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
 	
 }
