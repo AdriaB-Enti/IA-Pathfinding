@@ -9,7 +9,7 @@ SceneDijkstra::SceneDijkstra()
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
 	initMaze(); //poso els costos randoms
-	loadTextures("../res/maze.png", "../res/coin.png");
+	loadTextures("../res/mazeCosts.png", "../res/coin.png"); //CANVIAR----------------------------
 
 	srand((unsigned int)time(NULL));
 
@@ -115,6 +115,7 @@ void SceneDijkstra::update(float dtime, SDL_Event *event)
 
 void SceneDijkstra::draw()
 {
+	drawCosts();
 	drawMaze();
 	drawCoin();
 
@@ -148,6 +149,32 @@ const char* SceneDijkstra::getTitle()
 {
 	return "SDL Steering Behaviors :: PathFinding1 Demo";
 }
+//dibuxa els costos de cada casella per colors (s'ha d'activar lo de draw_grid amb l'espai)-TODO
+void SceneDijkstra::drawCosts()
+{
+	if (draw_grid)
+	{
+		for (unsigned int c = 0; c < costs.size(); c++)
+		{
+			switch (c)
+			{
+			case 0:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 200, 200, 255);		//Gris
+				break;
+			case 1:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 110, 255);		//Blau
+				break;
+			case 2:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 200, 0, 255);	//Groc
+				break;
+			case 3:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 0, 0, 255);		//Vermell
+				break;
+			}
+			SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &costs[c]);
+		}
+	}
+}
 
 void SceneDijkstra::drawMaze()
 {
@@ -174,7 +201,6 @@ void SceneDijkstra::drawCoin()
 
 void SceneDijkstra::initMaze()
 {
-
 	// Initialize a list of Rectagles describing the maze geometry (useful for collision avoidance)
 	SDL_Rect rect = { 0, 0, 1280, 32 };
 	maze_rects.push_back(rect);
@@ -245,6 +271,16 @@ void SceneDijkstra::initMaze()
 	rect = { 928,288,32,128 };
 	maze_rects.push_back(rect);
 
+	// Poso els rectangles dels costos
+	SDL_Rect cost = { 0, 0, 640, 352 };		//super-esq:	1
+	costs.push_back(cost);
+	cost = { 640, 0, 640, 352 };			//super-dret:	3
+	costs.push_back(cost);
+	cost = { 0, 352, 640, 416 };			//inf-esq:		5
+	costs.push_back(cost);
+	cost = { 640, 352, 640, 416 };			//inf-dret:		20
+	costs.push_back(cost);
+	
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
 	
 	// (1st) initialize all cells to 1 by default
@@ -253,7 +289,8 @@ void SceneDijkstra::initMaze()
 		vector<int> terrain_col(num_cell_y, 1); 
 		terrain.push_back(terrain_col);
 	}
-	// (2nd) set to zero all cells that belong to a wall
+
+	// (2nd) set to zero all cells that belong to a wall - i posem els costos que toquin si no hi ha paret
 	int offset = CELL_SIZE / 2;
 	for (int i = 0; i < num_cell_x; i++)
 	{
@@ -267,6 +304,33 @@ void SceneDijkstra::initMaze()
 					terrain[i][j] = 0;
 				    break;
 				}  
+			}
+			//si no hi ha un mur posem el cost que calgui
+			if (terrain[i][j] != 0)
+			{
+				for (unsigned int c = 0; c < costs.size(); c++)
+				{
+					if (Vector2DUtils::IsInsideRect(cell_center, (float)costs[c].x, (float)costs[c].y, (float)costs[c].w, (float)costs[c].h))
+					{
+						switch (c)
+						{
+							case 0:
+								terrain[i][j] = 1;
+								break;
+							case 1:
+								terrain[i][j] = 3;
+								break;
+							case 2:
+								terrain[i][j] = 5;
+								break;
+							default:
+								terrain[i][j] = 20;
+								break;
+						}
+						break;		//sortim del bucle
+					}
+				}
+
 			}
 			
 		}
