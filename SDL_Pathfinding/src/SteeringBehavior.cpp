@@ -506,7 +506,7 @@ float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
 	return dx + dy; //No multipliquem per res perque el cos minim entre dos nodes es 1
 }
 
-std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPos, Vector2D goal, Vector2D enemy) {
+std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPos, Vector2D goal, Vector2D enemy, float enemyRadius) {
 	
 	vector<Vector2D> path;
 
@@ -548,7 +548,12 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPo
 				cost_so_far.insert(tempCost);
 								
 				//afegim a la frontera amb prioritat de cost + heuristica
-				priority = new_cost + ManhattanDistance(c.getToNode(), goal) - ManhattanDistance(c.getToNode(), enemy)*2;
+				float distEnemy = ManhattanDistance(c.getToNode(), enemy);
+				priority = new_cost + ManhattanDistance(c.getToNode(), goal);
+				if (distEnemy <= enemyRadius)
+					priority +=  pow (10,1 / distEnemy);
+				
+				
 				
 				cout << "GOAL DIST: " << ManhattanDistance(c.getToNode(), goal) << " vs ENEMY DIST: " << ManhattanDistance(c.getToNode(), enemy) << " || " << "P: " << priority << endl;
 

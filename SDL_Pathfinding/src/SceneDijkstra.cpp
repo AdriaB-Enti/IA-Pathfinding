@@ -323,7 +323,7 @@ void SceneDijkstra::initMaze()
 							case 2:
 								terrain[i][j] = 5;
 								break;
-							default:
+							case 3:
 								terrain[i][j] = 20;
 								break;
 						}
