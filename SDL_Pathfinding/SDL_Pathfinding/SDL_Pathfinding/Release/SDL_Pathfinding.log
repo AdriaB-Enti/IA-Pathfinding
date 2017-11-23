@@ -1,1 +1,39 @@
-﻿  SDL_Pathfinding.vcxproj -> C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+﻿  SceneASearch.cpp
+..\src\SceneASearch.cpp(388): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(391): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(393): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(395): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(397): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(399): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(401): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(403): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(405): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(414): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(415): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SceneDijkstra.cpp
+..\src\SceneDijkstra.cpp(389): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(392): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(394): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(396): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(398): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(400): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(402): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(404): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(406): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(415): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneDijkstra.cpp(416): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SceneGreedyBFS.cpp
+..\src\SceneGreedyBFS.cpp(330): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneGreedyBFS.cpp(333): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneGreedyBFS.cpp(337): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneGreedyBFS.cpp(341): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneGreedyBFS.cpp(345): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating code
+  7 of 1078 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    60 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+Connection.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'Connection.obj' or at 'C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\bin\vc141.pdb'; linking object as if no debug info
+SDL_SimpleApp.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'SDL_SimpleApp.obj' or at 'C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\bin\vc141.pdb'; linking object as if no debug info
+utils.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'utils.obj' or at 'C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\bin\vc141.pdb'; linking object as if no debug info
+  SDL_Pathfinding.vcxproj -> C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
