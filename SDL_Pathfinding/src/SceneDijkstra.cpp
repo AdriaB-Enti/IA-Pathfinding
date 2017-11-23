@@ -115,7 +115,7 @@ void SceneDijkstra::update(float dtime, SDL_Event *event)
 
 void SceneDijkstra::draw()
 {
-	//drawCosts();
+	drawCosts();
 	drawMaze();
 	drawCoin();
 
@@ -151,15 +151,29 @@ const char* SceneDijkstra::getTitle()
 }
 //dibuxa els costos de cada casella per colors (s'ha d'activar lo de draw_grid amb l'espai)-TODO
 void SceneDijkstra::drawCosts()
-{/*
+{
 	if (draw_grid)
 	{
-		SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 255, 255, 0, 255); //groc
 		for (unsigned int c = 0; c < costs.size(); c++)
 		{
+			switch (c)
+			{
+			case 0:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 0, 255);		//Negre
+				break;
+			case 1:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 150, 255);		//Blau
+				break;
+			case 2:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 200, 0, 255);	//Groc
+				break;
+			case 3:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 0, 0, 255);		//Vermell
+				break;
+			}
 			SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &costs[c]);
 		}
-	}*/
+	}
 }
 
 void SceneDijkstra::drawMaze()
