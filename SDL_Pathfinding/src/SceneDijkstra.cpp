@@ -282,7 +282,6 @@ void SceneDijkstra::initMaze()
 	costs.push_back(cost);
 	
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
-	
 	// (1st) initialize all cells to 1 by default
 	for (int i = 0; i < num_cell_x; i++)
 	{
@@ -334,13 +333,6 @@ void SceneDijkstra::initMaze()
 			}
 			
 		}
-	}
-
-	//Perquè els bordes tinguin conexió:
-	for (int yOffset = 0; yOffset < 3; yOffset++)
-	{
-		graph.AddConnection(cell2pix(Vector2D(39, 10 + yOffset)), cell2pix(Vector2D(0, 10 + yOffset)), terrain[0][10 + yOffset]);
-		graph.AddConnection(cell2pix(Vector2D(0, 10 + yOffset)), cell2pix(Vector2D(39, 10 + yOffset)), terrain[39][10 + yOffset]);
 	}
 }
 
@@ -414,7 +406,14 @@ void SceneDijkstra::createGraph() {
 				}
 			}			
 		}
-	}	
+	}
+
+	//Perquè els bordes tinguin conexió:
+	for (int yOffset = 0; yOffset < 3; yOffset++)
+	{
+		graph.AddConnection(cell2pix(Vector2D(39, 10 + yOffset)), cell2pix(Vector2D(0, 10 + yOffset)), terrain[0][10 + yOffset]);
+		graph.AddConnection(cell2pix(Vector2D(0, 10 + yOffset)), cell2pix(Vector2D(39, 10 + yOffset)), terrain[39][10 + yOffset]);
+	}
 }
 void SceneDijkstra::teleportIfBridge() {
 

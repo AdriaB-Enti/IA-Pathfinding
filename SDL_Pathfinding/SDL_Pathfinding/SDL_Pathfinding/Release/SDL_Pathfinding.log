@@ -1,18 +1,19 @@
-﻿  SceneDijkstra.cpp
-..\src\SceneDijkstra.cpp(342): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(343): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(396): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(399): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(401): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(403): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(405): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(407): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(409): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(411): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(413): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  SceneASearch.cpp
+..\src\SceneASearch.cpp(388): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(391): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(393): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(395): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(397): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(399): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(401): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(403): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(405): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(414): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(415): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
   Generating code
-  2 of 1082 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+  2 of 1083 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    44 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SDL_Pathfinding.vcxproj -> C:\Users\abiarnes\Source\Repos\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe

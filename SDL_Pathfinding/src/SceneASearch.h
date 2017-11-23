@@ -25,6 +25,8 @@ private:
 	int num_cell_y;
 	bool draw_grid;
 	std::vector<SDL_Rect> maze_rects;
+	std::vector<SDL_Rect> costs;
+	void drawCosts();
 	void drawMaze();
 	void drawCoin();
 	SDL_Texture *background_texture;
