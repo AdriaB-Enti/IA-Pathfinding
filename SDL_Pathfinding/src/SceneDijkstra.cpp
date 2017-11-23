@@ -9,7 +9,7 @@ SceneDijkstra::SceneDijkstra()
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
 	initMaze(); //poso els costos randoms
-	loadTextures("../res/maze.png", "../res/coin.png"); //CANVIAR----------------------------
+	loadTextures("../res/mazeCosts.png", "../res/coin.png"); //CANVIAR----------------------------
 
 	srand((unsigned int)time(NULL));
 
@@ -122,7 +122,6 @@ void SceneDijkstra::draw()
 
 	if (draw_grid)
 	{
-		//SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 255, 255, 255, 127);
 		SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 255, 255, 255, 127);
 		for (int i = 0; i < SRC_WIDTH; i+=CELL_SIZE)
 		{
@@ -259,8 +258,8 @@ void SceneDijkstra::initMaze()
 	maze_rects.push_back(rect);
 
 	// Poso els rectangles dels costos
-	SDL_Rect rect = { 0, 0, 640, 384 };
-	costos.push_back(rect);
+	SDL_Rect cost = { 0, 0, 640, 384 };
+	costos.push_back(cost);
 
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
 	
