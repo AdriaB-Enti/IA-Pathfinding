@@ -115,7 +115,7 @@ void SceneDijkstra::update(float dtime, SDL_Event *event)
 
 void SceneDijkstra::draw()
 {
-	drawCosts();
+	//drawCosts();
 	drawMaze();
 	drawCoin();
 
@@ -151,15 +151,15 @@ const char* SceneDijkstra::getTitle()
 }
 //dibuxa els costos de cada casella per colors (s'ha d'activar lo de draw_grid amb l'espai)-TODO
 void SceneDijkstra::drawCosts()
-{
+{/*
 	if (draw_grid)
 	{
 		SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 255, 255, 0, 255); //groc
-		for (unsigned int c = 0; c < costos.size(); c++)
+		for (unsigned int c = 0; c < costs.size(); c++)
 		{
-			SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &costos[c]);
+			SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &costs[c]);
 		}
-	}
+	}*/
 }
 
 void SceneDijkstra::drawMaze()
@@ -258,19 +258,25 @@ void SceneDijkstra::initMaze()
 	maze_rects.push_back(rect);
 
 	// Poso els rectangles dels costos
-	SDL_Rect cost = { 0, 0, 640, 384 };
-	costos.push_back(cost);
+	SDL_Rect cost = { 0, 0, 640, 384 };		//super-esq:	1
+	costs.push_back(cost);
+	cost = { 640, 0, 640, 384 };			//super-dret:	3
+	costs.push_back(cost);
+	cost = { 0, 384, 640, 384 };			//inf-esq:		5
+	costs.push_back(cost);
+	cost = { 640, 384, 640, 384 };			//inf-dret:		20
+	costs.push_back(cost);
 
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
 	
-	// (1st) initialize all cells to 1 by default---- MODIFICAR------------------------
+	// (1st) initialize all cells to 1 by default
 	for (int i = 0; i < num_cell_x; i++)
 	{
 		vector<int> terrain_col(num_cell_y, 1); 
 		terrain.push_back(terrain_col);
 	}
 
-	// (2nd) set to zero all cells that belong to a wall
+	// (2nd) set to zero all cells that belong to a wall - i posem els costos que toquin si no hi ha paret
 	int offset = CELL_SIZE / 2;
 	for (int i = 0; i < num_cell_x; i++)
 	{
@@ -284,6 +290,33 @@ void SceneDijkstra::initMaze()
 					terrain[i][j] = 0;
 				    break;
 				}  
+			}
+			//si no hi ha un mur posem el cost que calgui
+			if (terrain[i][j] != 0)
+			{
+				for (unsigned int c = 0; c < costs.size(); c++)
+				{
+					if (Vector2DUtils::IsInsideRect(cell_center, (float)costs[c].x, (float)costs[c].y, (float)costs[c].w, (float)costs[c].h))
+					{
+						switch (c)
+						{
+							case 0:
+								terrain[i][j] = 1;
+								break;
+							case 1:
+								terrain[i][j] = 3;
+								break;
+							case 2:
+								terrain[i][j] = 5;
+								break;
+							default:
+								terrain[i][j] = 20;
+								break;
+						}
+						break;		//sortim del bucle
+					}
+				}
+
 			}
 			
 		}
