@@ -38,8 +38,14 @@ SceneGreedyBFS::SceneGreedyBFS()
 	currentTargetIndex = -1;
 
 	//PRACTICA
+	bridge[0] = { cell2pix(Vector2D{ 0,10 })  };
+	bridge[1] = { cell2pix(Vector2D{ 0,11 })  };
+	bridge[2] = { cell2pix(Vector2D{ 0,12 })  };
+	bridge[3] = { cell2pix(Vector2D{ 39,10 }) };
+	bridge[4] = { cell2pix(Vector2D{ 39,11 }) };
+	bridge[5] = { cell2pix(Vector2D{ 39,12 }) };
 	createGraph();
-	path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(rand_cell), cell2pix(coinPosition));
+	path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(rand_cell), cell2pix(coinPosition),bridge);
 	
 }
 
@@ -92,7 +98,7 @@ void SceneGreedyBFS::update(float dtime, SDL_Event *event)
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 						coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 						//Creem cami un altre cop
-						path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+						path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition),bridge);
 					}
 				}
 				else
