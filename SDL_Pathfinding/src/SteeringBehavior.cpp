@@ -206,11 +206,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 	}
 
 	priority_bridge_path = minpathPlayer + minpathCoin;	
-	//cout << "BridgeIn : " << bridge[bridgeIn].x << "," << bridge[bridgeIn].y << endl;
-	//cout << "BridgeOut : " << bridge[bridgeOut].x << "," << bridge[bridgeOut].y << endl;
-	//cout << "Distancia classica: " << priority_P_ToCoin << ", Passant per pont: " << priority_bridge_path << endl;
-
-
+	
 	//Iterem la frontera
 	while (!frontier.empty()) {
 		current = frontier.top();
@@ -224,7 +220,6 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 																			 
 				visitedNodes++;
 				//afegim nou cost
-				//if(priority_P_ToCoin<= priority_bridge_path);
 				priority_P_ToCoin = ManhattanDistance(c.getToNode(), goal);
 				if (priority_P_ToCoin <= priority_bridge_path) {	
 					priority = ManhattanDistance(c.getToNode(), goal);					
@@ -233,7 +228,6 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 					priority = ManhattanDistance(c.getToNode(), bridge[bridgeIn]) + ManhattanDistance(bridge[bridgeOut], goal);
 
 				}				
-				//priority_P_ToBridge = ManhattanDistance(c.getToNode(), goal);
 				
 				Node next = { c.getToNode(), priority };
 				frontier.push(next);
@@ -242,7 +236,6 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 				came_from[c.getToNode()] = current.position;
 
 				if (c.getToNode() == goal) {
-					cout << "GOAL" << endl;
 					goto createpath;
 				}
 			}
@@ -261,7 +254,6 @@ createpath:
 		posInPath = ReturnMapValue(came_from, posInPath);
 		path.insert(path.begin(), posInPath);
 	}
-
 	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
 	return path;
 }
