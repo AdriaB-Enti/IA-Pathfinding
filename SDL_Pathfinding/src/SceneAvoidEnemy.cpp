@@ -28,9 +28,13 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	rand_cell = Vector2D{ 1,1 };
 	agents[0]->setPosition(cell2pix(rand_cell));
 
+	//la pos del enemy
+	Vector2D enemyPos = cell2pix(Vector2D{ 6,1 });
+	agents[1]->setPosition(enemyPos);
+
 	// set the coin in a random cell (but at least 3 cells far from the agent)
 	coinPosition = Vector2D(-1, -1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
+	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3) || coinPosition == enemyPos)
 		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 
 	// PathFollowing next Target
@@ -40,10 +44,8 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	//PRACTICA
 	createGraph();
 	
-	//coinPosition = Vector2D{ 10,1 };
-	Vector2D enemyPos = cell2pix(Vector2D{ 6,1 });
-	agents[1]->setPosition(enemyPos);
-	path.points = agents[0]->Behavior()->AvoidEnemy(graph, cell2pix(rand_cell), cell2pix(coinPosition), enemyPos, 2);
+	//Primer cridem el ASearch normal i anirem modificant el path en l'update.
+	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
 
 }
 
@@ -64,7 +66,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 {
 
 	/* Keyboard & Mouse events */
-	/*switch (event->type) {
+	switch (event->type) {
 	case SDL_KEYDOWN:
 		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
 			draw_grid = !draw_grid;
@@ -105,10 +107,10 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 				}
 				return;
 			}
-			currentTargetIndex++;
+			currentTargetIndex++;			
 		}
 
-		currentTarget = path.points[currentTargetIndex];
+		currentTarget = path.points[currentTargetIndex];		
 		teleportIfBridge(); //Si estem als bordes teleportem a l'altre costat
 
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
@@ -117,7 +119,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 	else
 	{
 		agents[0]->update(Vector2D(0, 0), dtime, event);
-	}*/
+	}
 }
 
 void SceneAvoidEnemy::draw()
