@@ -272,7 +272,7 @@ void SceneDijkstra::initMaze()
 		}
 	}
 
-	//Perquè els bordes tinguin conexió:
+	//Perqu?els bordes tinguin conexi?
 	for (int yOffset = 0; yOffset < 3; yOffset++)
 	{
 		graph.AddConnection(cell2pix(Vector2D(39, 10+yOffset)), cell2pix(Vector2D(0, 10+yOffset)), 1);

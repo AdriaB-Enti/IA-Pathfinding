@@ -139,7 +139,7 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 				frontier.push(next);										//afegim el next amb la seva prioritat
 				came_from.emplace(make_pair(c.getToNode(), current.position));
 
-				//Si em trobat la destinació parem
+				//Si em trobat la destinaci?parem
 				if (c.getToNode() == goal) {
 					cout << "GOAL" << endl;
 					goto createpathDijkstra;
@@ -480,11 +480,21 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 	}
 
 createpath:	
+<<<<<<< HEAD
+	//Creem el cam?
+	Vector2D posInPath;
+
+	posInPath = goals[0];
+	
+	path.push_back(posInPath);
+	while (posInPath != firstPos) {
+=======
 	//cout << came_from.size() << endl;
-	//Creem el camí final
+	//Creem el cam?final
 	posInPath = objectives[0];
 	miniPath.push_back(posInPath);
 	while (posInPath != lastGoal) {
+>>>>>>> 364a43edb94eb4ed9c49008fba745e685901ec84
 		posInPath = ReturnMapValue(came_from, posInPath);
 		miniPath.insert(miniPath.begin(), posInPath);
 	}	
