@@ -29,7 +29,7 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	agents[0]->setPosition(cell2pix(rand_cell));
 
 	//la pos del enemy
-	Vector2D enemyPos = cell2pix(Vector2D{ 6,1 });
+	Vector2D enemyPos = cell2pix(Vector2D{ 12,8 });
 	agents[1]->setPosition(enemyPos);
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
@@ -37,6 +37,9 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3) || coinPosition == enemyPos)
 		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 
+	
+	enemyTarget = cell2pix(Vector2D{10,1});
+	
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
@@ -47,7 +50,7 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	//Primer cridem el ASearch normal i anirem modificant el path en l'update.
 	coinPosition = Vector2D{ 15,1 };
 	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
-
+	//enemyPath.points = agents[1]->Behavior()->ASearch(graph, enemyPos, cell2pix(enemyTarget));
 }
 
 SceneAvoidEnemy::~SceneAvoidEnemy()
@@ -85,7 +88,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 		if (dist < path.ARRIVAL_DISTANCE)
 		{
 			//Intentem esquivar enemic
-			path.points = agents[0]->Behavior()->AvoidEnemy(graph, cell2pix(pix2cell(agents[1]->getPosition())), 2, path.points, currentTargetIndex);
+			path.points = agents[0]->Behavior()->AvoidEnemy(graph, cell2pix(pix2cell(agents[1]->getPosition())), 10, path.points, currentTargetIndex);
 
 			if (currentTargetIndex == path.points.size() - 1)
 			{
@@ -101,7 +104,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 						//Creem cami un altre cop
-						//path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+						path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
 					}
 				}
 				else
@@ -118,12 +121,73 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 		teleportIfBridge(); //Si estem als bordes teleportem a l'altre costat
 
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
-		agents[0]->update(steering_force, dtime, event);
+		agents[0]->update(steering_force, dtime, event);		
 	}
 	else
 	{
 		agents[0]->update(Vector2D(0, 0), dtime, event);
 	}
+
+	//ENEMY
+	/*if ((enemyTargetIndex == -1) && (enemyPath.points.size()>0))
+		enemyTargetIndex = 0;
+
+	if (enemyTargetIndex >= 0)
+	{
+		float dist = Vector2D::Distance(agents[1]->getPosition(), enemyPath.points[enemyTargetIndex]);
+		if (dist < enemyPath.ARRIVAL_DISTANCE)
+		{			
+
+			if (enemyTargetIndex == enemyPath.points.size() - 1)
+			{
+				if (dist < 3)
+				{
+					enemyPath.points.clear();
+					enemyTargetIndex = -1;
+					agents[1]->setVelocity(Vector2D(0, 0));
+					// if we have arrived to the coin, replace it ina random cell!
+					if (pix2cell(agents[1]->getPosition()) == enemyTarget)
+					{
+						enemyTarget = Vector2D(-1, -1);
+						while ((!isValidCell(enemyTarget)) || (Vector2D::Distance(enemyTarget, pix2cell(agents[1]->getPosition()))<3))
+							enemyTarget = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+						//Creem cami un altre cop
+						enemyPath.points = agents[1]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[1]->getPosition())), cell2pix(enemyTarget));
+					}
+				}
+				else
+				{
+					Vector2D steering_force = agents[1]->Behavior()->Arrive(agents[1], currentEnemyTarget, enemyPath.ARRIVAL_DISTANCE, dtime);
+					agents[1]->update(steering_force, dtime, event);
+				}
+				return;
+			}
+			enemyTargetIndex++;
+		}
+
+		currentEnemyTarget = enemyPath.points[enemyTargetIndex];
+		teleportIfBridge(); //Si estem als bordes teleportem a l'altre costat
+				
+		Vector2D enemySf = agents[1]->Behavior()->Seek(agents[1], currentEnemyTarget, dtime);
+		agents[1]->update(enemySf, dtime, event);
+	}
+	else
+	{
+		agents[1]->update(Vector2D(0, 0), dtime, event);
+	}*/
+	
+	Vector2D enemySf = agents[1]->Behavior()->Seek(agents[1], enemyTarget, dtime);
+	agents[1]->update(enemySf, dtime, event);
+	float dist = Vector2D::Distance(agents[1]->getPosition(), enemyTarget);
+	if (dist < 3)
+	{
+		enemyTarget = Vector2D((float)(rand() % num_cell_x), 200);		
+		/*while (Vector2D::Distance(coinPosition, enemyTarget)) {
+			enemyTarget = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));			
+		}*/
+		enemyTarget = cell2pix(enemyTarget);
+	}
+
 }
 
 void SceneAvoidEnemy::draw()

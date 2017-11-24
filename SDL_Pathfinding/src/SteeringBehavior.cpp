@@ -537,20 +537,23 @@ float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
 std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D enemy, float enemyRadius, std::vector<Vector2D> cami,int currentPathPoint) {
 	
 	Vector2D firstPos = cami[currentPathPoint];
+	
 	//Si estem a prop del enemic recalculem el path del seu voltant
-	if (ManhattanDistance(firstPos, enemy) < 3) {
+	if (ManhattanDistance(firstPos, enemy) < 5) {
 		Vector2D goal;
 		int afterEnemyPathPointIndex;
 		//Hem de crear el firstPos i el goal a partir d'agafar 2 posicions una abans i una despres de l'enemy
 		for (int i = currentPathPoint; i < cami.size(); i++) {
-			if (ManhattanDistance(cami[i], enemy) > 3) {
+			if (ManhattanDistance(cami[i], enemy) > enemyRadius) {
 				goal = cami[i];
 				afterEnemyPathPointIndex = i;
 				goto calculatePath;
 			}
 		}
-
-		calculatePath:
+		goal = cami[cami.size() - 1];
+		afterEnemyPathPointIndex = cami.size() - 1;
+	calculatePath:
+		
 		//calculem path bo
 		vector<Vector2D> path; //AQUEST PATH ES ENTRE ABANS I DESPRÉS DE L'ENEMIC
 
@@ -595,7 +598,7 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D enemy, 
 					float distEnemy = ManhattanDistance(c.getToNode(), enemy);
 					priority = new_cost + ManhattanDistance(c.getToNode(), goal);
 					if (distEnemy <= enemyRadius)
-						priority += pow(2, 1 / distEnemy);
+						priority = pow(2, 1 / distEnemy);
 
 
 					//cout << "GOAL DIST: " << ManhattanDistance(c.getToNode(), goal) << " vs ENEMY DIST: " << ManhattanDistance(c.getToNode(), enemy) << " || " << "P: " << priority << endl;
@@ -608,8 +611,8 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D enemy, 
 					//afegim al came_from per recuperar despres el path
 					came_from[c.getToNode()] = current.position;
 
-					if (c.getToNode() == goal || ManhattanDistance(firstPos, c.getToNode()) > 5) {
-						cout << "GOAL" << endl;
+					if (c.getToNode() == goal /*|| ManhattanDistance(firstPos, c.getToNode()) > 5*/) {
+						//cout << "GOAL" << endl;
 						goal = c.getToNode();
 						goto createpath;
 					}
@@ -636,25 +639,20 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D enemy, 
 		}
 		
 		//Creem cami total
-		/*
-
-		first = cami.begin() + (afterEnemyPathPointIndex + 1);
-		last = cami.end();
-		vector<Vector2D> afterEnemyPath(first, last);
-		cout << afterEnemyPathPointIndex << endl;
-		vector<Vector2D> totalPath;
-		totalPath.insert(totalPath.end(), beforeEnemyPath.begin(), beforeEnemyPath.end());
-		//totalPath.insert(totalPath.end(), path.begin(), path.end());
-		//totalPath.insert(totalPath.end(), afterEnemyPath.begin(), afterEnemyPath.end());*/
-		
 		vector<Vector2D>::const_iterator first = cami.begin();
 		vector<Vector2D>::const_iterator last = cami.begin() + (currentPathPoint - 1);
 		vector<Vector2D> beforeEnemyPath(first, last);
 
-		beforeEnemyPath.push_back(path[0]);
-		beforeEnemyPath.push_back(path[1]);
-		beforeEnemyPath.push_back(path[2]);
-		return beforeEnemyPath;
+		first = cami.begin() + (afterEnemyPathPointIndex + 1);
+		last = cami.end();
+		vector<Vector2D> afterEnemyPath(first, last);		
+		vector<Vector2D> totalPath;
+		totalPath.insert(totalPath.end(), beforeEnemyPath.begin(), beforeEnemyPath.end());
+		totalPath.insert(totalPath.end(), path.begin(), path.end());
+		totalPath.insert(totalPath.end(), afterEnemyPath.begin(), afterEnemyPath.end());
+		
+		cout << totalPath.size() << endl;
+		return totalPath;
 	}
 	else
 		return cami;
