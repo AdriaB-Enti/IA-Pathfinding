@@ -349,6 +349,14 @@ void SceneGreedyBFS::createGraph() {
 			}
 		}
 	}
+
+	//Perquè els bordes tinguin conexió:
+	for (int yOffset = 0; yOffset < 3; yOffset++)
+	{
+		graph.AddConnection(cell2pix(Vector2D(39, 10 + yOffset)), cell2pix(Vector2D(0, 10 + yOffset)), terrain[0][10 + yOffset]);
+		graph.AddConnection(cell2pix(Vector2D(0, 10 + yOffset)), cell2pix(Vector2D(39, 10 + yOffset)), terrain[39][10 + yOffset]);
+	}
+	/*
 	//Agefim conexions als bordes
 	Vector2D fromCell(39, 10);
 	Vector2D toCell(0, 10);
@@ -358,7 +366,7 @@ void SceneGreedyBFS::createGraph() {
 	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
 	fromCell = { 39,12 };
 	toCell = { 0,12 };
-	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
+	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);*/
 }
 void SceneGreedyBFS::teleportIfBridge() {
 

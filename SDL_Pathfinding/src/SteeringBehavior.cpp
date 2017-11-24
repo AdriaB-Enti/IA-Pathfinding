@@ -191,14 +191,6 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 				visitedNodes++;
 				//afegim nou cost
 				
-				/*std::map<Vector2D, float>::iterator it = cost_so_far.begin();
-				// Iterate over the map using Iterator till end.
-				while (it != cost_so_far.end())
-				{
-				cout << it->first.x << "," << it->first.y << " COST -> " << it->second << endl;
-				it++;
-				}	*/
-
 				//afegim a la frontera amb prioritat de cost + heuristica
 				priority = ManhattanDistance(c.getToNode(), goal);
 				Node next = { c.getToNode(), priority };
@@ -214,13 +206,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 			}
 
 		}
-		/*cout << "FRONTERA" << endl;
-		priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
-		while (!prova.empty()) {
-		cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
-		prova.pop();
-		}*/
-
+		
 	}
 
 createpath:
