@@ -18,9 +18,13 @@ public:
 private:
 	std::vector<Agent*> agents;
 	Vector2D coinPosition;
+	Vector2D enemyTarget;
 	Vector2D currentTarget;
+	Vector2D currentEnemyTarget;
+	int enemyTargetIndex;
 	int currentTargetIndex;
 	Path path;
+	Path enemyPath;
 	int num_cell_x;
 	int num_cell_y;
 	bool draw_grid;

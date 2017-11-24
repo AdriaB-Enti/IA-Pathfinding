@@ -35,10 +35,12 @@ private:
 	Vector2D cell2pix(Vector2D cell);
 	Vector2D pix2cell(Vector2D pix);
 	bool isValidCell(Vector2D cell);
-
 	
 	//PRACTICA
 	void createGraph();
 	void teleportIfBridge();
 	Graph graph;
+	Vector2D bridge[6];
+	Vector2D coinTenPos[10];
+	int coinPos = 0;
 };

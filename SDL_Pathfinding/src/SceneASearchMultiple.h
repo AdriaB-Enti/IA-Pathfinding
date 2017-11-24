@@ -20,12 +20,14 @@ private:
 	std::vector<Agent*> agents;
 	Vector2D coinPosition;
 	Vector2D currentTarget;
-	int currentTargetIndex;
+	int currentTargetIndex;	
 	Path path;
 	int num_cell_x;
 	int num_cell_y;
 	bool draw_grid;
 	std::vector<SDL_Rect> maze_rects;
+	std::vector<SDL_Rect> costs;
+	void drawCosts();
 	void drawMaze();
 	void drawCoin();
 	SDL_Texture *background_texture;

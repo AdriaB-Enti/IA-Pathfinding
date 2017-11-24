@@ -24,22 +24,35 @@ SceneGreedyBFS::SceneGreedyBFS()
 		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 	//rand_cell = Vector2D(1, 1);
 
-	agents[0]->setPosition(cell2pix(rand_cell));
+	//agents[0]->setPosition(cell2pix(rand_cell));
+	agents[0]->setPosition(cell2pix(Vector2D{12,7}));
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
-	coinPosition = Vector2D(-1, -1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell)<3))
-		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-	//coinPosition = Vector2D(15,11);
-	//cout << coinPosition.x << "," << coinPosition.y << endl;
+		//coinPosition = Vector2D(-1, -1);
+		//while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell)<3))
+		//coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+	
+	coinTenPos[0] = {32,7};	coinTenPos[1] = {5,11};		coinTenPos[2] = {29,5};		coinTenPos[3] ={34,7};	coinTenPos[4] = {4,9};
+	coinTenPos[5] = {3,19};	coinTenPos[6] = {23,19};	coinTenPos[7] = {37,15};	coinTenPos[8] ={18,3};	coinTenPos[9] = {12,7};
+
+	coinPosition = coinTenPos[coinPos];
 
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
 
 	//PRACTICA
+	bridge[0] = { cell2pix(Vector2D{ 0,10 })  };
+	bridge[1] = { cell2pix(Vector2D{ 0,11 })  };
+	bridge[2] = { cell2pix(Vector2D{ 0,12 })  };
+	bridge[3] = { cell2pix(Vector2D{ 39,10 }) };
+	bridge[4] = { cell2pix(Vector2D{ 39,11 }) };
+	bridge[5] = { cell2pix(Vector2D{ 39,12 }) };
+
 	createGraph();
-	path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(rand_cell), cell2pix(coinPosition));
+	
+	//path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(rand_cell), cell2pix(coinPosition),bridge);
+	path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition), bridge);
 	
 }
 
@@ -86,14 +99,21 @@ void SceneGreedyBFS::update(float dtime, SDL_Event *event)
 					currentTargetIndex = -1;
 					agents[0]->setVelocity(Vector2D(0, 0));
 					// if we have arrived to the coin, replace it ina random cell!
+					
 					if (pix2cell(agents[0]->getPosition()) == coinPosition)
 					{
-						coinPosition = Vector2D(-1, -1);
-						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
-						coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+						cout << "coin " << coinPos <<": "<< coinTenPos[coinPos].x<<","<<coinTenPos[coinPos].y << endl;
+						if (coinPos >= 9) coinPos = 0;
+						else coinPos++;
+						coinPosition = coinTenPos[coinPos];
+						/*
+						coinPosition[i] = Vector2D(-1, -1);
+						while ((!isValidCell(coinPosition[i])) || (Vector2D::Distance(coinPosition[i], pix2cell(agents[0]->getPosition())) < 3))
+							coinPosition[i] = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));*/
 						//Creem cami un altre cop
-						path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+						path.points = agents[0]->Behavior()->SceneGreedyBFS(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition), bridge);
 					}
+					
 				}
 				else
 				{
@@ -349,16 +369,13 @@ void SceneGreedyBFS::createGraph() {
 			}
 		}
 	}
-	//Agefim conexions als bordes
-	Vector2D fromCell(39, 10);
-	Vector2D toCell(0, 10);
-	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
-	fromCell = { 39,11 };
-	toCell = { 0,11 };
-	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
-	fromCell = { 39,12 };
-	toCell = { 0,12 };
-	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
+
+	//Perquè els bordes tinguin conexió:
+	for (int yOffset = 0; yOffset < 3; yOffset++)
+	{
+		graph.AddConnection(cell2pix(Vector2D(39, 10 + yOffset)), cell2pix(Vector2D(0, 10 + yOffset)), terrain[0][10 + yOffset]);
+		graph.AddConnection(cell2pix(Vector2D(0, 10 + yOffset)), cell2pix(Vector2D(39, 10 + yOffset)), terrain[39][10 + yOffset]);
+	}
 }
 void SceneGreedyBFS::teleportIfBridge() {
 
