@@ -167,10 +167,15 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 	vector<Vector2D> path;
 
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
-	float priorityToCoin;
+	float priority;
+	float priority_P_ToCoin;
+	float minpathPlayer;
 	float priority_P_ToBridge;
+	float minpathCoin;
 	float priority_B_ToCoin;
-	float priority_bridge;
+	float priority_bridge_path;
+	int bridgeIn;
+	int bridgeOut;
 
 	map<Vector2D, Vector2D> came_from;
 
@@ -190,16 +195,47 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 		{
 			totalExploredNodes++;
 			
+			priority_P_ToCoin = ManhattanDistance(firstPos, goal);
+			minpathPlayer = ManhattanDistance(firstPos, bridge[0]);
+			minpathCoin = ManhattanDistance(bridge[0], goal);
+			for (int i = 0; i < 0; i++) {		//el cost de Player to Bridge
+				priority_P_ToBridge = ManhattanDistance(firstPos, bridge[i]);
+				if (minpathPlayer >= priority_P_ToBridge) { 
+					bridgeIn = i;
+					minpathPlayer = priority_P_ToBridge; 
+				}
+			}
+			for (int j = 0; j < 0; j++) {	//el cost de coin to Bridge
+				priority_B_ToCoin = ManhattanDistance(firstPos, bridge[j]);
+				if (minpathCoin >= priority_B_ToCoin) { 
+					bridgeOut = j;
+					minpathCoin = priority_B_ToCoin; 
+				}
+			}
+
+			priority_bridge_path = minpathPlayer + minpathCoin;
+			cout << "ToCoin:" << priority_P_ToCoin << ", ToBridge:" << priority_bridge_path << endl;
+
 			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos) { //si no els haviem visitat els afegim a frontera
 																					 //cout << "POS ACCEPTADA : " << c.getToNode().x << "," << c.getToNode().y << endl;
 				visitedNodes++;
 				//afegim nou cost
 				
 				//afegim a la frontera amb prioritat de cost + heuristica
-				priorityToCoin = ManhattanDistance(c.getToNode(), goal);
-				priority_P_ToBridge = ManhattanDistance(c.getToNode(), goal);
+				priority = ManhattanDistance(c.getToNode(), goal);
+				
+				//if(priority_P_ToCoin<= priority_bridge_path)
+				;
+				if (priority_P_ToCoin <= priority_bridge_path) {	
+					priority = ManhattanDistance(c.getToNode(), goal);
+				}
+					
+				else { 
+					priority = ManhattanDistance(c.getToNode(), bridge[bridgeIn]);
 
-				Node next = { c.getToNode(), priorityToCoin };
+				}
+				//priority_P_ToBridge = ManhattanDistance(c.getToNode(), goal);
+				Node next = { c.getToNode(), priority };
 				frontier.push(next);
 
 				//afegim al came_from per recuperar despres el path
