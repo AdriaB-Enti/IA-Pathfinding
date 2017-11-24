@@ -480,21 +480,11 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 	}
 
 createpath:	
-<<<<<<< HEAD
-	//Creem el cam?
-	Vector2D posInPath;
-
-	posInPath = goals[0];
-	
-	path.push_back(posInPath);
-	while (posInPath != firstPos) {
-=======
 	//cout << came_from.size() << endl;
 	//Creem el cam?final
 	posInPath = objectives[0];
 	miniPath.push_back(posInPath);
 	while (posInPath != lastGoal) {
->>>>>>> 364a43edb94eb4ed9c49008fba745e685901ec84
 		posInPath = ReturnMapValue(came_from, posInPath);
 		miniPath.insert(miniPath.begin(), posInPath);
 	}	
@@ -516,7 +506,7 @@ float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
 	return dx + dy; //No multipliquem per res perque el cos minim entre dos nodes es 1
 }
 
-std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPos, Vector2D goal, Vector2D enemy, float enemyRadius) {
+std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPos, Vector2D goal, Vector2D enemy, float enemyRadius, std::vector<Vector2D> cami) {
 	
 	vector<Vector2D> path;
 
