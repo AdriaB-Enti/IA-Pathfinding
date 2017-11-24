@@ -162,12 +162,16 @@ createpathDijkstra:
 	return path;
 }
 
-std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
+std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal, Vector2D bridge[]) {
 
 	vector<Vector2D> path;
 
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
-	float priority;
+	float priorityToCoin;
+	float priority_P_ToBridge;
+	float priority_B_ToCoin;
+	float priority_bridge;
+
 	map<Vector2D, Vector2D> came_from;
 
 	struct Node firstNode = { firstPos, 1 };
@@ -191,17 +195,11 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 				visitedNodes++;
 				//afegim nou cost
 				
-				/*std::map<Vector2D, float>::iterator it = cost_so_far.begin();
-				// Iterate over the map using Iterator till end.
-				while (it != cost_so_far.end())
-				{
-				cout << it->first.x << "," << it->first.y << " COST -> " << it->second << endl;
-				it++;
-				}	*/
-
 				//afegim a la frontera amb prioritat de cost + heuristica
-				priority = ManhattanDistance(c.getToNode(), goal);
-				Node next = { c.getToNode(), priority };
+				priorityToCoin = ManhattanDistance(c.getToNode(), goal);
+				priority_P_ToBridge = ManhattanDistance(c.getToNode(), goal);
+
+				Node next = { c.getToNode(), priorityToCoin };
 				frontier.push(next);
 
 				//afegim al came_from per recuperar despres el path
@@ -214,13 +212,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 			}
 
 		}
-		/*cout << "FRONTERA" << endl;
-		priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
-		while (!prova.empty()) {
-		cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
-		prova.pop();
-		}*/
-
+		
 	}
 
 createpath:
