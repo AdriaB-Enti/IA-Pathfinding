@@ -1,39 +1,143 @@
-﻿  SceneASearch.cpp
-..\src\SceneASearch.cpp(388): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(391): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(393): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(395): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(397): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(399): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(401): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(403): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(405): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(414): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneASearch.cpp(415): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  SceneDijkstra.cpp
-..\src\SceneDijkstra.cpp(389): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(392): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(394): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(396): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(398): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(400): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(402): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(404): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(406): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(415): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneDijkstra.cpp(416): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  SceneGreedyBFS.cpp
-..\src\SceneGreedyBFS.cpp(330): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\SceneGreedyBFS.cpp(333): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneGreedyBFS.cpp(337): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneGreedyBFS.cpp(341): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\SceneGreedyBFS.cpp(345): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Generating code
-  7 of 1078 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+﻿  SteeringBehavior.cpp
+..\src\SteeringBehavior.cpp(517): warning C4018: '<': no coinciden signed/unsigned
+..\src\SteeringBehavior.cpp(570): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(216): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+  ..\src\SteeringBehavior.cpp(310): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<Vector2D,float>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept' que se está compilando
+  ..\src\SteeringBehavior.cpp(310): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<Vector2D,float>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept' que se está compilando
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(216): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+  ..\src\SteeringBehavior.cpp(330): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<Vector2D,int>::pair<Vector2D,float,void,0>(std::pair<Vector2D,float> &&) noexcept' que se está compilando
+  ..\src\SteeringBehavior.cpp(330): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<Vector2D,int>::pair<Vector2D,float,void,0>(std::pair<Vector2D,float> &&) noexcept' que se está compilando
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(216): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xmemory0(856): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<const _Kty,_Ty>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept(false)' que se está compilando
+          with
+          [
+              _Kty=Vector2D,
+              _Ty=Vector2D
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xmemory0(856): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<const _Kty,_Ty>::pair<Vector2D,int,void,0>(std::pair<Vector2D,int> &&) noexcept(false)' que se está compilando
+          with
+          [
+              _Kty=Vector2D,
+              _Ty=Vector2D
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(773): note: vea la referencia a la creación de instancias de plantilla de función 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<Vector2D,int>>(_Alloc &,_Objty *const ,std::pair<Vector2D,int> &&)' que se está compilando
+          with
+          [
+              _Alloc=std::allocator<std::_Tree_node<std::pair<const Vector2D,Vector2D>,std::_Default_allocator_traits<std::allocator<std::pair<const Vector2D,Vector2D>>>::void_pointer>>,
+              _Ty=std::pair<const Vector2D,Vector2D>,
+              _Objty=std::pair<const Vector2D,Vector2D>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(772): note: vea la referencia a la creación de instancias de plantilla de función 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<Vector2D,int>>(_Alloc &,_Objty *const ,std::pair<Vector2D,int> &&)' que se está compilando
+          with
+          [
+              _Alloc=std::allocator<std::_Tree_node<std::pair<const Vector2D,Vector2D>,std::_Default_allocator_traits<std::allocator<std::pair<const Vector2D,Vector2D>>>::void_pointer>>,
+              _Ty=std::pair<const Vector2D,Vector2D>,
+              _Objty=std::pair<const Vector2D,Vector2D>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(961): note: vea la referencia a la creación de instancias de plantilla de función 'std::_Tree_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::_Tree_comp_alloc<_Traits>::_Buynode<std::pair<Vector2D,int>>(std::pair<Vector2D,int> &&)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,Vector2D>,
+              _Alloc=std::allocator<std::pair<const Vector2D,Vector2D>>,
+              _Traits=std::_Tmap_traits<Vector2D,Vector2D,std::less<Vector2D>,std::allocator<std::pair<const Vector2D,Vector2D>>,false>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(961): note: vea la referencia a la creación de instancias de plantilla de función 'std::_Tree_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::_Tree_comp_alloc<_Traits>::_Buynode<std::pair<Vector2D,int>>(std::pair<Vector2D,int> &&)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,Vector2D>,
+              _Alloc=std::allocator<std::pair<const Vector2D,Vector2D>>,
+              _Traits=std::_Tmap_traits<Vector2D,Vector2D,std::less<Vector2D>,std::allocator<std::pair<const Vector2D,Vector2D>>,false>
+          ]
+  ..\src\SteeringBehavior.cpp(124): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,Vector2D,_Pr,_Alloc,false>>::emplace<std::pair<Vector2D,int>>(std::pair<Vector2D,int> &&)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,Vector2D>,
+              _Kty=Vector2D,
+              _Pr=std::less<Vector2D>,
+              _Alloc=std::allocator<std::pair<const Vector2D,Vector2D>>
+          ]
+  ..\src\SteeringBehavior.cpp(124): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,Vector2D,_Pr,_Alloc,false>>::emplace<std::pair<Vector2D,int>>(std::pair<Vector2D,int> &&)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,Vector2D>,
+              _Kty=Vector2D,
+              _Pr=std::less<Vector2D>,
+              _Alloc=std::allocator<std::pair<const Vector2D,Vector2D>>
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\utility(139): warning C4244: 'inicializando': conversión de 'const int' a 'float'; posible pérdida de datos
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xmemory0(856): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<const _Kty,_Ty>::pair<Vector2D,int,void,0>(const std::pair<Vector2D,int> &)' que se está compilando
+          with
+          [
+              _Kty=Vector2D,
+              _Ty=float
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xmemory0(856): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<const _Kty,_Ty>::pair<Vector2D,int,void,0>(const std::pair<Vector2D,int> &)' que se está compilando
+          with
+          [
+              _Kty=Vector2D,
+              _Ty=float
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(773): note: vea la referencia a la creación de instancias de plantilla de función 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<Vector2D,int>&>(_Alloc &,_Objty *const ,std::pair<Vector2D,int> &)' que se está compilando
+          with
+          [
+              _Alloc=std::allocator<std::_Tree_node<std::pair<const Vector2D,float>,std::_Default_allocator_traits<std::allocator<std::pair<const Vector2D,float>>>::void_pointer>>,
+              _Ty=std::pair<const Vector2D,float>,
+              _Objty=std::pair<const Vector2D,float>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(772): note: vea la referencia a la creación de instancias de plantilla de función 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::pair<Vector2D,int>&>(_Alloc &,_Objty *const ,std::pair<Vector2D,int> &)' que se está compilando
+          with
+          [
+              _Alloc=std::allocator<std::_Tree_node<std::pair<const Vector2D,float>,std::_Default_allocator_traits<std::allocator<std::pair<const Vector2D,float>>>::void_pointer>>,
+              _Ty=std::pair<const Vector2D,float>,
+              _Objty=std::pair<const Vector2D,float>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(961): note: vea la referencia a la creación de instancias de plantilla de función 'std::_Tree_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::_Tree_comp_alloc<_Traits>::_Buynode<std::pair<Vector2D,int>&>(std::pair<Vector2D,int> &)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Alloc=std::allocator<std::pair<const Vector2D,float>>,
+              _Traits=std::_Tmap_traits<Vector2D,float,std::less<Vector2D>,std::allocator<std::pair<const Vector2D,float>>,false>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\xtree(961): note: vea la referencia a la creación de instancias de plantilla de función 'std::_Tree_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::_Tree_comp_alloc<_Traits>::_Buynode<std::pair<Vector2D,int>&>(std::pair<Vector2D,int> &)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Alloc=std::allocator<std::pair<const Vector2D,float>>,
+              _Traits=std::_Tmap_traits<Vector2D,float,std::less<Vector2D>,std::allocator<std::pair<const Vector2D,float>>,false>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\map(201): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,float,_Pr,_Alloc,false>>::emplace<std::pair<Vector2D,int>&>(std::pair<Vector2D,int> &)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Kty=Vector2D,
+              _Pr=std::less<Vector2D>,
+              _Alloc=std::allocator<std::pair<const Vector2D,float>>
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.11.25503\include\map(201): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::_Tree<std::_Tmap_traits<_Kty,float,_Pr,_Alloc,false>>::emplace<std::pair<Vector2D,int>&>(std::pair<Vector2D,int> &)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Kty=Vector2D,
+              _Pr=std::less<Vector2D>,
+              _Alloc=std::allocator<std::pair<const Vector2D,float>>
+          ]
+  ..\src\SteeringBehavior.cpp(331): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::map<Vector2D,float,std::less<_Kty>,std::allocator<_Ty>>::insert<std::pair<Vector2D,int>&,void>(_Valty)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Kty=Vector2D,
+              _Valty=std::pair<Vector2D,int> &
+          ]
+  ..\src\SteeringBehavior.cpp(331): note: vea la referencia a la creación de instancias de plantilla de función 'std::pair<std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<_Ty>>>,bool> std::map<Vector2D,float,std::less<_Kty>,std::allocator<_Ty>>::insert<std::pair<Vector2D,int>&,void>(_Valty)' que se está compilando
+          with
+          [
+              _Ty=std::pair<const Vector2D,float>,
+              _Kty=Vector2D,
+              _Valty=std::pair<Vector2D,int> &
+          ]
+  Generando código
+  2 of 1080 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    60 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-Connection.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'Connection.obj' or at 'C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\bin\vc141.pdb'; linking object as if no debug info
-SDL_SimpleApp.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'SDL_SimpleApp.obj' or at 'C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\bin\vc141.pdb'; linking object as if no debug info
-utils.obj : warning LNK4099: PDB 'vc141.pdb' was not found with 'utils.obj' or at 'C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\bin\vc141.pdb'; linking object as if no debug info
-  SDL_Pathfinding.vcxproj -> C:\Users\pblanes\IA\Practica2\SDL_Pathfinding\\bin\SDL_Pathfinding.exe
+    0 functions had inline decision re-evaluated but remain unchanged
+  Generación de código finalizada
+  SDL_Pathfinding.vcxproj -> C:\ENTI\GitHub\IA2\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe

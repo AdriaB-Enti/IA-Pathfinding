@@ -139,7 +139,7 @@ std::vector<Vector2D> SteeringBehavior::Dijkstra(Graph graph, Vector2D firstPos,
 				frontier.push(next);										//afegim el next amb la seva prioritat
 				came_from.emplace(make_pair(c.getToNode(), current.position));
 
-				//Si em trobat la destinació parem
+				//Si em trobat la destinaci?parem
 				if (c.getToNode() == goal) {
 					cout << "GOAL" << endl;
 					goto createpathDijkstra;
@@ -162,12 +162,16 @@ createpathDijkstra:
 	return path;
 }
 
-std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal) {
+std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D firstPos, Vector2D goal, Vector2D bridge[]) {
 
 	vector<Vector2D> path;
 
 	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
-	float priority;
+	float priorityToCoin;
+	float priority_P_ToBridge;
+	float priority_B_ToCoin;
+	float priority_bridge;
+
 	map<Vector2D, Vector2D> came_from;
 
 	struct Node firstNode = { firstPos, 1 };
@@ -191,17 +195,11 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 				visitedNodes++;
 				//afegim nou cost
 				
-				/*std::map<Vector2D, float>::iterator it = cost_so_far.begin();
-				// Iterate over the map using Iterator till end.
-				while (it != cost_so_far.end())
-				{
-				cout << it->first.x << "," << it->first.y << " COST -> " << it->second << endl;
-				it++;
-				}	*/
-
 				//afegim a la frontera amb prioritat de cost + heuristica
-				priority = ManhattanDistance(c.getToNode(), goal);
-				Node next = { c.getToNode(), priority };
+				priorityToCoin = ManhattanDistance(c.getToNode(), goal);
+				priority_P_ToBridge = ManhattanDistance(c.getToNode(), goal);
+
+				Node next = { c.getToNode(), priorityToCoin };
 				frontier.push(next);
 
 				//afegim al came_from per recuperar despres el path
@@ -214,13 +212,7 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 			}
 
 		}
-		/*cout << "FRONTERA" << endl;
-		priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
-		while (!prova.empty()) {
-		cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
-		prova.pop();
-		}*/
-
+		
 	}
 
 createpath:
@@ -481,7 +473,7 @@ std::vector<Vector2D> SteeringBehavior::AMultipleSearch(Graph graph, Vector2D fi
 
 createpath:	
 	//cout << came_from.size() << endl;
-	//Creem el camí final
+	//Creem el cam?final
 	posInPath = objectives[0];
 	miniPath.push_back(posInPath);
 	while (posInPath != lastGoal) {
@@ -506,92 +498,126 @@ float SteeringBehavior::ManhattanDistance(Vector2D start, Vector2D goal) {
 	return dx + dy; //No multipliquem per res perque el cos minim entre dos nodes es 1
 }
 
-std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D firstPos, Vector2D goal, Vector2D enemy, float enemyRadius) {
+std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D enemy, float enemyRadius, std::vector<Vector2D> cami,int currentPathPoint) {
 	
-	vector<Vector2D> path;
-
-	priority_queue<Node, vector<Node>, PriorityComparision> frontier;
-	float priority;
-	map<Vector2D, Vector2D> came_from;
-
-	struct Node firstNode = { firstPos, 1 };
-	frontier.emplace(firstNode);
-	struct Node current;
-
-	map<Vector2D, float> cost_so_far;
-	float new_cost;
-	pair<Vector2D, float> temp = make_pair(firstPos, 0);
-	cost_so_far.emplace(temp);
-
-	int totalExploredNodes = 0;
-	int visitedNodes = 0;
-
-	//Iterem la frontera
-	while (!frontier.empty()) {
-
-		current = frontier.top();
-		frontier.pop();
-		//cout << "COSEN POS : " << current.position.x << "," << current.position.y << endl;
-		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
-		{
-			totalExploredNodes++;
-			new_cost = ReturnMapValue(cost_so_far, current.position) + c.GetCost();
-
-			if (!FindInMap(cost_so_far, c.getToNode()) || new_cost < ReturnMapValue(cost_so_far, c.getToNode())) { 				
-
-				//cout << "CHOSEN NEIGHBOUR :" << c.getToNode().x << "," << c.getToNode().y << endl;
-
-				visitedNodes++;
-
-				//afegim nou cost
-				pair<Vector2D, int> tempCost = make_pair(c.getToNode(), new_cost);
-				cost_so_far.insert(tempCost);
-								
-				//afegim a la frontera amb prioritat de cost + heuristica
-				float distEnemy = ManhattanDistance(c.getToNode(), enemy);
-				priority = new_cost + ManhattanDistance(c.getToNode(), goal);
-				if (distEnemy <= enemyRadius)
-					priority +=  pow (2,1 / distEnemy);		
-				
-				
-				//cout << "GOAL DIST: " << ManhattanDistance(c.getToNode(), goal) << " vs ENEMY DIST: " << ManhattanDistance(c.getToNode(), enemy) << " || " << "P: " << priority << endl;
-
-				if (priority < 0)
-					priority = 0;
-				Node next = { c.getToNode(), priority };
-				frontier.push(next);
-
-				//afegim al came_from per recuperar despres el path
-				came_from[c.getToNode()] = current.position;
-
-				if (c.getToNode() == goal || ManhattanDistance(firstPos, c.getToNode()) > 5) {
-					cout << "GOAL" << endl;
-					goal = c.getToNode();
-					goto createpath;
-				}
-			}		
-
-			/*cout << "FRONTERA" << endl;
-			priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
-			while (!prova.empty()) {
-				cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
-				prova.pop();
-			}*/
+	Vector2D firstPos = cami[currentPathPoint];
+	//Si estem a prop del enemic recalculem el path del seu voltant
+	if (ManhattanDistance(firstPos, enemy) < 3) {
+		Vector2D goal;
+		int afterEnemyPathPointIndex;
+		//Hem de crear el firstPos i el goal a partir d'agafar 2 posicions una abans i una despres de l'enemy
+		for (int i = currentPathPoint; i < cami.size(); i++) {
+			if (ManhattanDistance(cami[i], enemy) > 3) {
+				goal = cami[i];
+				afterEnemyPathPointIndex = i;
+				goto calculatePath;
+			}
 		}
+
+		calculatePath:
+		//calculem path bo
+		vector<Vector2D> path; //AQUEST PATH ES ENTRE ABANS I DESPRÉS DE L'ENEMIC
+
+		priority_queue<Node, vector<Node>, PriorityComparision> frontier;
+		float priority;
+		map<Vector2D, Vector2D> came_from;
+
+		struct Node firstNode = { firstPos, 1 };
+		frontier.emplace(firstNode);
+		struct Node current;
+
+		map<Vector2D, float> cost_so_far;
+		float new_cost;
+		pair<Vector2D, float> temp = make_pair(firstPos, 0);
+		cost_so_far.emplace(temp);
+
+		int totalExploredNodes = 0;
+		int visitedNodes = 0;
+
+		//Iterem la frontera
+		while (!frontier.empty()) {
+
+			current = frontier.top();
+			frontier.pop();
+			//cout << "COSEN POS : " << current.position.x << "," << current.position.y << endl;
+			for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
+			{
+				totalExploredNodes++;
+				new_cost = ReturnMapValue(cost_so_far, current.position) + c.GetCost();
+
+				if (!FindInMap(cost_so_far, c.getToNode()) || new_cost < ReturnMapValue(cost_so_far, c.getToNode())) {
+
+					//cout << "CHOSEN NEIGHBOUR :" << c.getToNode().x << "," << c.getToNode().y << endl;
+
+					visitedNodes++;
+
+					//afegim nou cost
+					pair<Vector2D, int> tempCost = make_pair(c.getToNode(), new_cost);
+					cost_so_far.insert(tempCost);
+
+					//afegim a la frontera amb prioritat de cost + heuristica
+					float distEnemy = ManhattanDistance(c.getToNode(), enemy);
+					priority = new_cost + ManhattanDistance(c.getToNode(), goal);
+					if (distEnemy <= enemyRadius)
+						priority += pow(2, 1 / distEnemy);
+
+
+					//cout << "GOAL DIST: " << ManhattanDistance(c.getToNode(), goal) << " vs ENEMY DIST: " << ManhattanDistance(c.getToNode(), enemy) << " || " << "P: " << priority << endl;
+
+					if (priority < 0)
+						priority = 0;
+					Node next = { c.getToNode(), priority };
+					frontier.push(next);
+
+					//afegim al came_from per recuperar despres el path
+					came_from[c.getToNode()] = current.position;
+
+					if (c.getToNode() == goal || ManhattanDistance(firstPos, c.getToNode()) > 5) {
+						cout << "GOAL" << endl;
+						goal = c.getToNode();
+						goto createpath;
+					}
+				}
+
+				/*cout << "FRONTERA" << endl;
+				priority_queue<Node, vector<Node>, PriorityComparision> prova = frontier;
+				while (!prova.empty()) {
+					cout << prova.top().position.x << "," << prova.top().position.y << " | PRIORITY : " << prova.top().priority << endl;
+					prova.pop();
+				}*/
+			}
+		}
+
+		createpath:
+		//Creem el cami
+		Vector2D posInPath;
+
+		posInPath = goal;
+		path.push_back(posInPath);
+		while (posInPath != firstPos) {
+			posInPath = ReturnMapValue(came_from, posInPath);
+			path.insert(path.begin(), posInPath);
+		}
+		
+		//Creem cami total
+		/*vector<Vector2D>::const_iterator first = cami.begin();
+		vector<Vector2D>::const_iterator last = cami.begin() + (currentPathPoint - 1);
+		vector<Vector2D> beforeEnemyPath(first, last);
+
+		first = cami.begin() + (afterEnemyPathPointIndex + 1);
+		last = cami.end();
+		vector<Vector2D> afterEnemyPath(first, last);
+		cout << afterEnemyPathPointIndex << endl;
+		vector<Vector2D> totalPath;
+		totalPath.insert(totalPath.end(), beforeEnemyPath.begin(), beforeEnemyPath.end());
+		//totalPath.insert(totalPath.end(), path.begin(), path.end());
+		//totalPath.insert(totalPath.end(), afterEnemyPath.begin(), afterEnemyPath.end());*/
+		
+		vector<Vector2D> prova;
+		prova.push_back(cami[afterEnemyPathPointIndex]);
+		prova.push_back(cami[currentPathPoint]);
+		return prova;
 	}
-
-createpath:
-	//Creem el cam?
-	Vector2D posInPath;
-
-	posInPath = goal;
-	path.push_back(posInPath);
-	while (posInPath != firstPos) {
-		posInPath = ReturnMapValue(came_from, posInPath);
-		path.insert(path.begin(), posInPath);
-	}
-
-	cout << "NODES EXPLORATS: " << totalExploredNodes << ", NODES VISITATS : " << visitedNodes << endl;
-	return path;
-
+	else
+		return cami;
 }

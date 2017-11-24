@@ -44,8 +44,9 @@ SceneAvoidEnemy::SceneAvoidEnemy()
 	//PRACTICA
 	createGraph();
 	
-	//coinPosition = Vector2D{ 10,1 };	
-	path.points = agents[0]->Behavior()->AvoidEnemy(graph, cell2pix(rand_cell), cell2pix(coinPosition), enemyPos, 2);
+	//Primer cridem el ASearch normal i anirem modificant el path en l'update.
+	coinPosition = Vector2D{ 15,1 };
+	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
 
 }
 
@@ -66,7 +67,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 {
 
 	/* Keyboard & Mouse events */
-	/*switch (event->type) {
+	switch (event->type) {
 	case SDL_KEYDOWN:
 		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
 			draw_grid = !draw_grid;
@@ -83,6 +84,9 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 		float dist = Vector2D::Distance(agents[0]->getPosition(), path.points[currentTargetIndex]);
 		if (dist < path.ARRIVAL_DISTANCE)
 		{
+			//Intentem esquivar enemic
+			path.points = agents[0]->Behavior()->AvoidEnemy(graph, cell2pix(pix2cell(agents[1]->getPosition())), 2, path.points, currentTargetIndex);
+
 			if (currentTargetIndex == path.points.size() - 1)
 			{
 				if (dist < 3)
@@ -97,7 +101,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 						//Creem cami un altre cop
-						path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+						//path.points = agents[0]->Behavior()->BreadthFirstSearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
 					}
 				}
 				else
@@ -107,10 +111,10 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 				}
 				return;
 			}
-			currentTargetIndex++;
+			currentTargetIndex++;			
 		}
 
-		currentTarget = path.points[currentTargetIndex];
+		currentTarget = path.points[currentTargetIndex];		
 		teleportIfBridge(); //Si estem als bordes teleportem a l'altre costat
 
 		Vector2D steering_force = agents[0]->Behavior()->Seek(agents[0], currentTarget, dtime);
@@ -119,7 +123,7 @@ void SceneAvoidEnemy::update(float dtime, SDL_Event *event)
 	else
 	{
 		agents[0]->update(Vector2D(0, 0), dtime, event);
-	}*/
+	}
 }
 
 void SceneAvoidEnemy::draw()
