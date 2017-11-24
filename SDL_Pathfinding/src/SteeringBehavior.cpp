@@ -186,55 +186,55 @@ std::vector<Vector2D> SteeringBehavior::SceneGreedyBFS(Graph graph, Vector2D fir
 	int totalExploredNodes = 0;
 	int visitedNodes = 0;
 
+	//Trobar si es mes rapid pasasr per ponts
+	priority_P_ToCoin = ManhattanDistance(firstPos, goal);
+	minpathPlayer = ManhattanDistance(firstPos, bridge[0]);
+	minpathCoin = ManhattanDistance(bridge[0], goal);
+	for (int i = 0; i < 6; i++) {		//el cost de Player to Bridge
+		priority_P_ToBridge = ManhattanDistance(firstPos, bridge[i]);
+		if (minpathPlayer >= priority_P_ToBridge) {
+			bridgeIn = i;
+			minpathPlayer = priority_P_ToBridge;
+		}
+	}
+	for (int j = 0; j < 6; j++) {	//el cost de coin to Bridge
+		priority_B_ToCoin = ManhattanDistance(goal, bridge[j]);
+		if (minpathCoin >= priority_B_ToCoin) {
+			bridgeOut = j;
+			minpathCoin = priority_B_ToCoin;
+		}
+	}
+
+	priority_bridge_path = minpathPlayer + minpathCoin;	
+	//cout << "BridgeIn : " << bridge[bridgeIn].x << "," << bridge[bridgeIn].y << endl;
+	//cout << "BridgeOut : " << bridge[bridgeOut].x << "," << bridge[bridgeOut].y << endl;
+	//cout << "Distancia classica: " << priority_P_ToCoin << ", Passant per pont: " << priority_bridge_path << endl;
+
+
 	//Iterem la frontera
 	while (!frontier.empty()) {
 		current = frontier.top();
 		frontier.pop();//el borrem ara perque si després afegim un amb més prioritat no borrarem el que toca
-					   //cout << "CURRENT : " << current.position.x << "," << current.position.y << endl;
+		
 		for each (Connection c in graph.GetConnections(current.position)) // comprovem els seus veïns
 		{
-			totalExploredNodes++;
-			
-			priority_P_ToCoin = ManhattanDistance(firstPos, goal);
-			minpathPlayer = ManhattanDistance(firstPos, bridge[0]);
-			minpathCoin = ManhattanDistance(bridge[0], goal);
-			for (int i = 0; i < 0; i++) {		//el cost de Player to Bridge
-				priority_P_ToBridge = ManhattanDistance(firstPos, bridge[i]);
-				if (minpathPlayer >= priority_P_ToBridge) { 
-					bridgeIn = i;
-					minpathPlayer = priority_P_ToBridge; 
-				}
-			}
-			for (int j = 0; j < 0; j++) {	//el cost de coin to Bridge
-				priority_B_ToCoin = ManhattanDistance(firstPos, bridge[j]);
-				if (minpathCoin >= priority_B_ToCoin) { 
-					bridgeOut = j;
-					minpathCoin = priority_B_ToCoin; 
-				}
-			}
-
-			priority_bridge_path = minpathPlayer + minpathCoin;
-			cout << "ToCoin:" << priority_P_ToCoin << ", ToBridge:" << priority_bridge_path << endl;
+			totalExploredNodes++;			
 
 			if (!FindInMap(came_from, c.getToNode()) && c.getToNode() != firstPos) { //si no els haviem visitat els afegim a frontera
-																					 //cout << "POS ACCEPTADA : " << c.getToNode().x << "," << c.getToNode().y << endl;
+																			 
 				visitedNodes++;
 				//afegim nou cost
-				
-				//afegim a la frontera amb prioritat de cost + heuristica
-				priority = ManhattanDistance(c.getToNode(), goal);
-				
-				//if(priority_P_ToCoin<= priority_bridge_path)
-				;
+				//if(priority_P_ToCoin<= priority_bridge_path);
+				priority_P_ToCoin = ManhattanDistance(c.getToNode(), goal);
 				if (priority_P_ToCoin <= priority_bridge_path) {	
-					priority = ManhattanDistance(c.getToNode(), goal);
-				}
-					
+					priority = ManhattanDistance(c.getToNode(), goal);					
+				}					
 				else { 
-					priority = ManhattanDistance(c.getToNode(), bridge[bridgeIn]);
+					priority = ManhattanDistance(c.getToNode(), bridge[bridgeIn]) + ManhattanDistance(bridge[bridgeOut], goal);
 
-				}
+				}				
 				//priority_P_ToBridge = ManhattanDistance(c.getToNode(), goal);
+				
 				Node next = { c.getToNode(), priority };
 				frontier.push(next);
 
