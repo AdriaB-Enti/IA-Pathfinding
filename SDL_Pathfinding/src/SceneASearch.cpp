@@ -9,7 +9,7 @@ SceneASearch::SceneASearch()
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
 	initMaze();
-	loadTextures("../res/maze.png", "../res/coin.png");
+	loadTextures("../res/mazeCosts.png", "../res/coin.png");
 
 	srand((unsigned int)time(NULL));
 
@@ -36,6 +36,8 @@ SceneASearch::SceneASearch()
 
 	//PRACTICA
 	createGraph();
+	coinPosition = Vector2D{ 38,10 };
+	rand_cell = Vector2D{ 2,10 };
 	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
 	
 }
@@ -115,6 +117,7 @@ void SceneASearch::update(float dtime, SDL_Event *event)
 
 void SceneASearch::draw()
 {
+	drawCosts();
 	drawMaze();
 	drawCoin();
 
@@ -148,7 +151,32 @@ const char* SceneASearch::getTitle()
 {
 	return "SDL Steering Behaviors :: PathFinding1 Demo";
 }
-
+//dibuxa els costos de cada casella per colors (s'ha d'activar lo de draw_grid amb l'espai)-TODO
+void SceneASearch::drawCosts()
+{
+	if (draw_grid)
+	{
+		for (unsigned int c = 0; c < costs.size(); c++)
+		{
+			switch (c)
+			{
+			case 0:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 200, 200, 255);		//Gris
+				break;
+			case 1:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 110, 255);		//Blau
+				break;
+			case 2:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 200, 0, 255);	//Groc
+				break;
+			case 3:
+				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 200, 0, 0, 255);		//Vermell
+				break;
+			}
+			SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &costs[c]);
+		}
+	}
+}
 void SceneASearch::drawMaze()
 {
 	if (draw_grid)
@@ -245,8 +273,17 @@ void SceneASearch::initMaze()
 	rect = { 928,288,32,128 };
 	maze_rects.push_back(rect);
 
+	// Poso els rectangles dels costos
+	SDL_Rect cost = { 0, 0, 640, 352 };		//super-esq:	1
+	costs.push_back(cost);
+	cost = { 640, 0, 640, 352 };			//super-dret:	3
+	costs.push_back(cost);
+	cost = { 0, 352, 640, 416 };			//inf-esq:		5
+	costs.push_back(cost);
+	cost = { 640, 352, 640, 416 };			//inf-dret:		20
+	costs.push_back(cost);
+
 	// Initialize the terrain matrix (for each cell a zero value indicates it's a wall)
-	
 	// (1st) initialize all cells to 1 by default
 	for (int i = 0; i < num_cell_x; i++)
 	{
@@ -268,7 +305,33 @@ void SceneASearch::initMaze()
 				    break;
 				}  
 			}
-			
+			//si no hi ha un mur posem el cost que calgui
+			if (terrain[i][j] != 0)
+			{
+				for (unsigned int c = 0; c < costs.size(); c++)
+				{
+					if (Vector2DUtils::IsInsideRect(cell_center, (float)costs[c].x, (float)costs[c].y, (float)costs[c].w, (float)costs[c].h))
+					{
+						switch (c)
+						{
+						case 0:
+							terrain[i][j] = 1;
+							break;
+						case 1:
+							terrain[i][j] = 3;
+							break;
+						case 2:
+							terrain[i][j] = 5;
+							break;
+						case 3:
+							terrain[i][j] = 20;
+							break;
+						}
+						break;		//sortim del bucle
+					}
+				}
+
+			}
 		}
 	}
 }
@@ -327,34 +390,30 @@ void SceneASearch::createGraph() {
 
 				toCell.x = i; toCell.y = j + 1;
 				if (isValidCell(toCell) && terrain[i][j + 1] != 0) { // si no ens hem sortit del grid ni estem en un mur
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);					
+					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), terrain[i][j]);
 				}
 				toCell.x = i; toCell.y = j - 1;
 				if (isValidCell(toCell) && terrain[i][j - 1] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), terrain[i][j]);
 				}
 				toCell.x = i + 1; toCell.y = j;
 				if (isValidCell(toCell) && terrain[i + 1][j] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), terrain[i][j]);
 				}
 				toCell.x = i - 1; toCell.y = j;
 				if (isValidCell(toCell) && terrain[i - 1][j] != 0) {
-					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), 1);
+					graph.AddConnection(cell2pix(fromcell), cell2pix(toCell), terrain[i][j]);
 				}
 			}			
 		}
 	}
 
-	//Agefim conexions als bordes
-	Vector2D fromCell(39,10);
-	Vector2D toCell(0, 10);
-	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
-	fromCell = { 39,11 };
-	toCell = { 0,11 };
-	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
-	fromCell = { 39,12 };
-	toCell = { 0,12 };
-	graph.AddConnection(cell2pix(fromCell), cell2pix(toCell), 1);
+	//Perquè els bordes tinguin conexió:
+	for (int yOffset = 0; yOffset < 3; yOffset++)
+	{
+		graph.AddConnection(cell2pix(Vector2D(39, 10 + yOffset)), cell2pix(Vector2D(0, 10 + yOffset)), terrain[0][10 + yOffset]);
+		graph.AddConnection(cell2pix(Vector2D(0, 10 + yOffset)), cell2pix(Vector2D(39, 10 + yOffset)), terrain[39][10 + yOffset]);
+	}
 }
 void SceneASearch::teleportIfBridge() {
 	

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -137,6 +137,7 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\SceneASearch.cpp" />
     <ClCompile Include="..\src\SceneASearchMultiple.cpp" />
+    <ClCompile Include="..\src\SceneAvoidEnemy.cpp" />
     <ClCompile Include="..\src\SceneBreadthFirstSearch.cpp" />
     <ClCompile Include="..\src\SceneDijkstra.cpp" />
     <ClCompile Include="..\src\SceneGreedyBFS.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="..\src\Path.h" />
     <ClInclude Include="..\src\SceneASearch.h" />
     <ClInclude Include="..\src\SceneASearchMultiple.h" />
+    <ClInclude Include="..\src\SceneAvoidEnemy.h" />
     <ClInclude Include="..\src\SceneBreadthFirstSearch.h" />
     <ClInclude Include="..\src\SceneDijkstra.h" />
     <ClInclude Include="..\src\SceneGreedyBFS.h" />
