@@ -600,9 +600,7 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D enemy, 
 		}
 		
 		//Creem cami total
-		/*vector<Vector2D>::const_iterator first = cami.begin();
-		vector<Vector2D>::const_iterator last = cami.begin() + (currentPathPoint - 1);
-		vector<Vector2D> beforeEnemyPath(first, last);
+		/*
 
 		first = cami.begin() + (afterEnemyPathPointIndex + 1);
 		last = cami.end();
@@ -613,10 +611,14 @@ std::vector<Vector2D> SteeringBehavior::AvoidEnemy(Graph graph, Vector2D enemy, 
 		//totalPath.insert(totalPath.end(), path.begin(), path.end());
 		//totalPath.insert(totalPath.end(), afterEnemyPath.begin(), afterEnemyPath.end());*/
 		
-		vector<Vector2D> prova;
-		prova.push_back(cami[afterEnemyPathPointIndex]);
-		prova.push_back(cami[currentPathPoint]);
-		return prova;
+		vector<Vector2D>::const_iterator first = cami.begin();
+		vector<Vector2D>::const_iterator last = cami.begin() + (currentPathPoint - 1);
+		vector<Vector2D> beforeEnemyPath(first, last);
+
+		beforeEnemyPath.push_back(path[0]);
+		beforeEnemyPath.push_back(path[1]);
+		beforeEnemyPath.push_back(path[2]);
+		return beforeEnemyPath;
 	}
 	else
 		return cami;
