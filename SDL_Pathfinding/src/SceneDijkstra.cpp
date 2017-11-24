@@ -9,7 +9,7 @@ SceneDijkstra::SceneDijkstra()
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
 	initMaze(); //poso els costos randoms
-	loadTextures("../res/mazeCosts.png", "../res/coin.png"); //CANVIAR----------------------------
+	loadTextures("../res/mazeCosts.png", "../res/coin.png");
 
 	srand((unsigned int)time(NULL));
 
