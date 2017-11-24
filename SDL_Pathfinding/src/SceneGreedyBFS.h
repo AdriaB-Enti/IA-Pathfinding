@@ -41,4 +41,6 @@ private:
 	void teleportIfBridge();
 	Graph graph;
 	Vector2D bridge[6];
+	Vector2D coinTenPos[10];
+	int coinPos = 0;
 };

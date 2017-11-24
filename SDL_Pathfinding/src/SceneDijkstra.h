@@ -42,4 +42,7 @@ private:
 	void createGraph();
 	Graph graph;
 	void teleportIfBridge();
+	
+	Vector2D coinTenPos[10];
+	int coinPos = 0;
 };
