@@ -1,4 +1,16 @@
-﻿  SceneDijkstra.cpp
+﻿  SceneASearch.cpp
+..\src\SceneASearch.cpp(402): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(405): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(407): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(409): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(411): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(413): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(415): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(417): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(419): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(428): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+..\src\SceneASearch.cpp(429): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SceneDijkstra.cpp
 ..\src\SceneDijkstra.cpp(404): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 ..\src\SceneDijkstra.cpp(407): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 ..\src\SceneDijkstra.cpp(409): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
@@ -12,8 +24,8 @@
 ..\src\SceneDijkstra.cpp(431): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   main.cpp
   Generating code
-  7 of 1096 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  9 of 1096 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    28 functions had inline decision re-evaluated but remain unchanged
+    70 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   SDL_Pathfinding.vcxproj -> C:\Users\bzheng\Documents\GitHub\IA-Pathfinding\SDL_Pathfinding\\bin\SDL_Pathfinding.exe

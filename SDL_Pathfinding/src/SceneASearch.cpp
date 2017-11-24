@@ -19,27 +19,34 @@ SceneASearch::SceneASearch()
 
 
 	// set agent position coords to the center of a random cell
-	Vector2D rand_cell(-1,-1);
-	while (!isValidCell(rand_cell))
-		rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+	//Vector2D rand_cell(-1,-1);
+	//while (!isValidCell(rand_cell))
+	//	rand_cell = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 		
-	agents[0]->setPosition(cell2pix(rand_cell));
+	//agents[0]->setPosition(cell2pix(rand_cell));
+
+	agents[0]->setPosition(cell2pix(Vector2D{ 12,7 }));
 
 	// set the coin in a random cell (but at least 3 cells far from the agent)
-	coinPosition = Vector2D(-1,-1);
-	while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
-		coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
-		
+	//coinPosition = Vector2D(-1,-1);
+	//while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, rand_cell) < 3))
+	//	coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
+
+	coinTenPos[0] = { 32,7 };	coinTenPos[1] = { 5,11 };		coinTenPos[2] = { 29,5 };		coinTenPos[3] = { 34,7 };	coinTenPos[4] = { 4,9 };
+	coinTenPos[5] = { 3,19 };	coinTenPos[6] = { 23,19 };	coinTenPos[7] = { 37,15 };	coinTenPos[8] = { 18,3 };	coinTenPos[9] = { 12,7 };
+	coinPosition = coinTenPos[coinPos];
+
 	// PathFollowing next Target
 	currentTarget = Vector2D(0, 0);
 	currentTargetIndex = -1;
 
 	//PRACTICA
 	createGraph();
-	coinPosition = Vector2D{ 38,10 };
-	rand_cell = Vector2D{ 2,10 };
-	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
-	
+	//coinPosition = Vector2D{ 38,10 };
+	//rand_cell = Vector2D{ 2,10 };
+	//path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(rand_cell), cell2pix(coinPosition));
+	path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+
 }
 
 SceneASearch::~SceneASearch()
@@ -86,10 +93,17 @@ void SceneASearch::update(float dtime, SDL_Event *event)
 					// if we have arrived to the coin, replace it ina random cell!
 					if (pix2cell(agents[0]->getPosition()) == coinPosition)
 					{
-						coinPosition = Vector2D(-1, -1);
+						/*coinPosition = Vector2D(-1, -1);
 						while ((!isValidCell(coinPosition)) || (Vector2D::Distance(coinPosition, pix2cell(agents[0]->getPosition()))<3))
 							coinPosition = Vector2D((float)(rand() % num_cell_x), (float)(rand() % num_cell_y));
 						//Creem cami un altre cop
+						path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
+						*/
+						cout << "coin " << coinPos << ": " << coinTenPos[coinPos].x << "," << coinTenPos[coinPos].y << endl;
+						if (coinPos >= 9) coinPos = 0;
+						else coinPos++;
+						coinPosition = coinTenPos[coinPos];
+
 						path.points = agents[0]->Behavior()->ASearch(graph, cell2pix(pix2cell(agents[0]->getPosition())), cell2pix(coinPosition));
 					}
 				}
